@@ -40,30 +40,31 @@ public class ExprPathFindingTarget extends SimpleExpression<Entity> implements E
 	}
 
 	@Override
-	public Class<? extends Event>[] supportedEvents() {
-		return CollectionUtils.array(EntityPathfindEvent.class);
+	protected Entity[] get(Event event) {
+		if (!(event instanceof EntityPathfindEvent pathfindEvent))
+			return new Entity[0];
+		Entity target = pathfindEvent.getTargetEntity();
+		return target != null ? new Entity[]{target} : new Entity[0];
 	}
 
 	@Override
-	protected Entity[] get(Event e) {
-		if (!(e instanceof EntityPathfindEvent event))
-			return new Entity[0];
-		return new Entity[]{event.getTargetEntity()};
+	public boolean isSingle() {
+		return true;
 	}
 
 	@Override
 	public Class<? extends Entity> getReturnType() {
 		return Entity.class;
 	}
+
 	@Override
-	public String toString(@Nullable Event e, boolean debug) {
+	public String toString(@Nullable Event event,boolean debug) {
 		return "the pathfinding target";
 	}
 
-
 	@Override
-	public boolean isSingle() {
-		return true;
+	public Class<? extends Event>[] supportedEvents() {
+		return CollectionUtils.array(EntityPathfindEvent.class);
 	}
 
 }

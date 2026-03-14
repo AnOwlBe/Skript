@@ -3,8 +3,10 @@ package ch.njol.skript.events;
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.SkriptEvent.ListeningBehavior;
 import ch.njol.skript.lang.util.SimpleEvent;
+import ch.njol.skript.registrations.EventValues;
 import com.destroystokyo.paper.event.block.AnvilDamagedEvent;
 import com.destroystokyo.paper.event.entity.EntityJumpEvent;
+import com.destroystokyo.paper.event.entity.EntityPathfindEvent;
 import com.destroystokyo.paper.event.entity.ProjectileCollideEvent;
 import com.destroystokyo.paper.event.player.PlayerElytraBoostEvent;
 import com.destroystokyo.paper.event.player.PlayerJumpEvent;
@@ -14,6 +16,7 @@ import io.papermc.paper.event.player.*;
 import io.papermc.paper.event.world.border.WorldBorderBoundsChangeEvent;
 import io.papermc.paper.event.world.border.WorldBorderBoundsChangeFinishEvent;
 import io.papermc.paper.event.world.border.WorldBorderCenterChangeEvent;
+import org.bukkit.Location;
 import org.bukkit.event.Event;
 import org.bukkit.event.block.*;
 import org.bukkit.event.enchantment.EnchantItemEvent;
@@ -758,7 +761,15 @@ public class SimpleEvents {
 						cancel event
 				""")
 			.since("2.12");
+		Skript.registerEvent("Entity Pathfind", SimpleEvent.class, EntityPathfindEvent.class, "[entity] [start[s]] pathfind[ing]")
+			.description("Called when an entity attempts to pathfind to a location.")
+			.examples("on pathfind:",
+				"\tbroadcast \"%event-entity% has started pathfinding towards %event-location%!\"")
+			.since("2.15");
+
+		EventValues.registerEventValue(EntityPathfindEvent.class, Location.class, EntityPathfindEvent::getLoc);
+	}
 
 	}
 
-}
+
