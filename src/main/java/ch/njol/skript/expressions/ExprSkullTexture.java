@@ -26,29 +26,6 @@ public class ExprSkullTexture extends SimplePropertyExpression<ItemType, String>
 	static {
 		register(ExprSkullTexture.class, String.class, "[the] (skull|head) texture", "itemtypes");
 	}
-
-	@Nullable
-	@Override
-	public String convert(ItemType item) {
-		if (!(item.getMaterial() == Material.PLAYER_HEAD)) {
-			return null;
-		}
-		SkullMeta meta = (SkullMeta) item.getItemMeta();
-		PlayerProfile profile = meta.getPlayerProfile();
-		if (profile == null) {
-			return null;
-		}
-		ProfileProperty texture = profile.getProperties().stream()
-			.filter(p -> p.getName().equals("textures"))
-			.findFirst()
-			.orElse(null);
-		if (!(texture == null)) {
-			return texture.getValue();
-		} else{
-			return null;
-		}
-	}
-
 	@Override
 	public Class<?> @Nullable [] acceptChange(ChangeMode mode) {
 		return switch (mode) {
@@ -57,7 +34,6 @@ public class ExprSkullTexture extends SimplePropertyExpression<ItemType, String>
 			default -> null;
 		};
 	}
-
 	@Override
 	public void change(Event event, Object @Nullable [] delta, ChangeMode mode) {
 		String value = delta == null ? null : (String) delta[0];
@@ -86,7 +62,27 @@ public class ExprSkullTexture extends SimplePropertyExpression<ItemType, String>
 
 	}
 
-
+	@Nullable
+	@Override
+	public String convert(ItemType item) {
+		if (!(item.getMaterial() == Material.PLAYER_HEAD)) {
+			return null;
+		}
+		SkullMeta meta = (SkullMeta) item.getItemMeta();
+		PlayerProfile profile = meta.getPlayerProfile();
+		if (profile == null) {
+			return null;
+		}
+		ProfileProperty texture = profile.getProperties().stream()
+			.filter(p -> p.getName().equals("textures"))
+			.findFirst()
+			.orElse(null);
+		if (!(texture == null)) {
+			return texture.getValue();
+		} else{
+			return null;
+		}
+	}
 
 	@Override
 	public Class<? extends String> getReturnType() {
