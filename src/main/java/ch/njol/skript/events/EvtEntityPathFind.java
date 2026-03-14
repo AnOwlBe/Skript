@@ -33,7 +33,6 @@ public class EvtEntityPathFind extends SkriptEvent {
 		return true;
 	}
 
-
 	@Override
 	public String toString(final @Nullable Event e, final boolean debug) {
 		return "entity pathfind";
