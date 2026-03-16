@@ -64,7 +64,7 @@ public class ExprWorldBorder extends SimplePropertyExpression<Object, WorldBorde
 				worldBorder.setDamageAmount(to.getDamageAmount());
 				worldBorder.setDamageBuffer(to.getDamageBuffer());
 				worldBorder.setWarningDistance(to.getWarningDistance());
-				worldBorder.setWarningTime(to.getWarningTime());
+				worldBorder.setWarningTimeTicks(to.getWarningTimeTicks());
 			} else if (object instanceof Player player) {
 				player.setWorldBorder(to);
 			}

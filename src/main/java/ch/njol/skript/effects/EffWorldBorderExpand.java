@@ -80,14 +80,14 @@ public class EffWorldBorderExpand extends Effect {
 		if (to) {
 			input = Math2.fit(1, input, MAX_WORLDBORDER_SIZE);
 			for (WorldBorder worldBorder : worldBorders)
-				worldBorder.setSize(input, speed);
+				worldBorder.changeSize(input, speed);
 		} else {
 			if (shrink)
 				input = -input;
 			for (WorldBorder worldBorder : worldBorders) {
 				double size = worldBorder.getSize();
 				size = Math2.fit(1, size + input, MAX_WORLDBORDER_SIZE);
-				worldBorder.setSize(size, speed);
+				worldBorder.changeSize(size, speed);
 			}
 		}
 	}

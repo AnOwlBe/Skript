@@ -27,7 +27,7 @@ public class ExprWorldBorderWarningTime extends SimplePropertyExpression<WorldBo
 
 	@Override
 	public @Nullable Timespan convert(WorldBorder worldBorder) {
-		return new Timespan(TimePeriod.SECOND, worldBorder.getWarningTime());
+		return new Timespan(TimePeriod.SECOND, worldBorder.getWarningTimeTicks());
 	}
 
 	@Override
@@ -44,8 +44,8 @@ public class ExprWorldBorderWarningTime extends SimplePropertyExpression<WorldBo
 		for (WorldBorder worldBorder : getExpr().getArray(event)) {
 			long warningTime = switch (mode) {
 				case SET, RESET -> input;
-				case ADD -> Math2.addClamped(worldBorder.getWarningTime(), input);
-				case REMOVE -> Math2.addClamped(worldBorder.getWarningTime(), -input);
+				case ADD -> Math2.addClamped(worldBorder.getWarningTimeTicks(), input);
+				case REMOVE -> Math2.addClamped(worldBorder.getWarningTimeTicks(), -input);
 				default -> throw new IllegalStateException();
 			};
 			setWarningTime(worldBorder, warningTime);
@@ -57,7 +57,7 @@ public class ExprWorldBorderWarningTime extends SimplePropertyExpression<WorldBo
 		long time = Math2.multiplyClamped(inputTime, 20);
 		// fit and convert back to seconds
 		int warningTime = ((int) Math2.fit(0, time, Integer.MAX_VALUE)) / 20;
-		worldBorder.setWarningTime(warningTime);
+		worldBorder.setWarningTimeTicks(warningTime);
 	}
 
 	@Override
