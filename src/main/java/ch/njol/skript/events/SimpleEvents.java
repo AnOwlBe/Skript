@@ -747,7 +747,7 @@ public class SimpleEvents {
 			.description("Called when an entity attempts to pathfind to a location.")
 			.examples("on pathfind:",
 				"\tbroadcast \"%event-entity% has started pathfinding towards %event-location%!\"")
-			.since("2.15");
+			.since("INSERT VERSION");
 
 		EventValues.registerEventValue(EntityPathfindEvent.class, Location.class, EntityPathfindEvent::getLoc);
 	}
