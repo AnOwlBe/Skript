@@ -27,7 +27,7 @@ import ch.njol.util.Kleenean;
 		broadcast "I suspect a zombie is trying to go towards a villager.."
 	""")
 @Since("2.15")
-@Events({"entity pathfind"})
+@Events("entity pathfind")
 public class ExprPathFindingTarget extends SimpleExpression<Entity> implements EventRestrictedSyntax {
 
 	static {
