@@ -20,7 +20,7 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 
 @Name("Pathfinding Target")
-@Description({"The pathfinding target in an on entity pathfind event (The entity that the event-entity is pathfinding towards if set)",})
+@Description("The target entity that the entity is pathfinding towards in an on pathfind event. Only returns a value if the pathfinding target is an entity.")
 @Example("""
 	on pathfind:
 		pathfinding target = villager
