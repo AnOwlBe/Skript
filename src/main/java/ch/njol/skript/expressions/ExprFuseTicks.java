@@ -51,8 +51,10 @@ public class ExprFuseTicks extends SimplePropertyExpression<Entity, Timespan> {
 
 	@Override
 	public Class<?> @Nullable [] acceptChange(ChangeMode mode) {
-		if (max)
+		if (max) {
+			Skript.error("The maximum fuse length of an entity cannot be changed.");
 			return null;
+		}
 		return switch (mode) {
 			case ADD, SET, REMOVE -> CollectionUtils.array(Timespan.class);
 			case RESET, DELETE -> CollectionUtils.array();
