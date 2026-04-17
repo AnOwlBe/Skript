@@ -111,7 +111,7 @@ public class ExprFuseTicks extends SimplePropertyExpression<Entity, Timespan> {
 
 	@Override
 	protected String getPropertyName() {
-		return "fuse time";
+		return "fuse duration";
 	}
 
 }
