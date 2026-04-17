@@ -19,7 +19,7 @@ import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
 @Name("Entity Fuse Ticks")
-@Description("Get/Set how long until a Creeper/Primed TNT explodes. For Creepers the fuse time will be 0 seconds and if set it will be ticking down even if the entity is not currently in exploding animation.")
+@Description("Get or set how long until a Creeper/Primed TNT explodes. For Creepers, the fuse time will be 0 seconds and if set it will be ticking down even if the entity is not currently in exploding animation.")
 @Example("send \"Run! That guy is going to explode in %fuse ticks of player's target%\"")
 @Example("send the max fuse ticks of target")
 @Since("INSERT VERSION")
