@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 @Description("Get/Set how long until a Creeper/Primed TNT explodes. For Creepers the fuse time will be 0 seconds and if set it will be ticking down even if the entity is not currently in exploding animation.")
 @Example("send \"Run! That guy is going to explode in %fuse ticks of player's target%\"")
 @Example("send the max fuse ticks of target")
-@Since("2.15")
+@Since("INSERT VERSION")
 public class ExprFuseTicks extends SimplePropertyExpression<Entity, Timespan> {
 
 	static {
