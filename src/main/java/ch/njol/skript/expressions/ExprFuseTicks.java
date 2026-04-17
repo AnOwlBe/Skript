@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 public class ExprFuseTicks extends SimplePropertyExpression<Entity, Timespan> {
 
 	static {
-		register(ExprFuseTicks.class, Timespan.class, "[:max[imum]] fuse tick[s] (duration|time)", "entities");
+		register(ExprFuseTicks.class, Timespan.class, "[:max[imum]] fuse (duration|length)", "entities");
 	}
 
 	private boolean max;
