@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import org.skriptlang.skript.registration.SyntaxInfo;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
-@Name("Pathfinding Target")
+@Name("Pathfinding Location")
 @Description("The location that the entity is pathfinding towards.")
 @Example("""
 	on pathfind:
