@@ -21,7 +21,7 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 @Description("The location that the entity is pathfinding towards.")
 @Example("""
 	on pathfind:
-		if the pathfinding location is within radius 5 of {mylocation}:
+		if the pathfinding target location is within radius 5 of {mylocation}:
 		    broadcast "A mob tried to pathfind near a forbidden location!"
 		    cancel event
 	""")
