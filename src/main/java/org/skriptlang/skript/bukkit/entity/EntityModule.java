@@ -52,9 +52,9 @@ public class EntityModule extends HierarchicalAddonModule {
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "PathFind")
 			.addDescription("Called whenever an entity tries to pathfind to a location or another entity.")
 			.addExample("""
-			on pathfind:
-				    broadcast "%event-entity%'s is about to move to %event-location%!"
-			""")
+				on pathfind:
+				    	broadcast "%event-entity%'s is about to move to %event-location%!"
+				""")
 			.addSince("INSERT VERSION")
 			.addPattern("[entity] [start[s]] pathfind[ing]")
 			.addEvent(EntityPathfindEvent.class)
