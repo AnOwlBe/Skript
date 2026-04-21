@@ -49,7 +49,7 @@ public class EntityModule extends HierarchicalAddonModule {
 		}
 		SyntaxRegistry syntaxRegistry = moduleRegistry(addon);
 		EventValueRegistry registry = addon.registry(EventValueRegistry.class);
-		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "PathFind")
+		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Pathfind")
 			.addDescription("Called whenever an entity tries to pathfind to a location or another entity.")
 			.addExample("""
 				on pathfind:
