@@ -73,6 +73,7 @@ public class EntityModule extends HierarchicalAddonModule {
 		registry.register(EventValue.builder(EntityPathfindEvent.class, Location.class)
 			.getter(event -> event.getEntity().getLocation())
 			.build());
+
 		register(addon,
 			ExprPathfindingTarget::register,
 			ExprPathfindingLocation::register,
