@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import org.skriptlang.skript.registration.SyntaxInfo;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
-@Name("Pathfinding Target")
+@Name("Pathfinding Target Entity")
 @Description("The target entity that another entity is pathfinding towards in a pathfinding event.")
 @Example("""
 	on pathfind:
@@ -70,8 +70,3 @@ public class ExprPathfindingTarget extends SimpleExpression<Entity> implements E
 	}
 
 }
-
-
-
-
-

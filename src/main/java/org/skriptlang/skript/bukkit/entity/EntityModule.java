@@ -59,22 +59,23 @@ public class EntityModule extends HierarchicalAddonModule {
 			.addPattern("[entity] [start[s]] pathfind[ing]")
 			.addEvent(EntityPathfindEvent.class)
 			.build());
+
 		registry.register(EventValue.builder(EntityPathfindEvent.class, Location.class)
 			.getter(EntityPathfindEvent::getLoc)
 			.patterns("target location")
 			.build());
+
 		registry.register(EventValue.builder(EntityPathfindEvent.class, Entity.class)
 			.getter(EntityPathfindEvent::getTargetEntity)
 			.patterns("target entity")
 			.build());
+
 		registry.register(EventValue.builder(EntityPathfindEvent.class, Location.class)
 			.getter(event -> event.getEntity().getLocation())
 			.build());
 		register(addon,
 			ExprPathfindingTarget::register,
-			ExprPathfindingLocation::register
-		);
-		register(addon,
+			ExprPathfindingLocation::register,
 			ExprDeathMessage::register
 		);
 	}
