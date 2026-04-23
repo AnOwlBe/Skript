@@ -310,6 +310,7 @@ public class SimpleEvents {
 					.since("2.2-dev13b");
 			}
 		}
+
 		Skript.registerEvent("AoE Cloud Effect", SimpleEvent.class, AreaEffectCloudApplyEvent.class, "(area|AoE) [cloud] effect")
 			.description("Called when area effect cloud applies its potion effect. This happens every 5 ticks by default.")
 			.examples("on area cloud effect:")
