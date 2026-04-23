@@ -1,4 +1,4 @@
-package ch.njol.skript.expressions;
+package org.skriptlang.skript.bukkit.misc.elements.expressions;
 
 import ch.njol.skript.aliases.ItemType;
 import ch.njol.skript.classes.Changer.ChangeMode;
@@ -16,16 +16,25 @@ import org.bukkit.event.Event;
 import org.bukkit.inventory.meta.SkullMeta;
 import com.destroystokyo.paper.profile.PlayerProfile;
 import org.jetbrains.annotations.Nullable;
+import org.skriptlang.skript.registration.SyntaxInfo;
+import org.skriptlang.skript.registration.SyntaxRegistry;
+
+import java.util.UUID;
 
 @Name("Skull Texture")
-@Description("The skull texture for a player head.")
-@Example("set the skull texture of {_i} to \"<base64>\"")
-@Since("2.15")
+@Description("The skull texture of a player head.")
+@Example("set the skull texture of {_i} to \"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTM4NmRmZDc0Y2JhZmJkMWRiZTQ3OWY1ZTAzNzRjMDliZjJlYjRlMzg2NjExZmM0ZmM2OTlmMDJlY2E0ZGQyYyJ9fX0=\"")
+@Since("INSERT VERSION")
 public class ExprSkullTexture extends SimplePropertyExpression<ItemType, String> {
 
-	static {
-		register(ExprSkullTexture.class, String.class, "[the] (skull|head) texture", "itemtypes");
+	public static void register(SyntaxRegistry syntaxRegistry) {
+		syntaxRegistry.register(SyntaxRegistry.EXPRESSION, SyntaxInfo.Expression.builder(ExprSkullTexture.class, String.class)
+			.supplier(ExprSkullTexture::new)
+			.priority(SyntaxInfo.SIMPLE)
+			.addPattern("[the] (skull|head)[ ]texture [of] %itemtypes%")
+			.build());
 	}
+
 	@Override
 	public Class<?> @Nullable [] acceptChange(ChangeMode mode) {
 		return switch (mode) {
@@ -34,29 +43,35 @@ public class ExprSkullTexture extends SimplePropertyExpression<ItemType, String>
 			default -> null;
 		};
 	}
+
 	@Override
 	public void change(Event event, Object @Nullable [] delta, ChangeMode mode) {
 		String value = delta == null ? null : (String) delta[0];
 		switch (mode) {
 			case DELETE, RESET:
 				for (ItemType item : getExpr().getArray(event)) {
-					if (item.getMaterial() == Material.PLAYER_HEAD) {
+					if (item.getMaterial() == Material.PLAYER_HEAD)
+						if (item.getMaterial() != Material.PLAYER_HEAD) {
+							continue;
+						}
 						SkullMeta meta = (SkullMeta) item.getItemMeta();
 						meta.setPlayerProfile(null);
 						item.setItemMeta(meta);
-					}
+
 				}
 				break;
 			case SET:
 				for (ItemType item : getExpr().getArray(event)) {
 					if (item.getMaterial() == Material.PLAYER_HEAD) {
-						SkullMeta meta = (SkullMeta) item.getItemMeta();
-						PlayerProfile playerProfile = Bukkit.createProfile(java.util.UUID.randomUUID());
-						playerProfile.setProperty(new ProfileProperty("textures", value));
-						meta.setPlayerProfile(playerProfile);
-						item.setItemMeta(meta);
-
+						continue;
 					}
+					SkullMeta meta = (SkullMeta) item.getItemMeta();
+					PlayerProfile playerProfile = Bukkit.createProfile(UUID.randomUUID());
+					playerProfile.setProperty(new ProfileProperty("textures", value));
+					meta.setPlayerProfile(playerProfile);
+					item.setItemMeta(meta);
+
+
 				}
 		}
 
@@ -74,7 +89,7 @@ public class ExprSkullTexture extends SimplePropertyExpression<ItemType, String>
 			return null;
 		}
 		ProfileProperty texture = profile.getProperties().stream()
-			.filter(p -> p.getName().equals("textures"))
+			.filter(property -> property.getName().equals("textures"))
 			.findFirst()
 			.orElse(null);
 		if (!(texture == null)) {
@@ -93,5 +108,4 @@ public class ExprSkullTexture extends SimplePropertyExpression<ItemType, String>
 	protected String getPropertyName() {
 		return "skull texture";
 	}
-
 }
