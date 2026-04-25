@@ -50,7 +50,7 @@ public class EntityModule extends HierarchicalAddonModule {
 					cancel the event # bad idea, but you CAN do it!
 				""")
 			.addSince("INSERT VERSION")
-			.addPattern("[on] (gliding state change|toggl(e|ing) glid(e|ing))")
+			.addPattern("[on] (gliding state change|toggl(e|ing) glid(e|ing)|glid(e|ing) toggl(e|d))")
 			.addEvent(EntityToggleGlideEvent.class)
 			.build());
 		register(addon,
