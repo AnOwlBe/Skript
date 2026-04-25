@@ -43,8 +43,8 @@ public class EntityModule extends HierarchicalAddonModule {
 			SimpleEntityData.addSuperEntity("any nautilus", AbstractNautilus.class);
 		}
 		SyntaxRegistry syntaxRegistry = moduleRegistry(addon);
-		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "ToggleGlide")
-			.addDescription("Called when an entity toggles glider on or off, or when server toggles gliding state of an entity forcibly.")
+		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Toggle Glide")
+			.addDescription("Called when an entity starts or stops gliding, or when the server the toggles gliding state of an entity forcibly.")
 			.addExample("""
 				on toggling gliding:
 					cancel the event # bad idea, but you CAN do it!

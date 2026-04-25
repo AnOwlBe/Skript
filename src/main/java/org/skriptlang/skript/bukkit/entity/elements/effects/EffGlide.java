@@ -18,6 +18,7 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 @Name("Make Entity Glide")
 @Description("""
          Makes an entity start/stop gliding.
+         This will flicker the state of the entity for 1 tick if the entity does not have an elytra or a chestplate with glider component.
     """)
 @Example("make last spawned zombie start gliding")
 @Since("INSERT VERSION")
@@ -57,10 +58,9 @@ public class EffGlide extends Effect {
 	public String toString(@Nullable Event event, boolean debug) {
 		return new SyntaxStringBuilder(event, debug)
 			.append("make", entities)
-			.appendIf(negated, "false")
+			.appendIf(negated, "not")
 			.append("glide")
 			.toString();
 	}
-
 }
 
