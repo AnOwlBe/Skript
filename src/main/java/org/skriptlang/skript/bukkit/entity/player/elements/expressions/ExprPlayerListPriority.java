@@ -13,21 +13,21 @@ import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
-@Name("Player List Order")
-@Description("The order of the player in the player list in the tab menu.")
+@Name("Player List Priority")
+@Description("The priority of the player in the player list in the tab menu.")
 @Example("""
 	on join:
 		player has permission "group.mod"
-		set the player's tab list order to 5
+		set the player's tab list priority to 5
 	""")
 @Since("INSERT VERSION")
 @Keywords({"tablist", "tab list"})
-public class ExprPlayerListOrder extends SimplePropertyExpression<Player, Integer> {
+public class ExprPlayerListPriority extends SimplePropertyExpression<Player, Integer> {
 
 	public static void register(SyntaxRegistry syntaxRegistry) {
-		syntaxRegistry.register(SyntaxRegistry.EXPRESSION, infoBuilder(ExprPlayerListOrder.class, Integer.class,
-			"(player|tab)[ ]list order", "players", false)
-			.supplier(ExprPlayerListOrder::new)
+		syntaxRegistry.register(SyntaxRegistry.EXPRESSION, infoBuilder(ExprPlayerListPriority.class, Integer.class,
+			"(player|tab)[ ]list priority", "players", false)
+			.supplier(ExprPlayerListPriority::new)
 			.build());
 	}
 
@@ -75,6 +75,6 @@ public class ExprPlayerListOrder extends SimplePropertyExpression<Player, Intege
 
 	@Override
 	protected String getPropertyName() {
-		return "tablist order";
+		return "tablist priority";
 	}
 }
