@@ -28,7 +28,8 @@ import java.util.UUID;
 public class ExprSkullTexture extends SimplePropertyExpression<ItemType, String> {
 
 	public static void register(SyntaxRegistry syntaxRegistry) {
-		syntaxRegistry.register(SyntaxRegistry.EXPRESSION, SyntaxInfo.Expression.builder(ExprSkullTexture.class, String.class)
+		syntaxRegistry.register(SyntaxRegistry.EXPRESSION,
+			 infoBuilder(ExprSkullTexture.class, String.class, "skull texture", "itemtypes", false)
 			.supplier(ExprSkullTexture::new)
 			.priority(SyntaxInfo.SIMPLE)
 			.addPattern("[the] (skull|head)[ ]texture [of] %itemtypes%")
@@ -50,13 +51,12 @@ public class ExprSkullTexture extends SimplePropertyExpression<ItemType, String>
 		switch (mode) {
 			case DELETE, RESET:
 				for (ItemType item : getExpr().getArray(event)) {
-					if (item.getMaterial() == Material.PLAYER_HEAD)
-						if (item.getMaterial() != Material.PLAYER_HEAD) {
-							continue;
-						}
-						SkullMeta meta = (SkullMeta) item.getItemMeta();
-						meta.setPlayerProfile(null);
-						item.setItemMeta(meta);
+					if (item.getMaterial() != Material.PLAYER_HEAD) {
+						continue;
+					}
+					SkullMeta meta = (SkullMeta) item.getItemMeta();
+					meta.setPlayerProfile(null);
+					item.setItemMeta(meta);
 
 				}
 				break;
@@ -70,13 +70,9 @@ public class ExprSkullTexture extends SimplePropertyExpression<ItemType, String>
 					playerProfile.setProperty(new ProfileProperty("textures", value));
 					meta.setPlayerProfile(playerProfile);
 					item.setItemMeta(meta);
-
-
 				}
 		}
-
 	}
-
 
 	@Override
 	public @Nullable String convert(ItemType item) {
@@ -94,7 +90,7 @@ public class ExprSkullTexture extends SimplePropertyExpression<ItemType, String>
 			.orElse(null);
 		if (!(texture == null)) {
 			return texture.getValue();
-		} else{
+		} else {
 			return null;
 		}
 	}
