@@ -62,7 +62,7 @@ public class ExprSkullTexture extends SimplePropertyExpression<ItemType, String>
 				break;
 			case SET:
 				for (ItemType item : getExpr().getArray(event)) {
-					if (item.getMaterial() == Material.PLAYER_HEAD) {
+					if (item.getMaterial() != Material.PLAYER_HEAD) {
 						continue;
 					}
 					SkullMeta meta = (SkullMeta) item.getItemMeta();
@@ -77,10 +77,10 @@ public class ExprSkullTexture extends SimplePropertyExpression<ItemType, String>
 
 	}
 
-	@Nullable
+
 	@Override
-	public String convert(ItemType item) {
-		if (!(item.getMaterial() == Material.PLAYER_HEAD)) {
+	public @Nullable String convert(ItemType item) {
+		if (item.getMaterial() != Material.PLAYER_HEAD) {
 			return null;
 		}
 		SkullMeta meta = (SkullMeta) item.getItemMeta();
