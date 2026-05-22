@@ -105,4 +105,5 @@ public class ExprSkullTexture extends SimplePropertyExpression<ItemType, String>
 	protected String getPropertyName() {
 		return "skull texture";
 	}
+
 }
