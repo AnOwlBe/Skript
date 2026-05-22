@@ -85,15 +85,11 @@ public class ExprSkullTexture extends SimplePropertyExpression<ItemType, String>
 		if (profile == null) {
 			return null;
 		}
-		ProfileProperty texture = profile.getProperties().stream()
+		return profile.getProperties().stream()
 			.filter(property -> property.getName().equals("textures"))
 			.findFirst()
+			.map(ProfileProperty::getValue)
 			.orElse(null);
-		if (!(texture == null)) {
-			return texture.getValue();
-		} else {
-			return null;
-		}
 	}
 
 	@Override
