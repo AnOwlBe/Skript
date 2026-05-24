@@ -39,6 +39,23 @@ public class ExprSkullTexture extends SimplePropertyExpression<ItemType, String>
 	}
 
 	@Override
+	public @Nullable String convert(ItemType item) {
+		if (item.getMaterial() != Material.PLAYER_HEAD) {
+			return null;
+		}
+		SkullMeta meta = (SkullMeta) item.getItemMeta();
+		PlayerProfile profile = meta.getPlayerProfile();
+		if (profile == null) {
+			return null;
+		}
+		return profile.getProperties().stream()
+			.filter(property -> property.getName().equals("textures"))
+			.findFirst()
+			.map(ProfileProperty::getValue)
+			.orElse(null);
+	}
+
+	@Override
 	public Class<?> @Nullable [] acceptChange(ChangeMode mode) {
 		return switch (mode) {
 			case SET -> CollectionUtils.array(String.class);
@@ -73,23 +90,6 @@ public class ExprSkullTexture extends SimplePropertyExpression<ItemType, String>
 					item.setItemMeta(meta);
 				}
 		}
-	}
-
-	@Override
-	public @Nullable String convert(ItemType item) {
-		if (item.getMaterial() != Material.PLAYER_HEAD) {
-			return null;
-		}
-		SkullMeta meta = (SkullMeta) item.getItemMeta();
-		PlayerProfile profile = meta.getPlayerProfile();
-		if (profile == null) {
-			return null;
-		}
-		return profile.getProperties().stream()
-			.filter(property -> property.getName().equals("textures"))
-			.findFirst()
-			.map(ProfileProperty::getValue)
-			.orElse(null);
 	}
 
 	@Override
