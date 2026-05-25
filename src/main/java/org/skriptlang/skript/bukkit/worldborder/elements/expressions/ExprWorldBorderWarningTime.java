@@ -46,14 +46,13 @@ public class ExprWorldBorderWarningTime extends SimplePropertyExpression<WorldBo
 			default -> null;
 		};
 	}
-
 	@Override
 	public void change(Event event, Object @Nullable [] delta, ChangeMode mode) {
 		long input;
 		if (useDeprecated) {
 			input = delta == null ? 15 : (((Timespan) delta[0]).getAs(TimePeriod.SECOND));
 		} else {
-			input = delta == null ? 15 : (((Timespan) delta[0]).getAs(TimePeriod.TICK));
+			input = delta == null ? 300 : (((Timespan) delta[0]).getAs(TimePeriod.TICK));
 		}
 		for (WorldBorder worldBorder : getExpr().getArray(event)) {
 			long warningTime = switch (mode) {
