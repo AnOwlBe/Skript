@@ -46,6 +46,7 @@ public class ExprWorldBorderWarningTime extends SimplePropertyExpression<WorldBo
 			default -> null;
 		};
 	}
+
 	@Override
 	public void change(Event event, Object @Nullable [] delta, ChangeMode mode) {
 		long input;
