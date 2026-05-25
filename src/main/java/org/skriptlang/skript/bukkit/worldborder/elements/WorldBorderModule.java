@@ -71,8 +71,8 @@ public class WorldBorderModule extends HierarchicalAddonModule {
 					"This event does not get called for virtual borders."
 				)
 				.addExample("""
-				on worldborder bounds change:
-				    "broadcast "The diameter of %event-worldborder% is changing from %past event-number% to %event-number% over the next %event-timespan%"
+					on worldborder bounds change:
+					    "broadcast "The diameter of %event-worldborder% is changing from %past event-number% to %event-number% over the next %event-timespan%"
 				""")
 				.addSince("2.11")
 				.build()
