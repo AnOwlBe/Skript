@@ -89,8 +89,8 @@ public class WorldBorderModule extends HierarchicalAddonModule {
 				"""
 				)
 				.addExample("""
-				on worldborder bounds finish change:
-				    broadcast "Over the past %event-timespan%, the diameter of %event-worldborder% went from %past event-number% to %event-number%"
+					on worldborder bounds finish change:
+					    broadcast "Over the past %event-timespan%, the diameter of %event-worldborder% went from %past event-number% to %event-number%"
 				""")
 				.addSince("2.11")
 				.build()
