@@ -29,7 +29,7 @@ public class ExprWorldBorderWarningTime extends SimplePropertyExpression<WorldBo
 					.build());
 		}
 
-	private final static boolean useDeprecated = !Skript.isRunningMinecraft(1,21,11);
+	private final static boolean useDeprecated = !Skript.isRunningMinecraft(1, 21, 11);
 
 	@Override
 	public @Nullable Timespan convert(WorldBorder worldBorder) {
