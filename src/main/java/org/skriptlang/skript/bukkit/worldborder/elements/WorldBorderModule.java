@@ -107,8 +107,8 @@ public class WorldBorderModule extends HierarchicalAddonModule {
 				"""
 				)
 				.addExample("""
-				on worldborder center change:
-				    "broadcast "The center of %event-worldborder% has moved from %past event-location% to %event-location%"
+					on worldborder center change:
+					    "broadcast "The center of %event-worldborder% has moved from %past event-location% to %event-location%"
 				""")
 				.addSince("2.11")
 				.build()
