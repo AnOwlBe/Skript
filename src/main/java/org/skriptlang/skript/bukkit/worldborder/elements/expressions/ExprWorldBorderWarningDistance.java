@@ -1,4 +1,4 @@
-package ch.njol.skript.expressions;
+package org.skriptlang.skript.bukkit.worldborder.elements.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer.ChangeMode;
@@ -11,6 +11,7 @@ import ch.njol.util.coll.CollectionUtils;
 import org.bukkit.WorldBorder;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
+import org.skriptlang.skript.registration.SyntaxRegistry;
 
 @Name("Warning Distance of World Border")
 @Description({
@@ -21,9 +22,12 @@ import org.jetbrains.annotations.Nullable;
 @Since("2.11")
 public class ExprWorldBorderWarningDistance extends SimplePropertyExpression<WorldBorder, Integer> {
 
-	static {
-		registerDefault(ExprWorldBorderWarningDistance.class, Integer.class, "world[ ]border warning distance", "worldborders");
-	}
+	public static void register(SyntaxRegistry syntaxRegistry) {
+		syntaxRegistry.register(SyntaxRegistry.EXPRESSION,
+			infoBuilder(ExprWorldBorderWarningDistance.class, Integer.class, "world[ ]border warning distance", "worldborders", false)
+				.supplier(ExprWorldBorderWarningDistance::new)
+				.build());
+		}
 
 	@Override
 	public @Nullable Integer convert(WorldBorder worldBorder) {

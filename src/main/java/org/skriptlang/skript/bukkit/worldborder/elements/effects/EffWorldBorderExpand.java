@@ -1,7 +1,5 @@
-package ch.njol.skript.effects;
+package org.skriptlang.skript.bukkit.worldborder.elements.effects;
 
-import ch.njol.skript.Skript;
-import ch.njol.skript.config.Node;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Example;
 import ch.njol.skript.doc.Name;
@@ -17,6 +15,8 @@ import ch.njol.util.Math2;
 import org.bukkit.WorldBorder;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
+import org.skriptlang.skript.registration.SyntaxInfo;
+import org.skriptlang.skript.registration.SyntaxRegistry;
 
 @Name("Expand/Shrink World Border")
 @Description({
@@ -29,12 +29,16 @@ import org.jetbrains.annotations.Nullable;
 @Since("2.11")
 public class EffWorldBorderExpand extends Effect {
 
-	static {
-		Skript.registerEffect(EffWorldBorderExpand.class,
-			"(expand|grow) [[the] (diameter|:radius) of] %worldborders% (by|:to) %number% [over [a period of] %-timespan%]",
-			"(expand|grow) %worldborders%['s (diameter|:radius)] (by|:to) %number% [over [a period of] %-timespan%]",
-			"(contract|shrink) [[the] (diameter|:radius) of] %worldborders% (by|:to) %number% [over [a period of] %-timespan%]",
-			"(contract|shrink) %worldborders%['s (diameter|:radius)] (by|:to) %number% [over [a period of] %-timespan%]"
+	public static void register(SyntaxRegistry syntaxRegistry) {
+		syntaxRegistry.register(
+			SyntaxRegistry.EFFECT,
+			SyntaxInfo.builder(EffWorldBorderExpand.class)
+				.supplier(EffWorldBorderExpand::new)
+				.addPattern("(expand|grow) [[the] (diameter|:radius) of] %worldborders% (by|:to) %number% [over [a period of] %-timespan%]")
+				.addPattern("(expand|grow) %worldborders%['s (diameter|:radius)] (by|:to) %number% [over [a period of] %-timespan%]")
+				.addPattern("(contract|shrink) [[the] (diameter|:radius) of] %worldborders% (by|:to) %number% [over [a period of] %-timespan%]")
+				.addPattern("(contract|shrink) %worldborders%['s (diameter|:radius)] (by|:to) %number% [over [a period of] %-timespan%]")
+				.build()
 		);
 	}
 
@@ -80,14 +84,14 @@ public class EffWorldBorderExpand extends Effect {
 		if (to) {
 			input = Math2.fit(1, input, MAX_WORLDBORDER_SIZE);
 			for (WorldBorder worldBorder : worldBorders)
-				worldBorder.setSize(input, speed);
+				worldBorder.changeSize(input, speed);
 		} else {
 			if (shrink)
 				input = -input;
 			for (WorldBorder worldBorder : worldBorders) {
 				double size = worldBorder.getSize();
 				size = Math2.fit(1, size + input, MAX_WORLDBORDER_SIZE);
-				worldBorder.setSize(size, speed);
+				worldBorder.changeSize(size, speed);
 			}
 		}
 	}
