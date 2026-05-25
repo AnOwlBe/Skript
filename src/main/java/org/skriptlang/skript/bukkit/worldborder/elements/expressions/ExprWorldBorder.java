@@ -26,7 +26,7 @@ public class ExprWorldBorder extends SimplePropertyExpression<Object, WorldBorde
 
     	public static void register(SyntaxRegistry syntaxRegistry) {
 			syntaxRegistry.register(SyntaxRegistry.EXPRESSION,
-				infoBuilder(ExprWorldBorder.class, WorldBorder.class, "world[ ]border", "worlds/players", false)
+				infoBuilder(ExprWorldBorder.class, WorldBorder.class, "world[ ]border", "worlds/players", true)
 					.supplier(ExprWorldBorder::new)
 					.build());
 		}

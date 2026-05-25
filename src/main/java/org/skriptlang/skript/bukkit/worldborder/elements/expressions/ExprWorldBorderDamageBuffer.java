@@ -23,7 +23,7 @@ public class ExprWorldBorderDamageBuffer extends SimplePropertyExpression<WorldB
 
      public static void register(SyntaxRegistry syntaxRegistry) {
 			syntaxRegistry.register(SyntaxRegistry.EXPRESSION,
-				infoBuilder(ExprWorldBorderDamageBuffer.class, Double.class, "world[ ]border damage buffer", "worldborders", false)
+				infoBuilder(ExprWorldBorderDamageBuffer.class, Double.class, "world[ ]border damage buffer", "worldborders", true)
 					.supplier(ExprWorldBorderDamageBuffer::new)
 					.build());
 		}

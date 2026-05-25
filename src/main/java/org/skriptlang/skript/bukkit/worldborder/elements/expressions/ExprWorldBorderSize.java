@@ -28,7 +28,7 @@ public class ExprWorldBorderSize extends SimplePropertyExpression<WorldBorder, D
 
       public static void register(SyntaxRegistry syntaxRegistry) {
 			syntaxRegistry.register(SyntaxRegistry.EXPRESSION,
-				infoBuilder(ExprWorldBorderSize.class, Double.class, "world[ ]border (size|diameter|:radius)", "worldborders", false)
+				infoBuilder(ExprWorldBorderSize.class, Double.class, "world[ ]border (size|diameter|:radius)", "worldborders", true)
 					.supplier(ExprWorldBorderSize::new)
 					.build());
 		}

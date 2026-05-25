@@ -24,7 +24,7 @@ public class ExprWorldBorderWarningDistance extends SimplePropertyExpression<Wor
 
 	public static void register(SyntaxRegistry syntaxRegistry) {
 		syntaxRegistry.register(SyntaxRegistry.EXPRESSION,
-			infoBuilder(ExprWorldBorderWarningDistance.class, Integer.class, "world[ ]border warning distance", "worldborders", false)
+			infoBuilder(ExprWorldBorderWarningDistance.class, Integer.class, "world[ ]border warning distance", "worldborders", true)
 				.supplier(ExprWorldBorderWarningDistance::new)
 				.build());
 		}

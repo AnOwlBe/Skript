@@ -21,7 +21,7 @@ public class ExprWorldBorderCenter extends SimplePropertyExpression<WorldBorder,
 
       public static void register(SyntaxRegistry syntaxRegistry) {
 			syntaxRegistry.register(SyntaxRegistry.EXPRESSION,
-				infoBuilder(ExprWorldBorderCenter.class, Location.class, "world[ ]border (center|middle)", "worldborders", false)
+				infoBuilder(ExprWorldBorderCenter.class, Location.class, "world[ ]border (center|middle)", "worldborders", true)
 					.supplier(ExprWorldBorderCenter::new)
 					.build());
 		}

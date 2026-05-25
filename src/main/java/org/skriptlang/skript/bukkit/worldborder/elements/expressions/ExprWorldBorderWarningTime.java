@@ -24,7 +24,7 @@ public class ExprWorldBorderWarningTime extends SimplePropertyExpression<WorldBo
 
 	public static void register(SyntaxRegistry syntaxRegistry) {
 			syntaxRegistry.register(SyntaxRegistry.EXPRESSION,
-				infoBuilder(ExprWorldBorderWarningTime.class, Timespan.class, "world[ ]border warning time", "worldborders", false)
+				infoBuilder(ExprWorldBorderWarningTime.class, Timespan.class, "world[ ]border warning time", "worldborders", true)
 					.supplier(ExprWorldBorderWarningTime::new)
 					.build());
 		}

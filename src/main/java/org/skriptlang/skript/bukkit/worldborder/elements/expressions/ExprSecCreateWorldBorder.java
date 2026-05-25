@@ -36,7 +36,7 @@ import java.util.List;
 	on join:
 		set {_location} to location of player
 		set worldborder of player to a virtual worldborder:
-			set world border radius to 25
+			set world border radius of event-worldborder to 25
 			set world border center of event-worldborder to {_location}
 	""")
 @Example("""
