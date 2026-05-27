@@ -71,7 +71,6 @@ public class ExprWorldBorderWarningTime extends SimplePropertyExpression<WorldBo
 					}
 					yield Math2.addClamped(worldBorder.getWarningTimeTicks(), -input);
 				}
-
 				default -> throw new IllegalStateException();
 			};
 			setWarningTime(worldBorder, warningTime);
