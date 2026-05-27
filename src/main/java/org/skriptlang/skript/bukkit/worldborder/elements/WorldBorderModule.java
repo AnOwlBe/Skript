@@ -59,7 +59,7 @@ public class WorldBorderModule extends HierarchicalAddonModule {
 	@Override
 	protected void loadSelf(SkriptAddon addon) {
 		EventValueRegistry registry = addon.registry(EventValueRegistry.class);
-        SyntaxRegistry syntaxRegistry = addon.syntaxRegistry();
+        SyntaxRegistry syntaxRegistry = moduleRegistry(addon);
 
 		syntaxRegistry.register(
 			BukkitSyntaxInfos.Event.KEY,
