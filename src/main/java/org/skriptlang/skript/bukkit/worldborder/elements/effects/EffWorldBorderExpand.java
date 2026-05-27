@@ -1,5 +1,6 @@
 package org.skriptlang.skript.bukkit.worldborder.elements.effects;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Example;
 import ch.njol.skript.doc.Name;
@@ -49,6 +50,7 @@ public class EffWorldBorderExpand extends Effect {
 	private Expression<Number> numberExpr;
 	private @Nullable Expression<Timespan> timespan;
 	private static final double MAX_WORLDBORDER_SIZE = 59999968;
+	private final static boolean useDeprecated = !Skript.methodExists(org.bukkit.WorldBorder.class,"changeSize");
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -83,15 +85,24 @@ public class EffWorldBorderExpand extends Effect {
 		WorldBorder[] worldBorders = this.worldBorders.getArray(event);
 		if (to) {
 			input = Math2.fit(1, input, MAX_WORLDBORDER_SIZE);
-			for (WorldBorder worldBorder : worldBorders)
-				worldBorder.changeSize(input, speed);
+			if (useDeprecated) {
+				for (WorldBorder worldBorder : worldBorders)
+					worldBorder.setSize(input, speed);
+			} else {
+				for (WorldBorder worldBorder : worldBorders)
+					worldBorder.changeSize(input, speed);
+			}
 		} else {
 			if (shrink)
 				input = -input;
 			for (WorldBorder worldBorder : worldBorders) {
 				double size = worldBorder.getSize();
 				size = Math2.fit(1, size + input, MAX_WORLDBORDER_SIZE);
-				worldBorder.changeSize(size, speed);
+				if (useDeprecated) {
+					worldBorder.setSize(size, speed);
+				} else {
+					worldBorder.changeSize(size, speed);
+				}
 			}
 		}
 	}

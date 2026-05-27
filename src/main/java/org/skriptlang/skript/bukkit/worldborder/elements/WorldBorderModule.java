@@ -58,8 +58,8 @@ public class WorldBorderModule extends HierarchicalAddonModule {
 
 	@Override
 	protected void loadSelf(SkriptAddon addon) {
-		EventValueRegistry registry = addon.registry(EventValueRegistry.class);
-        SyntaxRegistry syntaxRegistry = addon.syntaxRegistry();
+		EventValueRegistry eventValueRegistry = addon.registry(EventValueRegistry.class);
+        SyntaxRegistry syntaxRegistry = moduleRegistry(addon);
 
 		syntaxRegistry.register(
 			BukkitSyntaxInfos.Event.KEY,
@@ -77,6 +77,20 @@ public class WorldBorderModule extends HierarchicalAddonModule {
 				.addSince("2.11")
 				.build()
 		);
+
+		eventValueRegistry.register(EventValue.builder(WorldBorderBoundsChangeEvent.class, WorldBorder.class)
+			.getter(WorldBorderBoundsChangeEvent::getWorldBorder)
+			.build());
+		eventValueRegistry.register(EventValue.builder(WorldBorderBoundsChangeEvent.class, Number.class)
+			.getter(WorldBorderBoundsChangeEvent::getNewSize)
+			.build());
+		eventValueRegistry.register(EventValue.builder(WorldBorderBoundsChangeEvent.class, Timespan.class)
+			.getter(event -> new Timespan(event.getDurationTicks()))
+			.build());
+		eventValueRegistry.register(EventValue.builder(WorldBorderBoundsChangeEvent.class, Number.class)
+			.getter(WorldBorderBoundsChangeEvent::getOldSize)
+			.time(EventValue.Time.PAST)
+			.build());
 
 		syntaxRegistry.register(
 			BukkitSyntaxInfos.Event.KEY,
@@ -96,6 +110,20 @@ public class WorldBorderModule extends HierarchicalAddonModule {
 				.build()
 		);
 
+		eventValueRegistry.register(EventValue.builder(WorldBorderBoundsChangeFinishEvent.class, WorldBorder.class)
+			.getter(WorldBorderBoundsChangeFinishEvent::getWorldBorder)
+			.build());
+		eventValueRegistry.register(EventValue.builder(WorldBorderBoundsChangeFinishEvent.class, Number.class)
+			.getter(WorldBorderBoundsChangeFinishEvent::getNewSize)
+			.build());
+		eventValueRegistry.register(EventValue.builder(WorldBorderBoundsChangeFinishEvent.class, Number.class)
+			.getter(WorldBorderBoundsChangeFinishEvent::getOldSize)
+			.time(EventValue.Time.PAST)
+			.build());
+		eventValueRegistry.register(EventValue.builder(WorldBorderBoundsChangeFinishEvent.class, Timespan.class)
+			.getter(event -> new Timespan((long) event.getDuration()))
+			.build());
+
 		syntaxRegistry.register(
 			BukkitSyntaxInfos.Event.KEY,
 			BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "World Border Center Change")
@@ -114,47 +142,19 @@ public class WorldBorderModule extends HierarchicalAddonModule {
 				.build()
 		);
 
-		registry.register(EventValue.builder(WorldBorderBoundsChangeEvent.class, WorldBorder.class)
-			.getter(WorldBorderBoundsChangeEvent::getWorldBorder)
-			.build());
-		registry.register(EventValue.builder(WorldBorderBoundsChangeEvent.class, Number.class)
-			.getter(WorldBorderBoundsChangeEvent::getNewSize)
-			.build());
-		registry.register(EventValue.builder(WorldBorderBoundsChangeEvent.class, Timespan.class)
-			.getter(event -> new Timespan(event.getDurationTicks()))
-			.build());
-		registry.register(EventValue.builder(WorldBorderBoundsChangeEvent.class, Number.class)
-			.getter(WorldBorderBoundsChangeEvent::getOldSize)
-			.time(EventValue.Time.PAST)
-			.build());
-
-		registry.register(EventValue.builder(WorldBorderBoundsChangeFinishEvent.class, WorldBorder.class)
-			.getter(WorldBorderBoundsChangeFinishEvent::getWorldBorder)
-			.build());
-		registry.register(EventValue.builder(WorldBorderBoundsChangeFinishEvent.class, Number.class)
-			.getter(WorldBorderBoundsChangeFinishEvent::getNewSize)
-			.build());
-		registry.register(EventValue.builder(WorldBorderBoundsChangeFinishEvent.class, Number.class)
-			.getter(WorldBorderBoundsChangeFinishEvent::getOldSize)
-			.time(EventValue.Time.PAST)
-			.build());
-		registry.register(EventValue.builder(WorldBorderBoundsChangeFinishEvent.class, Timespan.class)
-			.getter(event -> new Timespan((long) event.getDuration()))
-			.build());
-
-		registry.register(EventValue.builder(WorldBorderCenterChangeEvent.class, WorldBorder.class)
+		eventValueRegistry.register(EventValue.builder(WorldBorderCenterChangeEvent.class, WorldBorder.class)
 			.getter(WorldBorderCenterChangeEvent::getWorldBorder)
 			.build());
-		registry.register(EventValue.builder(WorldBorderCenterChangeEvent.class, Location.class)
+		eventValueRegistry.register(EventValue.builder(WorldBorderCenterChangeEvent.class, Location.class)
 			.getter(WorldBorderCenterChangeEvent::getNewCenter)
 			.build());
-		registry.register(EventValue.builder(WorldBorderCenterChangeEvent.class, Location.class)
+		eventValueRegistry.register(EventValue.builder(WorldBorderCenterChangeEvent.class, Location.class)
 			.getter(WorldBorderCenterChangeEvent::getOldCenter)
 			.time(EventValue.Time.PAST)
 			.build());
 
 		register(addon,
-			a -> ExprSecCreateWorldBorder.register(a,registry),
+			a -> ExprSecCreateWorldBorder.register(a,eventValueRegistry),
 			ExprWorldBorder::register,
 			ExprWorldBorderCenter::register,
 			ExprWorldBorderSize::register,
