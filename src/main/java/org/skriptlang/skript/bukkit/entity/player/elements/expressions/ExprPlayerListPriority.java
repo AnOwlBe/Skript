@@ -63,15 +63,10 @@ public class ExprPlayerListPriority extends SimplePropertyExpression<Player, Int
 					player.setPlayerListOrder(Math.max(0, (int) Math2.addClamped(player.getPlayerListOrder(), -amount)));
 				}
 			}
-			case SET -> {
+			case SET, RESET -> {
 				amount = Math.max(0, amount);
 				for (Player player : getExpr().getArray(event)) {
 					player.setPlayerListOrder(amount);
-				}
-			}
-			case RESET -> {
-				for (Player player : getExpr().getArray(event)) {
-					player.setPlayerListOrder(0);
 				}
 			}
 		}
