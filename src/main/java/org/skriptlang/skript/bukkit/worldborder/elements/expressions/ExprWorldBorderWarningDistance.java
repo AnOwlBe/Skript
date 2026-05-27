@@ -27,7 +27,7 @@ public class ExprWorldBorderWarningDistance extends SimplePropertyExpression<Wor
 			infoBuilder(ExprWorldBorderWarningDistance.class, Integer.class, "world[ ]border warning distance", "worldborders", true)
 				.supplier(ExprWorldBorderWarningDistance::new)
 				.build());
-		}
+	}
 
 	@Override
 	public @Nullable Integer convert(WorldBorder worldBorder) {

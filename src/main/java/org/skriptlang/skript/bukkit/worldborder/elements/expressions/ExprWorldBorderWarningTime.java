@@ -64,14 +64,12 @@ public class ExprWorldBorderWarningTime extends SimplePropertyExpression<WorldBo
 					}
 					yield Math2.addClamped(worldBorder.getWarningTimeTicks(), input);
 				}
-
 				case REMOVE -> {
 					if (useDeprecated) {
 						yield Math2.addClamped(worldBorder.getWarningTime(), -input);
 					}
 					yield Math2.addClamped(worldBorder.getWarningTimeTicks(), -input);
 				}
-
 				default -> throw new IllegalStateException();
 			};
 			setWarningTime(worldBorder, warningTime);
