@@ -29,7 +29,7 @@ public class ExprWorldBorder extends SimplePropertyExpression<Object, WorldBorde
 			infoBuilder(ExprWorldBorder.class, WorldBorder.class, "world[ ]border", "worlds/players", true)
 				.supplier(ExprWorldBorder::new)
 				.build());
-		}
+	}
 
 	private final static boolean useDeprecated = !Skript.methodExists(WorldBorder.class, "getWarningTimeTicks");
 
