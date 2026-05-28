@@ -49,7 +49,7 @@ import java.util.List;
 @Since("2.11")
 public class ExprSecCreateWorldBorder extends SectionExpression<WorldBorder> {
 
-	public static void register(SyntaxRegistry syntaxRegistry, EventValueRegistry registry) {
+	public static void register(SyntaxRegistry syntaxRegistry, EventValueRegistry eventValueRegistry) {
 		syntaxRegistry.register(
 			SyntaxRegistry.EXPRESSION,
 			SyntaxInfo.Expression.builder(ExprSecCreateWorldBorder.class, WorldBorder.class)
@@ -57,7 +57,7 @@ public class ExprSecCreateWorldBorder extends SectionExpression<WorldBorder> {
 					"a [virtual] world[ ]border")
 				.build()
 		);
-		registry.register(EventValue.builder(CreateWorldborderEvent.class, WorldBorder.class)
+		eventValueRegistry.register(EventValue.builder(CreateWorldborderEvent.class, WorldBorder.class)
 			.getter(CreateWorldborderEvent::getWorldBorder)
 			.build());
 	}

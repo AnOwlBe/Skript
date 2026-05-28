@@ -80,7 +80,11 @@ public class EffWorldBorderExpand extends Effect {
 		if (timespan != null) {
 			Timespan timespan = this.timespan.getSingle(event);
 			if (timespan != null)
-				speed = timespan.getAs(TimePeriod.SECOND);
+				if (useDeprecated) {
+					speed = timespan.getAs(TimePeriod.SECOND);
+				} else {
+					speed = timespan.getAs(TimePeriod.TICK);
+				}
 		}
 		WorldBorder[] worldBorders = this.worldBorders.getArray(event);
 		if (to) {

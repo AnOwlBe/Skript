@@ -23,10 +23,10 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 public class ExprWorldBorderWarningTime extends SimplePropertyExpression<WorldBorder, Timespan> {
 
 	public static void register(SyntaxRegistry syntaxRegistry) {
-			syntaxRegistry.register(SyntaxRegistry.EXPRESSION,
-				infoBuilder(ExprWorldBorderWarningTime.class, Timespan.class, "world[ ]border warning time", "worldborders", true)
-					.supplier(ExprWorldBorderWarningTime::new)
-					.build());
+		syntaxRegistry.register(SyntaxRegistry.EXPRESSION,
+			infoBuilder(ExprWorldBorderWarningTime.class, Timespan.class, "world[ ]border warning time", "worldborders", true)
+                .supplier(ExprWorldBorderWarningTime::new)
+                .build());
 		}
 
 	private final static boolean useDeprecated = !Skript.methodExists(org.bukkit.WorldBorder.class,"getWarningTimeTicks");
