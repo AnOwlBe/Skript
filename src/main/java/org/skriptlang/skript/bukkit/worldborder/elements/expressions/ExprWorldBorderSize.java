@@ -26,11 +26,11 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 @Since("2.11")
 public class ExprWorldBorderSize extends SimplePropertyExpression<WorldBorder, Double> {
 
-      public static void register(SyntaxRegistry syntaxRegistry) {
-			syntaxRegistry.register(SyntaxRegistry.EXPRESSION,
-				infoBuilder(ExprWorldBorderSize.class, Double.class, "world[ ]border (size|diameter|:radius)", "worldborders", true)
-					.supplier(ExprWorldBorderSize::new)
-					.build());
+	public static void register(SyntaxRegistry syntaxRegistry) {
+		syntaxRegistry.register(SyntaxRegistry.EXPRESSION,
+			infoBuilder(ExprWorldBorderSize.class, Double.class, "world[ ]border (size|diameter|:radius)", "worldborders", true)
+				.supplier(ExprWorldBorderSize::new)
+				.build());
 		}
 
 	private boolean radius;

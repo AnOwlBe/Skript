@@ -24,11 +24,11 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 @Since("2.11")
 public class ExprWorldBorder extends SimplePropertyExpression<Object, WorldBorder> {
 
-    	public static void register(SyntaxRegistry syntaxRegistry) {
-			syntaxRegistry.register(SyntaxRegistry.EXPRESSION,
-				infoBuilder(ExprWorldBorder.class, WorldBorder.class, "world[ ]border", "worlds/players", true)
-					.supplier(ExprWorldBorder::new)
-					.build());
+	public static void register(SyntaxRegistry syntaxRegistry) {
+		syntaxRegistry.register(SyntaxRegistry.EXPRESSION,
+			infoBuilder(ExprWorldBorder.class, WorldBorder.class, "world[ ]border", "worlds/players", true)
+				.supplier(ExprWorldBorder::new)
+				.build());
 		}
 
 	private final static boolean useDeprecated = !Skript.methodExists(org.bukkit.WorldBorder.class,"getWarningTimeTicks");
