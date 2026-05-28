@@ -53,8 +53,7 @@ public class ExprSecCreateWorldBorder extends SectionExpression<WorldBorder> {
 		syntaxRegistry.register(
 			SyntaxRegistry.EXPRESSION,
 			SyntaxInfo.Expression.builder(ExprSecCreateWorldBorder.class, WorldBorder.class)
-				.addPatterns(
-					"a [virtual] world[ ]border")
+				.addPattern("a [virtual] world[ ]border")
 				.build()
 		);
 		eventValueRegistry.register(EventValue.builder(CreateWorldborderEvent.class, WorldBorder.class)

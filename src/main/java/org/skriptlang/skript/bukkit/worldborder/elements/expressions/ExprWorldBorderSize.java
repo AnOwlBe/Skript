@@ -64,7 +64,7 @@ public class ExprWorldBorderSize extends SimplePropertyExpression<WorldBorder, D
 		}
 		for (WorldBorder worldBorder : getExpr().getArray(event)) {
 			switch (mode) {
-				case SET, RESET -> worldBorder.setSize((Math2.fit(1, input, MAX_WORLDBORDER_SIZE)));
+				case SET, RESET -> worldBorder.setSize(Math2.fit(1, input, MAX_WORLDBORDER_SIZE));
 				case ADD -> worldBorder.setSize(Math2.fit(1, worldBorder.getSize() + input, MAX_WORLDBORDER_SIZE));
 				case REMOVE -> worldBorder.setSize(Math2.fit(1, worldBorder.getSize() - input, MAX_WORLDBORDER_SIZE));
 			}
