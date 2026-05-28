@@ -26,7 +26,7 @@ public class ExprWorldBorderDamageAmount extends SimplePropertyExpression<WorldB
 			infoBuilder(ExprWorldBorderDamageAmount.class, Double.class, "world[ ]border damage amount", "worldborders", true)
 				.supplier(ExprWorldBorderDamageAmount::new)
 				.build());
-		}
+	 }
 
 	@Override
 	public @Nullable Double convert(WorldBorder worldBorder) {

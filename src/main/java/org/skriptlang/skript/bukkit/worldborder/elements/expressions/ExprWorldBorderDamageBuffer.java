@@ -26,7 +26,7 @@ public class ExprWorldBorderDamageBuffer extends SimplePropertyExpression<WorldB
 			infoBuilder(ExprWorldBorderDamageBuffer.class, Double.class, "world[ ]border damage buffer", "worldborders", true)
 				.supplier(ExprWorldBorderDamageBuffer::new)
 				.build());
-		}
+	 }
 
 	@Override
 	public @Nullable Double convert(WorldBorder worldBorder) {

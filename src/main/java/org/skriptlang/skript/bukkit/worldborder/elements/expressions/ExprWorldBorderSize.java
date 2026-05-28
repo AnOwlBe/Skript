@@ -31,7 +31,7 @@ public class ExprWorldBorderSize extends SimplePropertyExpression<WorldBorder, D
 			infoBuilder(ExprWorldBorderSize.class, Double.class, "world[ ]border (size|diameter|:radius)", "worldborders", true)
 				.supplier(ExprWorldBorderSize::new)
 				.build());
-		}
+	}
 
 	private boolean radius;
 	private static final double MAX_WORLDBORDER_SIZE = 59999968;
