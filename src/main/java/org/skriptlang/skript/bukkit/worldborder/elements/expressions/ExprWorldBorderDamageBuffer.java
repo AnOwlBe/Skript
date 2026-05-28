@@ -22,10 +22,10 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 public class ExprWorldBorderDamageBuffer extends SimplePropertyExpression<WorldBorder, Double> {
 
      public static void register(SyntaxRegistry syntaxRegistry) {
-		 syntaxRegistry.register(SyntaxRegistry.EXPRESSION,
-			 infoBuilder(ExprWorldBorderDamageBuffer.class, Double.class, "world[ ]border damage buffer", "worldborders", true)
-				 .supplier(ExprWorldBorderDamageBuffer::new)
-				 .build());
+		syntaxRegistry.register(SyntaxRegistry.EXPRESSION,
+			infoBuilder(ExprWorldBorderDamageBuffer.class, Double.class, "world[ ]border damage buffer", "worldborders", true)
+				.supplier(ExprWorldBorderDamageBuffer::new)
+				.build());
 		}
 
 	@Override
