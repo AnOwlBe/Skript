@@ -24,7 +24,7 @@ public class ExprWorldBorderCenter extends SimplePropertyExpression<WorldBorder,
 			infoBuilder(ExprWorldBorderCenter.class, Location.class, "world[ ]border (center|middle)", "worldborders", true)
 				.supplier(ExprWorldBorderCenter::new)
 				.build());
-		}
+	}
 
 	@Override
 	public @Nullable Location convert(WorldBorder worldBorder) {
