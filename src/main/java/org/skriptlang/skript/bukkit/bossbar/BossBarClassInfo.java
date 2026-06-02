@@ -51,10 +51,10 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 				Skript.instance(),
 				new BossBarStyleHandler())
 			.property(Property.VIEWERS, """
-		     The viewers of a boss bar.
-		     Removing players from a boss bar will remove all of the effects of the flags of the boss bar.
-		     """,
-		     Skript.instance(),
+				The viewers of a boss bar.
+				Removing players from a boss bar will remove all of the effects of the flags of the boss bar.
+				""",
+				Skript.instance(),
 				new BossBarViewersHandler());
 		Variables.yggdrasil.registerSingleClass(BarColor.class, "bossbar.color");
 		Variables.yggdrasil.registerSingleClass(BarFlag.class, "bossbar.flag");
@@ -69,12 +69,12 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 
 		@Override
 		public String toString(BossBar bar, int flags) {
-			final boolean EMPTY_TITLE = bar.getTitle().isEmpty();
-			if (bar instanceof KeyedBossBar) {
+			boolean emptyTitle = bar.getTitle().isEmpty();
+			if (bar instanceof KeyedBossBar keyed) {
 				if (EMPTY_TITLE) {
-					return "boss bar with id '" + ((KeyedBossBar) bar).getKey() + "'";
+					return "boss bar with id '" + keyed.getKey() + "'";
 				} else {
-					return "boss bar with id '" + ((KeyedBossBar) bar).getKey() + "' named '" + bar.getTitle() + "'";
+					return "boss bar with id '" + keyed.getKey() + "' named '" + bar.getTitle() + "'";
 				}
 			} else {
 				if (EMPTY_TITLE) {
@@ -95,14 +95,14 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 	private static class BossBarChangeHandler implements Changer<BossBar> {
 		//<editor-fold desc="boss bar change handler" defaultstate="collapsed">
 		@Override
-		public Class<?>[] acceptChange(ChangeMode mode) {
+		public Class<?> @Nullable [] acceptChange(ChangeMode mode) {
 			if (mode == ChangeMode.DELETE)
 				return CollectionUtils.array();
 			return null;
 		}
 
 		@Override
-		public void change(BossBar[] bars, Object[] delta, ChangeMode mode) {
+		public void change(BossBar[] bars, Object @Nullable [] delta, ChangeMode mode) {
 			for (BossBar bar : bars) {
 				if (bar instanceof KeyedBossBar keyed) {
 					for (Player player : keyed.getPlayers())
@@ -117,8 +117,8 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 	private static class BossBarSerializer extends Serializer<BossBar> {
 		//<editor-fold desc="boss bar serializer" defaultstate="collapsed">
 		@Override
-		public Fields serialize(final BossBar bar) {
-			final Fields fields = new Fields();
+		public Fields serialize(BossBar bar) {
+			Fields fields = new Fields();
 			if (bar instanceof KeyedBossBar keyedBar)
 				fields.putObject("key", keyedBar.getKey().toString());
 			fields.putObject("title", bar.getTitle());
@@ -135,18 +135,18 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 		}
 
 		@Override
-		public void deserialize(final BossBar o, final Fields f) {
+		public void deserialize(BossBar bar, Fields fields) {
 			assert false;
 		}
 
 		@Override
-		protected BossBar deserialize(final Fields fields) throws StreamCorruptedException {
-			final String title = fields.getObject("title", String.class);
-			final Double progress = fields.getObject("progress", Double.class);
-			final BarStyle style = fields.getObject("style", BarStyle.class);
-			final BarColor color = fields.getObject("color", BarColor.class);
-			final BarFlag[] flags = fields.getObject("flags", BarFlag[].class);
-			final String stringKey = fields.getObject("key", String.class);
+		protected BossBar deserialize(Fields fields) throws StreamCorruptedException {
+			String title = fields.getObject("title", String.class);
+			Double progress = fields.getObject("progress", Double.class);
+			BarStyle style = fields.getObject("style", BarStyle.class);
+			BarColor color = fields.getObject("color", BarColor.class);
+			BarFlag[] flags = fields.getObject("flags", BarFlag[].class);
+			String stringKey = fields.getObject("key", String.class);
 			NamespacedKey key = null;
 			if (stringKey != null)
 			    key = NamespacedKey.fromString(stringKey);
@@ -181,12 +181,12 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 	private static class BossBarTitleHandler implements ExpressionPropertyHandler<BossBar, Component> {
 		//<editor-fold desc="boss bar title handler" defaultstate="collapsed">
 		@Override
-		public Component convert(BossBar bar) {
+		public @Nullable Component convert(BossBar bar) {
 			return LegacyComponentSerializer.legacySection().deserialize(bar.getTitle());
 		}
 
 		@Override
-		public Class<?> @Nullable [] acceptChange(Changer.ChangeMode mode) {
+		public Class<?> @Nullable [] acceptChange(ChangeMode mode) {
 			return switch (mode) {
 				case SET, RESET -> CollectionUtils.array(Component.class);
 				default -> null;
@@ -194,17 +194,10 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 		}
 
 		@Override
-		public void change(BossBar bar, Object @Nullable [] delta, Changer.ChangeMode mode) {
-			Component title = mode == Changer.ChangeMode.SET ? (Component) delta[0] : null;
-			String stringTitle = title != null ? LegacyComponentSerializer.legacySection().serialize(title) : "";
-			switch (mode) {
-				case SET:
-					bar.setTitle(stringTitle);
-					break;
-				case RESET:
-					bar.setTitle(null);
-					break;
-			}
+		public void change(BossBar bar, Object @Nullable [] delta, ChangeMode mode) {
+			String title = delta == null ? null : 
+				LegacyComponentSerializer.legacySection().seriaize((Component) delta[0]);
+			bar.setTitle(title);
 		}
 
 		@Override
@@ -217,12 +210,12 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 	private static class BossBarProgressHandler implements ExpressionPropertyHandler<BossBar, Double> {
 		//<editor-fold desc="boss bar progress handler" defaultstate="collapsed">
 		@Override
-		public Double convert(BossBar bar) {
+		public @Nullable Double convert(BossBar bar) {
 			return bar.getProgress();
 		}
 
 		@Override
-		public Class<?> @Nullable [] acceptChange(Changer.ChangeMode mode) {
+		public Class<?> @Nullable [] acceptChange(ChangeMode mode) {
 			return switch (mode) {
 				case SET, RESET, ADD, REMOVE -> CollectionUtils.array(Double.class);
 				default -> null;
@@ -230,7 +223,7 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 		}
 
 		@Override
-		public void change(BossBar bar, Object @Nullable [] delta, Changer.ChangeMode mode) {
+		public void change(BossBar bar, Object @Nullable [] delta, ChangeMode mode) {
 			Double progress = delta != null ? (Double) delta[0] : null;
 			switch (mode) {
 				case SET:
@@ -258,12 +251,12 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 	private static class BossBarStyleHandler implements ExpressionPropertyHandler<BossBar, BarStyle> {
 		//<editor-fold desc="boss bar style handler" defaultstate="collapsed">
 		@Override
-		public BarStyle convert(BossBar bar) {
+		public @Nullable BarStyle convert(BossBar bar) {
 			return bar.getStyle();
 		}
 
 		@Override
-		public Class<?> @Nullable [] acceptChange(Changer.ChangeMode mode) {
+		public Class<?> @Nullable [] acceptChange(ChangeMode mode) {
 			return switch (mode) {
 				case SET, RESET -> CollectionUtils.array(BarStyle.class);
 				default -> null;
@@ -271,16 +264,9 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 		}
 
 		@Override
-		public void change(BossBar bar, Object @Nullable [] delta, Changer.ChangeMode mode) {
-			BarStyle style = mode == Changer.ChangeMode.SET ? (BarStyle) delta[0] : null;
-			switch (mode) {
-				case SET:
-					bar.setStyle(style);
-					break;
-				case RESET:
-					bar.setStyle(BarStyle.SOLID);
-					break;
-			}
+		public void change(BossBar bar, Object @Nullable [] delta, ChangeMode mode) {
+			BarStyle style = delta == null ? BarStyle.SOLID : (BarStyle) delta[0];
+			bar.setStyle(style);
 		}
 
 		@Override
@@ -293,12 +279,12 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 	private static class BossBarViewersHandler implements ExpressionPropertyHandler<BossBar, Player[]> {
 		//<editor-fold desc="boss bar viewers handler" defaultstate="collapsed">
 		@Override
-		public Player[] convert(BossBar bar) {
+		public Player @Nullable [] convert(BossBar bar) {
 			return bar.getPlayers().toArray(Player[]::new);
 		}
 
 		@Override
-		public Class<?> @Nullable [] acceptChange(Changer.ChangeMode mode) {
+		public Class<?> @Nullable [] acceptChange(ChangeMode mode) {
 			return switch (mode) {
 				case SET, ADD, REMOVE, RESET -> CollectionUtils.array(Player[].class);
 				default -> null;

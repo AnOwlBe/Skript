@@ -27,7 +27,6 @@ import java.util.List;
 	set title of (keyed boss bar from key "test") to "hm"
 	""")
 @Since("INSERT VERSION")
-
 public class ExprBossBarFromKey extends SimpleExpression<KeyedBossBar> {
 
 	public static void register(SyntaxRegistry registry) {
@@ -49,12 +48,12 @@ public class ExprBossBarFromKey extends SimpleExpression<KeyedBossBar> {
 	}
 
 	@Override
-	@Nullable
 	protected KeyedBossBar @Nullable [] get(Event event) {
 		List<KeyedBossBar> bars = new ArrayList<>();
 		for (String string : keyExpr.getArray(event)) {
 			NamespacedKey key = NamespacedUtils.checkValidationAndSend(string, this);
-			if (key == null) continue;
+			if (key == null)
+				continue;
 			KeyedBossBar bar = Bukkit.getBossBar(key);
 			if (bar != null)
 				bars.add(bar);
