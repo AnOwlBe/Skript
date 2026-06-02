@@ -19,9 +19,9 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 
 @Name("BossBar Flags")
 @Description("""
-    Makes a boss bar have or not have a flag.
-    The `play boss music` flag does not actually play any sound or do anything.
-    However you can use a resource pack to play your own custom sound.
+	Makes a boss bar have or not have a flag.
+	The `play boss music` flag does not actually play any sound or do anything.
+	However you can use a resource pack to play your own custom sound.
     """)
 @Example("""
 	make {_mybar} create fog

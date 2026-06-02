@@ -77,7 +77,7 @@ public class ExprBossBarFromKey extends SimpleExpression<KeyedBossBar> {
 		SyntaxStringBuilder builder = new SyntaxStringBuilder(event, debug);
 		builder.append("boss bar from keys");
 		builder.append(keyExpr);
-	    return builder.toString();
+		return builder.toString();
 	}
 
 }

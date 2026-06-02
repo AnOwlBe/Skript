@@ -20,8 +20,8 @@ import java.util.List;
 
 @Name("All Boss Bars")
 @Description("""
-    Returns all persistent boss bars.
-    Only returns keyed boss bars not normal ones.
+	Returns all persistent boss bars.
+	Only returns keyed boss bars not normal ones.
 """)
 @Example("""
 	broadcast all of the boss bars

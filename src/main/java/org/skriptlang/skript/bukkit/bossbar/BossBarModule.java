@@ -41,9 +41,9 @@ public class BossBarModule extends HierarchicalAddonModule {
 				ExprAllBossBars::register,
 				ExprBossBarFromKey::register,
 				ExprBossBarFromEntity::register,
-		        EffBossBarFlags::register,
-			    CondHasBossBarFlag::register
-		         );
+				EffBossBarFlags::register,
+				CondHasBossBarFlag::register
+				 );
 	}
 
 	@Override

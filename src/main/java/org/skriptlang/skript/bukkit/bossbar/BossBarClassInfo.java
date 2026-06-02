@@ -51,10 +51,10 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 				Skript.instance(),
 				new BossBarStyleHandler())
 			.property(Property.VIEWERS, """
-		     The viewers of a boss bar.
-		     Removing players from a boss bar will remove all of the effects of the flags of the boss bar.
-		     """,
-		     Skript.instance(),
+			 The viewers of a boss bar.
+			 Removing players from a boss bar will remove all of the effects of the flags of the boss bar.
+			 """,
+			 Skript.instance(),
 				new BossBarViewersHandler());
 		Variables.yggdrasil.registerSingleClass(BarColor.class, "bossbar.color");
 		Variables.yggdrasil.registerSingleClass(BarFlag.class, "bossbar.flag");
@@ -149,20 +149,20 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 			final String stringKey = fields.getObject("key", String.class);
 			NamespacedKey key = null;
 			if (stringKey != null)
-			    key = NamespacedKey.fromString(stringKey);
+				key = NamespacedKey.fromString(stringKey);
 			if (color == null)
 				throw new StreamCorruptedException();
 			if (style == null)
 				throw new StreamCorruptedException();
 			BossBar bar;
-            if (key != null) {
+			if (key != null) {
 				bar = Bukkit.createBossBar(key, title, color, style, flags);
 			} else {
 				bar = Bukkit.createBossBar(title, color, style, flags);
 			}
 			// for some reason you can't make a boss bar with progress?
 			if (progress != null)
-			    bar.setProgress(progress);
+				bar.setProgress(progress);
 			return bar;
 		}
 

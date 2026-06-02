@@ -41,11 +41,11 @@ import static org.skriptlang.skript.bukkit.bossbar.BossBarUtils.nearest;
 @Example("""
 	on join:
 		set {_bar} to a boss bar:
-		    set color of event-bossbar to white
-		    set title of event-bossbar to "<green>Welcome %player%!"
-		    set progress of event-bossbar to 50%
-		    set style of event-bossbar to 6 notches
-		    make event-bossbar darken the sky
+			set color of event-bossbar to white
+			set title of event-bossbar to "<green>Welcome %player%!"
+			set progress of event-bossbar to 50%
+			set style of event-bossbar to 6 notches
+			make event-bossbar darken the sky
 		add player to viewers of {_bar}
 		wait 5 seconds
 		remove player from viewers of {_bar}

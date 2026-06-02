@@ -24,7 +24,7 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 	""")
 @Example("""
 	if {_mybar} does darken the sky:
-	    broadcast "Its getting dark around here.."
+		broadcast "Its getting dark around here.."
 	""")
 @Since("INSERT VERSION")
 public class CondHasBossBarFlag extends Condition {

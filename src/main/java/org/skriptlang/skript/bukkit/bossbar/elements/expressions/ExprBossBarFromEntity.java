@@ -15,8 +15,8 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 
 @Name("Boss Bar From Entities")
 @Description("""
-    Returns a boss bar from one or more entities.
-    If the entity is not a wither or ender dragon nothing will be returned.
+	Returns a boss bar from one or more entities.
+	If the entity is not a wither or ender dragon nothing will be returned.
 """)
 @Example("""
 	set title of (boss bar of nearest wither) to "hm"
