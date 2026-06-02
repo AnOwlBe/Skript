@@ -15,7 +15,6 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 	set title of event-bossbar to "<red>hello!"
 	""")
 @Since("INSERT VERSION")
-
 public class PropExprTitle extends PropertyBaseExpression<ExpressionPropertyHandler<?,?>> {
 
 	public static void register(SyntaxRegistry registry) {
