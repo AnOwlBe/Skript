@@ -2838,7 +2838,6 @@ types:
 	biome: biome¦s @a
 	bossbar: bossbar¦s @a
 	bossbarstyle: boss bar style¦s @a
-	bossbarflag: boss bar flag¦s @a
 	potioneffecttype: potion effect type¦s @a
 	potioneffecttypecategory: potion effect type categor¦y¦ies @a
 	potioneffect: potion effect¦s @a
