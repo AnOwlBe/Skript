@@ -1,0 +1,54 @@
+package org.skriptlang.skript.bukkit.bossbar;
+
+import ch.njol.skript.classes.EnumClassInfo;
+import ch.njol.skript.registrations.Classes;
+import org.bukkit.boss.BarStyle;
+import org.skriptlang.skript.addon.AddonModule;
+import org.skriptlang.skript.addon.HierarchicalAddonModule;
+import org.skriptlang.skript.addon.SkriptAddon;
+import org.skriptlang.skript.bukkit.bossbar.elements.conditions.CondHasBossBarFlag;
+import org.skriptlang.skript.bukkit.bossbar.elements.effects.EffBossBarFlags;
+import org.skriptlang.skript.bukkit.bossbar.elements.expressions.ExprAllBossBars;
+import org.skriptlang.skript.bukkit.bossbar.elements.expressions.ExprBossBarFromEntity;
+import org.skriptlang.skript.bukkit.bossbar.elements.expressions.ExprBossBarFromKey;
+import org.skriptlang.skript.bukkit.bossbar.elements.expressions.ExprSecCreateBossBar;
+import org.skriptlang.skript.bukkit.lang.eventvalue.EventValueRegistry;
+
+public class BossBarModule extends HierarchicalAddonModule {
+
+	public BossBarModule(AddonModule parentModule) {
+		super(parentModule);
+	}
+
+	@Override
+	protected void initSelf(SkriptAddon addon) {
+		Classes.registerClass(new BossBarClassInfo());
+		Classes.registerClass(new EnumClassInfo<>(BarStyle.class, "bossbarstyle", "boss bar styles")
+			.user("boss bar ?styles?")
+			.name("Boss Bar Style")
+			.description("""
+				The style of a boss bar.
+				""")
+			.examples("")
+			.since("INSERT VERSION"));
+	}
+
+	@Override
+	protected void loadSelf(SkriptAddon addon) {
+		EventValueRegistry eventValueRegistry = addon.registry(EventValueRegistry.class);
+		register(addon,
+			a -> ExprSecCreateBossBar.register(a, eventValueRegistry),
+				ExprAllBossBars::register,
+				ExprBossBarFromKey::register,
+				ExprBossBarFromEntity::register,
+		        EffBossBarFlags::register,
+			    CondHasBossBarFlag::register
+		         );
+	}
+
+	@Override
+	public String name() {
+		return "boss bar";
+	}
+
+}

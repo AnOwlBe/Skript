@@ -26,7 +26,11 @@ public class PropertiesModule extends HierarchicalAddonModule {
 				PropExprNumber::register,
 				PropExprSize::register,
 				PropExprValueOf::register,
-				PropExprWXYZ::register
+				PropExprWXYZ::register,
+				PropExprProgress::register,
+				PropExprStyle::register,
+				PropExprTitle::register,
+				PropExprViewers::register
 			);
 		}
 	}

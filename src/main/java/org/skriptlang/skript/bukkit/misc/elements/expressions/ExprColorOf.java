@@ -1,4 +1,4 @@
-package ch.njol.skript.expressions;
+package org.skriptlang.skript.bukkit.misc.elements.expressions;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.aliases.ItemType;
@@ -20,6 +20,8 @@ import org.bukkit.FireworkEffect;
 import org.bukkit.block.Banner;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Display;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
@@ -30,7 +32,9 @@ import org.bukkit.material.Colorable;
 import org.bukkit.material.MaterialData;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.Nullable;
+import org.skriptlang.skript.bukkit.bossbar.BossBarUtils;
 import org.skriptlang.skript.bukkit.entity.displays.DisplayData;
+import org.skriptlang.skript.registration.SyntaxRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,14 +53,14 @@ import java.util.function.Consumer;
 			message "This wool block is <%color of block%>%color of block%<reset>!"
 			set the color of the block to black
 	""")
-@Since("1.2, 2.10 (displays)")
+@Since("1.2, 2.10 (displays), INSERT VERSION (bossbars)")
 public class ExprColorOf extends PropertyExpression<Object, Color> {
 
-	static {
-		String types = "blocks/itemtypes/entities/fireworkeffects/potioneffecttypes";
-		if (Skript.isRunningMinecraft(1, 19, 4))
-			types += "/displays";
-		register(ExprColorOf.class, Color.class, "colo[u]r[s]", types);
+	public static void register(SyntaxRegistry syntaxRegistry) {
+		syntaxRegistry.register(SyntaxRegistry.EXPRESSION,
+			infoBuilder(ExprColorOf.class, Color.class, "colo[u]r[s]", "blocks/itemtypes/entities/fireworkeffects/potioneffecttypes/displays/bossbars", true)
+				.supplier(ExprColorOf::new)
+				.build());
 	}
 
 	@Override
@@ -67,6 +71,16 @@ public class ExprColorOf extends PropertyExpression<Object, Color> {
 
 	@Override
 	protected Color[] get(Event event, Object[] source) {
+
+		if (source instanceof BossBar[]) {
+			List<Color> colors = new ArrayList<>();
+			for (BossBar bar : (BossBar[]) source) {
+				Color color = BossBarUtils.rgbFromBarColor(bar.getColor());
+				if (color != null) colors.add(color);
+			}
+			return colors.toArray(new Color[0]);
+		}
+
 		if (source instanceof FireworkEffect[]) {
 			List<Color> colors = new ArrayList<>();
 			for (FireworkEffect effect : (FireworkEffect[]) source) {
@@ -94,8 +108,10 @@ public class ExprColorOf extends PropertyExpression<Object, Color> {
 	@Override
 	public Class<?> @Nullable [] acceptChange(ChangeMode mode) {
 		Expression<?> expression = getExpr();
+		if ((mode == ChangeMode.SET || mode == ChangeMode.RESET) && expression.canReturn(BossBar.class))
+			return CollectionUtils.array(Color[].class);
 
-		if (expression.canReturn(FireworkEffect.class))
+		if (mode == ChangeMode.SET && expression.canReturn(FireworkEffect.class))
 			return CollectionUtils.array(Color[].class);
 
 		if ((mode == ChangeMode.RESET || mode == ChangeMode.SET) && expression.canReturn(Display.class))
@@ -116,6 +132,18 @@ public class ExprColorOf extends PropertyExpression<Object, Color> {
 		Consumer<TextDisplay> displayChanger = getDisplayChanger(mode, colors);
 		Consumer<FireworkEffect> fireworkChanger = getFireworkChanger(mode, colors);
 		for (Object object : getExpr().getArray(event)) {
+			if (object instanceof BossBar bar) {
+				if (mode == ChangeMode.SET) {
+					BarColor barColor = BossBarUtils.nearest(colors[0]);
+					if (barColor == null) {
+						error("Could not round to a colour that is similar to rgb(" + colors[0].getRed() + "," + colors[0].getGreen() + "," + colors[0].getBlue() + ")");
+					} else {
+						bar.setColor(barColor);
+					}
+				} else if (mode == ChangeMode.RESET) {
+					bar.setColor(BarColor.WHITE);
+				}
+			}
 			if (object instanceof TextDisplay display) {
 				displayChanger.accept(display);
 			} else if (object instanceof FireworkEffect effect) {
@@ -208,7 +236,7 @@ public class ExprColorOf extends PropertyExpression<Object, Color> {
 	private @Nullable Colorable getColorable(Object colorable) {
 		if (colorable instanceof Item || colorable instanceof ItemType) {
 			ItemStack item = colorable instanceof Item ?
-					((Item) colorable).getItemStack() : ((ItemType) colorable).getRandom();
+				((Item) colorable).getItemStack() : ((ItemType) colorable).getRandom();
 
 			if (item == null)
 				return null;
@@ -244,3 +272,4 @@ public class ExprColorOf extends PropertyExpression<Object, Color> {
 	}
 
 }
+
