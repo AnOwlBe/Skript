@@ -15,7 +15,6 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 	add {_player} to viewers of event-bossbar
 	""")
 @Since("INSERT VERSION")
-
 public class PropExprViewers extends PropertyBaseExpression<ExpressionPropertyHandler<?,?>> {
 
 	public static void register(SyntaxRegistry registry) {
