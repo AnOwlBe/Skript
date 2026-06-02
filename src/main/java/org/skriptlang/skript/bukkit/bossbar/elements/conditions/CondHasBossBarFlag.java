@@ -27,7 +27,6 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 	    broadcast "Its getting dark around here.."
 	""")
 @Since("INSERT VERSION")
-
 public class CondHasBossBarFlag extends Condition {
 
 	private static final Patterns<BarFlag> PATTERNS = new Patterns<>(new Object[][]{
