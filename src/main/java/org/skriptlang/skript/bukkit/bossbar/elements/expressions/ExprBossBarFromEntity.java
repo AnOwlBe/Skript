@@ -43,10 +43,10 @@ public class ExprBossBarFromEntity extends SimplePropertyExpression<Entity, Boss
 	@Override
 	@Nullable
 	public BossBar convert(Entity entity) {
-		if (entity instanceof Wither)
-			return ((Wither) entity).getBossBar();
-		if (entity instanceof EnderDragon)
-			return ((EnderDragon) entity).getBossBar();
+		if (entity instanceof Wither wither)
+			return wither.getBossBar();
+		if (entity instanceof EnderDragon dragon)
+			return dragon.getBossBar();
 		return null;
 	}
 
