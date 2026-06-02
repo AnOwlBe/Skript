@@ -272,4 +272,3 @@ public class ExprColorOf extends PropertyExpression<Object, Color> {
 	}
 
 }
-
