@@ -34,7 +34,7 @@ public class ExprBossBarFromKey extends SimpleExpression<KeyedBossBar> {
 		registry.register(
 			SyntaxRegistry.EXPRESSION,
 			SyntaxInfo.Expression.builder(ExprBossBarFromKey.class, KeyedBossBar.class)
-				.addPatterns("boss[ ]bar[s] (from|with) (id|key)[s] %strings%")
+				.addPatterns("[the] boss[ ]bar[s] (from|with) (id|key)[s] %strings%")
 				.supplier(ExprBossBarFromKey::new)
 				.build()
 		);
