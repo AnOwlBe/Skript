@@ -24,7 +24,6 @@ import java.util.List;
 	broadcast all of the boss bars
 	""")
 @Since("INSERT VERSION")
-
 public class ExprAllBossBars extends SimpleExpression<KeyedBossBar> {
 
 	public static void register(SyntaxRegistry registry) {
