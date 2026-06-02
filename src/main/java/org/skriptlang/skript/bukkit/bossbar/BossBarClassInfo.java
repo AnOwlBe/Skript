@@ -233,18 +233,10 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 		public void change(BossBar bar, Object @Nullable [] delta, Changer.ChangeMode mode) {
 			Double progress = delta != null ? (Double) delta[0] : null;
 			switch (mode) {
-				case SET:
-					bar.setProgress(Math.clamp(progress, 0.0, 1.0));
-					break;
-				case RESET:
-					bar.setProgress(0.0);
-					break;
-				case ADD:
-					bar.setProgress(Math.clamp(bar.getProgress() + progress, 0.0, 1.0));
-					break;
-				case REMOVE:
-					bar.setProgress(Math.clamp(bar.getProgress() - progress, 0.0, 1.0));
-					break;
+				case SET -> bar.setProgress(Math.clamp(progress, 0.0, 1.0));
+				case RESET -> bar.setProgress(0.0);
+				case ADD -> bar.setProgress(Math.clamp(bar.getProgress() + progress, 0.0, 1.0));
+				case REMOVE -> bar.setProgress(Math.clamp(bar.getProgress() - progress, 0.0, 1.0));
 			}
 		}
 
@@ -310,22 +302,21 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 			Player[] players = delta != null ? (Player[]) delta : null;
 			if (players == null && mode != Changer.ChangeMode.RESET) return;
 			switch (mode) {
-				case SET:
+				case SET -> {
 					bar.removeAll();
 					for (Player player : players)
 						bar.addPlayer(player);
-					break;
-				case ADD:
+				}
+				case ADD -> {
 					for (Player player : players)
 						if (!bar.getPlayers().contains(player))
 							bar.addPlayer(player);
-					break;
-				case REMOVE:
+				}
+				case REMOVE -> {
 					for (Player player : players)
 						bar.removePlayer(player);
-					break;
-				case RESET:
-					bar.removeAll();
+				}
+				case RESET -> bar.removeAll();
 			}
 		}
 

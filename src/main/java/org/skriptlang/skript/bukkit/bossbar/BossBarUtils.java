@@ -11,8 +11,8 @@ import java.util.Comparator;
 
 public class BossBarUtils {
 
-	/*
-	 All the skript colors for each bar color
+	/**
+	 * All the skript colors for each bar color
 	 */
 	enum BarColorRGB {
 
@@ -33,8 +33,8 @@ public class BossBarUtils {
 		}
 	}
 
-	/*
-	 Gets an RGB from a bar color cause well bukkit doesn't have it (& reasonably so)
+	/**
+	 * Gets an RGB from a bar color cause well bukkit doesn't have it (& reasonably so)
 	 */
 	public static @Nullable Color rgbFromBarColor(BarColor color) {
 		return Arrays.stream(BarColorRGB.values())
@@ -44,8 +44,8 @@ public class BossBarUtils {
 			.orElse(null);
 	}
 
-	/*
-	 Gets the nearest bossbar color from a skript color
+	/**
+	 * Gets the nearest bossbar color from a skript color
 	 */
 	public static @Nullable BarColor nearest(Color color) {
 		LabColor lab = LabColor.fromRGB(color.getRed(), color.getGreen(), color.getBlue());
