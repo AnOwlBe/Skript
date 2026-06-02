@@ -19,7 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Name("All Boss Bars")
-@Description("Returns all persistent boss bars.")
+@Description("""
+    Returns all persistent boss bars.
+    Only returns keyed boss bars not normal ones.
+""")
 @Example("""
 	broadcast all of the boss bars
 	""")

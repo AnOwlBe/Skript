@@ -28,8 +28,13 @@ public class ExprBossBarFromEntity extends SimplePropertyExpression<Entity, Boss
 	public static void register(SyntaxRegistry registry) {
 		registry.register(
 			SyntaxRegistry.EXPRESSION,
-			SyntaxInfo.Expression.builder(ExprBossBarFromEntity.class, BossBar.class)
-				.addPatterns("boss[ ]bar of %entities%")
+			infoBuilder(
+				ExprBossBarFromEntity.class,
+				BossBar.class,
+				"boss[ ]bar",
+				"entities",
+				true
+			)
 				.supplier(ExprBossBarFromEntity::new)
 				.build()
 		);
