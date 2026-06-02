@@ -105,10 +105,10 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 		public void change(BossBar[] bars, Object[] delta, ChangeMode mode) {
 			for (BossBar bar : bars) {
 				if (bar instanceof KeyedBossBar keyed) {
-					for (Player player : keyed.getPlayers())
-						keyed.removePlayer(player); // this is done because for some reason deleting a boss bar still makes it show to the viewers while not existing (basically a normal boss bar)
 					Bukkit.removeBossBar(keyed.getKey());
 				}
+				bar.removeAll();
+
 			}
 		}
 		//</editor-fold>

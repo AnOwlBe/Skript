@@ -5,13 +5,12 @@ import org.joml.Matrix3dc;
 import org.joml.Vector3d;
 import org.joml.Vector3dc;
 
-/*
-
-Credit to https://github.com/UnderscoreTud/mc2d/blob/master/common%2Fsrc%2Fmain%2Fjava%2Fme%2Ftud%2Fmc2d%2Futil%2Fcolor%2FLabColor.java
-for this
-
-This is primarily used for BossBarUtils to get the nearest barcolor from an RGB
-Though possibly can be used for other things in the future
+/**
+ *
+ * Credit to <a href="https://github.com/UnderscoreTud/mc2d/blob/master/common%2Fsrc%2Fmain%2Fjava%2Fme%2Ftud%2Fmc2d%2Futil%2Fcolor%2FLabColor.java">LabColor</a>
+ * for this.
+ * This is primarily used for BossBarUtils to get the nearest bar color from an RGB
+ * Though possibly can be used for other things in the future
 
  */
 public record LabColor(
@@ -20,8 +19,10 @@ public record LabColor(
 	double b
 ) {
 
-	// http://brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
-	// sRGB Working Space, D65 2° Reference White Point
+	/**
+	 * <a href="http://brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html">Eqn_RGB_XYZ_Matrix</a>
+	 * sRGB Working Space, D65 2° Reference White Point
+	 */
 	private static final Matrix3dc XYZ_TRANSFORMATION = new Matrix3d(
 		0.4124564, 0.3575761, 0.1804375,
 		0.2126729, 0.7151522, 0.0721750,
@@ -34,10 +35,14 @@ public record LabColor(
 		0.0556434, -0.2040259,  1.0572252
 	).transpose();
 
-	// https://en.wikipedia.org/wiki/Standard_illuminant#D65_values
+	/**
+	 * <a href="https://en.wikipedia.org/wiki/Standard_illuminant#D65_values">D65_values</a>
+	 */
 	private static final Vector3dc D65 = new Vector3d(0.95047, 1, 1.08883);
 
-	// http://brucelindbloom.com/index.html?LContinuity.html
+	/**
+	 * <a href="http://brucelindbloom.com/index.html?LContinuity.html">LContinuity</a>
+	 */
 	private static final double EPSILON = 0.008856;
 	private static final double K_0 = 903.3;
 	private static final double K_1 = 7.787;

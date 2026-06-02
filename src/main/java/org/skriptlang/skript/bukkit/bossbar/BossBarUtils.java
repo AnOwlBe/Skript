@@ -35,6 +35,8 @@ public class BossBarUtils {
 
 	/**
 	 * Gets an RGB from a bar color cause well bukkit doesn't have it (& reasonably so)
+	 * @param color the bar color to get the RGB color for
+	 * @return the corresponding RGB color, or null
 	 */
 	public static @Nullable Color rgbFromBarColor(BarColor color) {
 		return Arrays.stream(BarColorRGB.values())
@@ -46,6 +48,8 @@ public class BossBarUtils {
 
 	/**
 	 * Gets the nearest bossbar color from a skript color
+	 * @param color the RGB color to find the nearest bar color for
+	 * @return the nearest bar color, or null if no close enough match is found
 	 */
 	public static @Nullable BarColor nearest(Color color) {
 		LabColor lab = LabColor.fromRGB(color.getRed(), color.getGreen(), color.getBlue());

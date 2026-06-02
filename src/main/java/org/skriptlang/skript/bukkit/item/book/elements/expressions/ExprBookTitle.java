@@ -16,6 +16,7 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.meta.BookMeta;
 import org.jetbrains.annotations.Nullable;
+import org.skriptlang.skript.lang.script.ScriptWarning;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
 @Name("Book Title")
@@ -37,7 +38,7 @@ public class ExprBookTitle extends SimplePropertyExpression<ItemType, Component>
 
 	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
-		Skript.warning("This element is deprecated & scheduled for removal in a future release. Consider using `set title of..` instead.");
+		ScriptWarning.printDeprecationWarning("This element is deprecated & scheduled for removal in a future release. Consider using `set title of..` instead.");
 		setExpr((Expression<ItemType>) exprs[0]);
 		return true;
 	}
