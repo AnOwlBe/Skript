@@ -22,7 +22,6 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 	set title of (boss bar of nearest wither) to "hm"
 	""")
 @Since("INSERT VERSION")
-
 public class ExprBossBarFromEntity extends SimplePropertyExpression<Entity, BossBar> {
 
 	public static void register(SyntaxRegistry registry) {
