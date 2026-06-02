@@ -71,15 +71,15 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 
 		@Override
 		public String toString(BossBar bar, int flags) {
-			boolean EMPTY_TITLE = bar.getTitle().isEmpty();
+			boolean emptyTitle = bar.getTitle().isEmpty();
 			if (bar instanceof KeyedBossBar keyed) {
-				if (EMPTY_TITLE) {
+				if (emptyTitle) {
 					return "boss bar with id '" + keyed.getKey() + "'";
 				} else {
 					return "boss bar with id '" + keyed.getKey() + "' named '" + bar.getTitle() + "'";
 				}
 			} else {
-				if (EMPTY_TITLE) {
+				if (emptyTitle) {
 					return "boss bar";
 				} else {
 					return "boss bar titled '" + bar.getTitle() + "'";
