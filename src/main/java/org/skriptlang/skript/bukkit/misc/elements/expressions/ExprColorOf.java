@@ -111,7 +111,7 @@ public class ExprColorOf extends PropertyExpression<Object, Color> {
 		if ((mode == ChangeMode.SET || mode == ChangeMode.RESET) && expression.canReturn(BossBar.class))
 			return CollectionUtils.array(Color[].class);
 
-		if (mode == ChangeMode.SET && expression.canReturn(FireworkEffect.class))
+		if (expression.canReturn(FireworkEffect.class))
 			return CollectionUtils.array(Color[].class);
 
 		if ((mode == ChangeMode.RESET || mode == ChangeMode.SET) && expression.canReturn(Display.class))
