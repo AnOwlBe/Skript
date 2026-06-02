@@ -306,9 +306,10 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 		}
 
 		@Override
-		public void change(BossBar bar, Object @Nullable [] delta, Changer.ChangeMode mode) {
+		public void change(BossBar bar, Object @Nullable [] delta, ChangeMode mode) {
 			Player[] players = delta != null ? (Player[]) delta : null;
-			if (players == null && mode != Changer.ChangeMode.RESET) return;
+			if (players == null && mode != Changer.ChangeMode.RESET)
+				return;
 			switch (mode) {
 				case SET:
 					bar.removeAll();
@@ -337,5 +338,4 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 	}
 
 }
-
 

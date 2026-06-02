@@ -15,7 +15,6 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 	set progress of event-bossbar to 75%
 	""")
 @Since("INSERT VERSION")
-
 public class PropExprProgress extends PropertyBaseExpression<ExpressionPropertyHandler<?,?>> {
 
 	public static void register(SyntaxRegistry registry) {
