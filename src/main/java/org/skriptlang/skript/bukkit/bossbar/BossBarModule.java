@@ -24,7 +24,7 @@ public class BossBarModule extends HierarchicalAddonModule {
 	protected void initSelf(SkriptAddon addon) {
 		Classes.registerClass(new BossBarClassInfo());
 		Classes.registerClass(new EnumClassInfo<>(BarStyle.class, "bossbarstyle", "boss bar styles")
-			.user("boss bar ?styles?")
+			.user("boss ?bar ?styles?")
 			.name("Boss Bar Style")
 			.description("""
 				The style of a boss bar.
@@ -43,7 +43,7 @@ public class BossBarModule extends HierarchicalAddonModule {
 				ExprBossBarFromEntity::register,
 				EffBossBarFlags::register,
 				CondHasBossBarFlag::register
-				 );
+		);
 	}
 
 	@Override
