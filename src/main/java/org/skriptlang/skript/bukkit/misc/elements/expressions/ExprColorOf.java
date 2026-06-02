@@ -143,8 +143,7 @@ public class ExprColorOf extends PropertyExpression<Object, Color> {
 				} else if (mode == ChangeMode.RESET) {
 					bar.setColor(BarColor.WHITE);
 				}
-			}
-			if (object instanceof TextDisplay display) {
+			} else if (object instanceof TextDisplay display) {
 				displayChanger.accept(display);
 			} else if (object instanceof FireworkEffect effect) {
 				fireworkChanger.accept(effect);
