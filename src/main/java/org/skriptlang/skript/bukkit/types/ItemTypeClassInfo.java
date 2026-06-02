@@ -113,7 +113,7 @@ public class ItemTypeClassInfo extends ClassInfo<ItemType> {
 	private static class ItemTypeTitleHandler implements ExpressionPropertyHandler<ItemType, Component> {
 		//<editor-fold desc="item type title handler" defaultstate="collapsed">
 		@Override
-		public Component convert(ItemType item) {
+		public @Nullable Component convert(ItemType item) {
 			if (item.getItemMeta() instanceof BookMeta bookMeta && bookMeta.hasTitle()) {
 				return bookMeta.title();
 			}
@@ -129,20 +129,20 @@ public class ItemTypeClassInfo extends ClassInfo<ItemType> {
 		}
 
 		@Override
-		public void change(ItemType item, @Nullable Object[] delta, ChangeMode mode) {
+		public void change(ItemType item, Object @Nullable [] delta, ChangeMode mode) {
 			Component title = delta == null ? null : (Component) delta[0];
 			if (item.getItemMeta() instanceof BookMeta bookMeta) {
 				bookMeta.title(title);
 				item.setItemMeta(bookMeta);
-				}
 			}
+		}
 
 		@Override
 		public @NotNull Class<Component> returnType() {
 			return Component.class;
 		}
 		//</editor-fold>
-		}
+	}
 
 	private static class ItemTypeNameHandler implements ExpressionPropertyHandler<ItemType, Component> {
 		//<editor-fold desc="item type name handler" defaultstate="collapsed">

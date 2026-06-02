@@ -37,7 +37,7 @@ import static org.skriptlang.skript.bukkit.bossbar.BossBarUtils.nearest;
 @Description("""
 	Creates a new, unused boss bar. Boss bars can have viewers removed or added to them.
 	Making the boss bar `keyed` will add it to the persistent storage of the server and will be editable by commands and restored after restart.
-""")
+	""")
 @Example("""
 	on join:
 		set {_bar} to a boss bar:
@@ -51,7 +51,6 @@ import static org.skriptlang.skript.bukkit.bossbar.BossBarUtils.nearest;
 		remove player from viewers of {_bar}
 	""")
 @Since("INSERT VERSION")
-
 public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 
 	public static void register(SyntaxRegistry syntaxRegistry, EventValueRegistry eventValueRegistry) {
@@ -97,13 +96,15 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 
 		if (matchedPattern == 1) {
 			NamespacedKey key = NamespacedUtils.checkValidationAndSend(keyExpr.getSingle(event), this);
-			if (key == null) return new BossBar[0];
+			if (key == null)
+				return new BossBar[0];
 			bar = Bukkit.createBossBar(key, null, BarColor.WHITE, BarStyle.SOLID);
 		} else if (matchedPattern == 0) {
 			bar = Bukkit.createBossBar(null, BarColor.WHITE, BarStyle.SOLID);
 		}
 
-		if (bar == null) return new BossBar[0];
+		if (bar == null)
+			return new BossBar[0];
 		if (color != null) {
 			BarColor nearest = nearest(color);
 			if (nearest != null) {

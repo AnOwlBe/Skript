@@ -28,7 +28,6 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 	make {_mybar} no longer create fog
 	""")
 @Since("INSERT VERSION")
-
 public class EffBossBarFlags extends Effect {
 
 	private static final Patterns<BarFlag> PATTERNS = new Patterns<>(new Object[][]{
