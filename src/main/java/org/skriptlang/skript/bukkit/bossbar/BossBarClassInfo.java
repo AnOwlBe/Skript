@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import ch.njol.skript.classes.Changer.ChangeMode;
+
 public class BossBarClassInfo extends ClassInfo<BossBar> {
 
 	public BossBarClassInfo() {
@@ -69,7 +71,7 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 
 		@Override
 		public String toString(BossBar bar, int flags) {
-			boolean emptyTitle = bar.getTitle().isEmpty();
+			boolean EMPTY_TITLE = bar.getTitle().isEmpty();
 			if (bar instanceof KeyedBossBar keyed) {
 				if (EMPTY_TITLE) {
 					return "boss bar with id '" + keyed.getKey() + "'";
@@ -196,7 +198,7 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 		@Override
 		public void change(BossBar bar, Object @Nullable [] delta, ChangeMode mode) {
 			String title = delta == null ? null : 
-				LegacyComponentSerializer.legacySection().seriaize((Component) delta[0]);
+				LegacyComponentSerializer.legacySection().serialize((Component) delta[0]);
 			bar.setTitle(title);
 		}
 
