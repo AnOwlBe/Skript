@@ -43,7 +43,6 @@ public class ExprAllBossBars extends SimpleExpression<KeyedBossBar> {
 	}
 
 	@Override
-	@Nullable
 	protected KeyedBossBar @Nullable [] get(Event event) {
 		List<KeyedBossBar> list = new ArrayList<>();
 		Bukkit.getBossBars().forEachRemaining(list::add);
