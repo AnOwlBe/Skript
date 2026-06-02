@@ -50,7 +50,7 @@ public class EffWorldBorderExpand extends Effect {
 	private Expression<Number> numberExpr;
 	private @Nullable Expression<Timespan> timespan;
 	private static final double MAX_WORLDBORDER_SIZE = 59999968;
-	private final static boolean useDeprecated = !Skript.methodExists(org.bukkit.WorldBorder.class, "changeSize");
+	private static final boolean USE_DEPRECATED = !Skript.methodExists(org.bukkit.WorldBorder.class, "changeSize");
 
 	@Override
 	@SuppressWarnings("unchecked")

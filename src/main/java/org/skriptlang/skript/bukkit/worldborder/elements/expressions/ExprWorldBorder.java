@@ -31,7 +31,7 @@ public class ExprWorldBorder extends SimplePropertyExpression<Object, WorldBorde
 				.build());
 	}
 
-	private final static boolean useDeprecated = !Skript.methodExists(WorldBorder.class, "getWarningTimeTicks");
+	private static final boolean USE_DEPRECATED = !Skript.methodExists(WorldBorder.class, "getWarningTimeTicks");
 
 	@Override
 	public @Nullable WorldBorder convert(Object object) {

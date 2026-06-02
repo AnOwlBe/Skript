@@ -21,7 +21,7 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 @Since("2.11")
 public class ExprWorldBorderDamageAmount extends SimplePropertyExpression<WorldBorder, Double>  {
 
-     public static void register(SyntaxRegistry syntaxRegistry) {
+	public static void register(SyntaxRegistry syntaxRegistry) {
 		syntaxRegistry.register(SyntaxRegistry.EXPRESSION,
 			infoBuilder(ExprWorldBorderDamageAmount.class, Double.class, "world[ ]border damage amount", "worldborders", true)
 				.supplier(ExprWorldBorderDamageAmount::new)

@@ -29,7 +29,7 @@ public class ExprWorldBorderWarningTime extends SimplePropertyExpression<WorldBo
 				.build());
 	}
 
-	private final static boolean useDeprecated = !Skript.methodExists(org.bukkit.WorldBorder.class,"getWarningTimeTicks");
+	private static final boolean USE_DEPRECATED = !Skript.methodExists(org.bukkit.WorldBorder.class,"getWarningTimeTicks");
 
 	@Override
 	public @Nullable Timespan convert(WorldBorder worldBorder) {

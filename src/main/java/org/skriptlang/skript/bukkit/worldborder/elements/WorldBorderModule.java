@@ -72,8 +72,8 @@ public class WorldBorderModule extends HierarchicalAddonModule {
 				)
 				.addExample("""
 					on worldborder bounds change:
-					    "broadcast "The diameter of %event-worldborder% is changing from %past event-number% to %event-number% over the next %event-timespan%"
-				""")
+					    broadcast "The diameter of %event-worldborder% is changing from %past event-number% to %event-number% over the next %event-timespan%
+					""")
 				.addSince("2.11")
 				.build()
 		);
@@ -100,12 +100,11 @@ public class WorldBorderModule extends HierarchicalAddonModule {
 				.addDescription("""	
 					Called when a moving world border has finished its move.
 					This event does not get called for virtual borders.
-				"""
-				)
+					""")
 				.addExample("""
 					on worldborder bounds finish change:
 					    broadcast "Over the past %event-timespan%, the diameter of %event-worldborder% went from %past event-number% to %event-number%"
-				""")
+					""")
 				.addSince("2.11")
 				.build()
 		);
@@ -132,12 +131,11 @@ public class WorldBorderModule extends HierarchicalAddonModule {
 				.addDescription("""	
 					Called when a world border's center has changed.
 					This event does not get called for virtual borders.
-				"""
-				)
+					""")
 				.addExample("""
 					on worldborder center change:
-					    "broadcast "The center of %event-worldborder% has moved from %past event-location% to %event-location%"
-				""")
+					    broadcast "The center of %event-worldborder% has moved from %past event-location% to %event-location%
+					""")
 				.addSince("2.11")
 				.build()
 		);
