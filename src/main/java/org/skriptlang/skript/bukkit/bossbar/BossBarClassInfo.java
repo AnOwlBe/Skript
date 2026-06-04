@@ -110,7 +110,6 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 					Bukkit.removeBossBar(keyed.getKey());
 				}
 				bar.removeAll();
-
 			}
 		}
 		//</editor-fold>
