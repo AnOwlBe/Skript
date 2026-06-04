@@ -20,6 +20,8 @@ test "create bossbar":
 	assert {_bar3} is set with "Failed to create keyed bossbar"
 	assert all keyed bossbars contains {_bar3} with "Failed to get all bossbars | bar: %{_bar3}% all keyed bars: %all keyed bossbars%"
 	assert bossbar from key "testbar" is set with "Failed to get bossbar from key"
+	assert bossbar key of {_bar3} is set with "Failed to get key of bossbar"
+	assert {_bar3} is a keyed boss bar with "Failed to check if bar is a keyed bossbar"
 	assert title of {_bar3} is "testing3" with "Failed to set title of keyed bossbar"
 	assert progress of {_bar3} is 75% with "Failed to set progress of keyed bossbar"
 	assert style of {_bar3} is 20 notches with "Failed to set style of keyed bossbar"

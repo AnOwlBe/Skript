@@ -7,11 +7,9 @@ import org.skriptlang.skript.addon.AddonModule;
 import org.skriptlang.skript.addon.HierarchicalAddonModule;
 import org.skriptlang.skript.addon.SkriptAddon;
 import org.skriptlang.skript.bukkit.bossbar.elements.conditions.CondHasBossBarFlag;
+import org.skriptlang.skript.bukkit.bossbar.elements.conditions.CondIsKeyedBossBar;
 import org.skriptlang.skript.bukkit.bossbar.elements.effects.EffBossBarFlags;
-import org.skriptlang.skript.bukkit.bossbar.elements.expressions.ExprAllBossBars;
-import org.skriptlang.skript.bukkit.bossbar.elements.expressions.ExprBossBarFromEntity;
-import org.skriptlang.skript.bukkit.bossbar.elements.expressions.ExprBossBarFromKey;
-import org.skriptlang.skript.bukkit.bossbar.elements.expressions.ExprSecCreateBossBar;
+import org.skriptlang.skript.bukkit.bossbar.elements.expressions.*;
 import org.skriptlang.skript.bukkit.lang.eventvalue.EventValueRegistry;
 
 public class BossBarModule extends HierarchicalAddonModule {
@@ -41,8 +39,10 @@ public class BossBarModule extends HierarchicalAddonModule {
 				ExprAllBossBars::register,
 				ExprBossBarFromKey::register,
 				ExprBossBarFromEntity::register,
+				ExprKeyOfBossBar::register,
 				EffBossBarFlags::register,
-				CondHasBossBarFlag::register
+				CondHasBossBarFlag::register,
+			    CondIsKeyedBossBar::register
 		);
 	}
 
