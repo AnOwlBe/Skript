@@ -64,6 +64,10 @@ public class InventoryClassInfo extends ClassInfo<Inventory> {
 				"The name of the inventory. Can be set or reset.",
 				Skript.instance(),
 				new InventoryNameHandler())
+			.property(Property.VIEWERS,
+				"The viewers of the inventory.",
+				Skript.instance(),
+				new InventoryViewersHandler())
 			.property(Property.IS_EMPTY,
 				"Whether the inventory contains no items (all slots contain air).",
 				Skript.instance(),
@@ -74,6 +78,7 @@ public class InventoryClassInfo extends ClassInfo<Inventory> {
 					}
 					return true;
 				}));
+
 	}
 
 	private static class InventoryParser extends Parser<Inventory> {
@@ -289,6 +294,22 @@ public class InventoryClassInfo extends ClassInfo<Inventory> {
 		@Override
 		public @NotNull Class<Component> returnType() {
 			return Component.class;
+		}
+		//</editor-fold>
+	}
+
+	private static class InventoryViewersHandler implements ExpressionPropertyHandler<Inventory, Player[]> {
+		//<editor-fold desc="inventory viewers handler" defaultstate="collapsed">
+
+		@Override
+		public @Nullable Player[] convert(Inventory inventory) {
+			List<HumanEntity> viewers = new ArrayList<>(inventory.getViewers());
+			return viewers.stream().filter(viewer -> viewer instanceof Player).toArray(Player[]::new);
+		}
+
+		@Override
+		public @NotNull Class<Player[]> returnType() {
+			return Player[].class;
 		}
 		//</editor-fold>
 	}

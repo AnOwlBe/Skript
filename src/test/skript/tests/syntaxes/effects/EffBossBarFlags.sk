@@ -1,0 +1,14 @@
+test "bossbar flags":
+	set {_bar} to a bossbar:
+		make event-bossbar darken the sky
+		make event-bossbar create fog
+		make event-bossbar play boss music
+	assert {_bar} darkens the sky with "Failed to set bossbar flag 'darken the sky'"
+	assert {_bar} does create fog with "Failed to set bossbar flag 'create fog'"
+	assert {_bar} does play boss music with "Failed to set bossbar flag 'play boss music'"
+	make {_bar} not darken the sky
+	make {_bar} not create fog
+	make {_bar} not play boss music
+	assert {_bar} does not darken the sky with "Failed to remove bossbar flag 'darken the sky'"
+	assert {_bar} does not create fog with "Failed to remove bossbar flag 'create fog'"
+	assert {_bar} does not play boss music with "Failed to remove bossbar flag 'play boss music'"

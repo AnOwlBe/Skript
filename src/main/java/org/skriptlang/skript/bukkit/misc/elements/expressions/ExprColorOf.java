@@ -71,15 +71,6 @@ public class ExprColorOf extends PropertyExpression<Object, Color> {
 
 	@Override
 	protected Color[] get(Event event, Object[] source) {
-		if (source instanceof BossBar[]) {
-			List<Color> colors = new ArrayList<>();
-			for (BossBar bar : (BossBar[]) source) {
-				Color color = BossBarUtils.rgbFromBarColor(bar.getColor());
-				if (color != null)
-					colors.add(color);
-			}
-			return colors.toArray(new Color[0]);
-		}
 
 		if (source instanceof FireworkEffect[]) {
 			List<Color> colors = new ArrayList<>();
@@ -100,6 +91,9 @@ public class ExprColorOf extends PropertyExpression<Object, Color> {
 				if (bukkitColor == null)
 					return null;
 				return ColorRGB.fromBukkitColor(bukkitColor);
+			}
+			if (object instanceof BossBar bar) {
+				return BossBarUtils.rgbFromBarColor(bar.getColor());
 			}
 			return getColor(object);
 		});

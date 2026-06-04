@@ -98,8 +98,9 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 			NamespacedKey key = NamespacedUtils.checkValidationAndSend(keyExpr.getSingle(event), this);
 			if (key == null)
 				return new BossBar[0];
-			bar = Bukkit.createBossBar(key, null, BarColor.WHITE, BarStyle.SOLID);
-		} else if (matchedPattern == 0) {
+			Bukkit.createBossBar(key, null, BarColor.WHITE, BarStyle.SOLID);
+			bar = Bukkit.getBossBar(key);
+		} else {
 			bar = Bukkit.createBossBar(null, BarColor.WHITE, BarStyle.SOLID);
 		}
 

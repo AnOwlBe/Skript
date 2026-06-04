@@ -31,7 +31,7 @@ public class ExprBossBarFromEntity extends SimplePropertyExpression<Entity, Boss
 				BossBar.class,
 				"boss[ ]bar",
 				"entities",
-				true
+				false
 			)
 				.supplier(ExprBossBarFromEntity::new)
 				.build()
