@@ -120,8 +120,12 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 		@Override
 		public Fields serialize(BossBar bar) {
 			Fields fields = new Fields();
-			if (bar instanceof KeyedBossBar keyedBar)
+			if (bar instanceof KeyedBossBar keyedBar) {
 				fields.putObject("key", keyedBar.getKey().toString());
+				List<Player> viewers = new ArrayList<>(bar.getPlayers());
+				Player[] viewersArray = viewers.toArray(Player[]::new);
+				fields.putObject("viewers", viewersArray);
+			}
 			fields.putObject("title", bar.getTitle());
 			fields.putObject("progress", bar.getProgress());
 			fields.putObject("style", bar.getStyle());
@@ -147,6 +151,7 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 			BarStyle style = fields.getObject("style", BarStyle.class);
 			BarColor color = fields.getObject("color", BarColor.class);
 			BarFlag[] flags = fields.getObject("flags", BarFlag[].class);
+			Player[] viewers = fields.getObject("viewers", Player[].class);
 			String stringKey = fields.getObject("key", String.class);
 			NamespacedKey key = null;
 			if (stringKey != null)
@@ -164,6 +169,10 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 			// for some reason you can't make a boss bar with progress?
 			if (progress != null)
 				bar.setProgress(progress);
+			if (viewers != null) {
+				for (Player player : viewers)
+					bar.addPlayer(player);
+			}
 			return bar;
 		}
 
