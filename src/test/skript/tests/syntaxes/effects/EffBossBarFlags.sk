@@ -1,3 +1,5 @@
+
+# Includes tests for CondHasBossBarFlag & EffBossBarFlags
 test "bossbar flags":
 	set {_bar} to a bossbar:
 		make event-bossbar darken the sky

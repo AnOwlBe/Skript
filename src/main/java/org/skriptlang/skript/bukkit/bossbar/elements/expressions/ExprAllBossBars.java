@@ -24,7 +24,7 @@ import java.util.List;
 	Only returns keyed boss bars not normal ones.
 	""")
 @Example("""
-	broadcast all of the boss bars
+	broadcast all of the keyed boss bars
 	""")
 @Since("INSERT VERSION")
 public class ExprAllBossBars extends SimpleExpression<KeyedBossBar> {
@@ -63,7 +63,7 @@ public class ExprAllBossBars extends SimpleExpression<KeyedBossBar> {
 
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
-		return "all boss bars";
+		return "all keyed boss bars";
 	}
 
 }

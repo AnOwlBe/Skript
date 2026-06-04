@@ -24,7 +24,7 @@ import java.util.List;
 @Name("Boss Bar From Key")
 @Description("Returns a keyed boss bar from the specified key.")
 @Example("""
-	set title of (keyed boss bar from key "test") to "hm"
+	set title of (boss bar from key "test") to "hm"
 	""")
 @Since("INSERT VERSION")
 public class ExprBossBarFromKey extends SimpleExpression<KeyedBossBar> {
