@@ -312,7 +312,6 @@ public record Property<Handler extends PropertyHandler<?>>(
 	/**
 	 * A property for getting the viewers of something
 	 */
-
 	public static final Property<ExpressionPropertyHandler<?,?>> VIEWERS = Property.of(
 		"viewers",
 		"The viewers of something.",
