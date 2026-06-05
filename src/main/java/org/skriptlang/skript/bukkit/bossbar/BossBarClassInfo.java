@@ -58,8 +58,6 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 				""",
 				Skript.instance(),
 				new BossBarViewersHandler());
-		Variables.yggdrasil.registerSingleClass(BarColor.class, "bossbar.color");
-		Variables.yggdrasil.registerSingleClass(BarFlag.class, "bossbar.flag");
 	}
 
 	private static class BossBarParser extends Parser<BossBar> {
@@ -122,20 +120,8 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 			Fields fields = new Fields();
 			if (bar instanceof KeyedBossBar keyedBar) {
 				fields.putObject("key", keyedBar.getKey().toString());
-				List<Player> viewers = new ArrayList<>(bar.getPlayers());
-				Player[] viewersArray = viewers.toArray(Player[]::new);
-				fields.putObject("viewers", viewersArray);
+				return fields;
 			}
-			fields.putObject("title", bar.getTitle());
-			fields.putObject("progress", bar.getProgress());
-			fields.putObject("style", bar.getStyle());
-			fields.putObject("color", bar.getColor());
-			List<BarFlag> flags = new ArrayList<>();
-			Arrays.stream(BarFlag.values())
-				.filter(bar::hasFlag)
-				.forEach(flags::add);
-			BarFlag[] flagsArray = flags.toArray(BarFlag[]::new);
-			fields.putObject("flags", flagsArray);
 			return fields;
 		}
 
@@ -146,33 +132,15 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 
 		@Override
 		protected BossBar deserialize(Fields fields) throws StreamCorruptedException {
-			String title = fields.getObject("title", String.class);
-			Double progress = fields.getObject("progress", Double.class);
-			BarStyle style = fields.getObject("style", BarStyle.class);
-			BarColor color = fields.getObject("color", BarColor.class);
-			BarFlag[] flags = fields.getObject("flags", BarFlag[].class);
-			Player[] viewers = fields.getObject("viewers", Player[].class);
 			String stringKey = fields.getObject("key", String.class);
 			NamespacedKey key = null;
 			if (stringKey != null)
 				key = NamespacedKey.fromString(stringKey);
-			if (color == null)
+			if (key == null)
 				throw new StreamCorruptedException();
-			if (style == null)
+			BossBar bar = Bukkit.getBossBar(key);
+			if (bar == null)
 				throw new StreamCorruptedException();
-			BossBar bar;
-			if (key != null) {
-				bar = Bukkit.createBossBar(key, title, color, style, flags);
-			} else {
-				bar = Bukkit.createBossBar(title, color, style, flags);
-			}
-			// for some reason you can't make a boss bar with progress?
-			if (progress != null)
-				bar.setProgress(progress);
-			if (viewers != null) {
-				for (Player player : viewers)
-					bar.addPlayer(player);
-			}
 			return bar;
 		}
 
