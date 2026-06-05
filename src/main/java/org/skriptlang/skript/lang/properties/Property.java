@@ -300,14 +300,12 @@ public record Property<Handler extends PropertyHandler<?>>(
 	/**
 	 * A property for getting the style of something
 	 */
-
 	public static final Property<ExpressionPropertyHandler<?,?>> STYLE = Property.of(
 		"style",
 		"The style of something",
 		"INSERT VERSION",
 		Skript.instance(),
 		ExpressionPropertyHandler.class);
-
 
 	/**
 	 * A property for getting the viewers of something

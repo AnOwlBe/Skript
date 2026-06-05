@@ -302,7 +302,7 @@ public class InventoryClassInfo extends ClassInfo<Inventory> {
 		//<editor-fold desc="inventory viewers handler" defaultstate="collapsed">
 
 		@Override
-		public @Nullable Player[] convert(Inventory inventory) {
+		public Player @Nullable [] convert(Inventory inventory) {
 			List<HumanEntity> viewers = new ArrayList<>(inventory.getViewers());
 			return viewers.stream().filter(viewer -> viewer instanceof Player).toArray(Player[]::new);
 		}
