@@ -80,7 +80,7 @@ public class EffWorldBorderExpand extends Effect {
 		if (timespan != null) {
 			Timespan timespan = this.timespan.getSingle(event);
 			if (timespan != null)
-				if (useDeprecated) {
+				if (USE_DEPRECATED) {
 					speed = timespan.getAs(TimePeriod.SECOND);
 				} else {
 					speed = timespan.getAs(TimePeriod.TICK);
@@ -89,7 +89,7 @@ public class EffWorldBorderExpand extends Effect {
 		WorldBorder[] worldBorders = this.worldBorders.getArray(event);
 		if (to) {
 			input = Math2.fit(1, input, MAX_WORLDBORDER_SIZE);
-			if (useDeprecated) {
+			if (USE_DEPRECATED) {
 				for (WorldBorder worldBorder : worldBorders)
 					worldBorder.setSize(input, speed);
 			} else {
@@ -102,7 +102,7 @@ public class EffWorldBorderExpand extends Effect {
 			for (WorldBorder worldBorder : worldBorders) {
 				double size = worldBorder.getSize();
 				size = Math2.fit(1, size + input, MAX_WORLDBORDER_SIZE);
-				if (useDeprecated) {
+				if (USE_DEPRECATED) {
 					worldBorder.setSize(size, speed);
 				} else {
 					worldBorder.changeSize(size, speed);

@@ -33,7 +33,7 @@ public class ExprWorldBorderWarningTime extends SimplePropertyExpression<WorldBo
 
 	@Override
 	public @Nullable Timespan convert(WorldBorder worldBorder) {
-		if (useDeprecated) {
+		if (USE_DEPRECATED) {
 			return new Timespan(TimePeriod.SECOND, worldBorder.getWarningTime());
 		}
 		return new Timespan(TimePeriod.TICK, worldBorder.getWarningTimeTicks());
@@ -50,7 +50,7 @@ public class ExprWorldBorderWarningTime extends SimplePropertyExpression<WorldBo
 	@Override
 	public void change(Event event, Object @Nullable [] delta, ChangeMode mode) {
 		long input;
-		if (useDeprecated) {
+		if (USE_DEPRECATED) {
 			input = delta == null ? 15 : (((Timespan) delta[0]).getAs(TimePeriod.SECOND));
 		} else {
 			input = delta == null ? 300 : (((Timespan) delta[0]).getAs(TimePeriod.TICK));
@@ -59,13 +59,13 @@ public class ExprWorldBorderWarningTime extends SimplePropertyExpression<WorldBo
 			long warningTime = switch (mode) {
 				case SET, RESET -> input;
 				case ADD -> {
-					if (useDeprecated) {
+					if (USE_DEPRECATED) {
 						yield Math2.addClamped(worldBorder.getWarningTime(), input);
 					}
 					yield Math2.addClamped(worldBorder.getWarningTimeTicks(), input);
 				}
 				case REMOVE -> {
-					if (useDeprecated) {
+					if (USE_DEPRECATED) {
 						yield Math2.addClamped(worldBorder.getWarningTime(), -input);
 					}
 					yield Math2.addClamped(worldBorder.getWarningTimeTicks(), -input);
@@ -77,7 +77,7 @@ public class ExprWorldBorderWarningTime extends SimplePropertyExpression<WorldBo
 	}
 
 	private static void setWarningTime(WorldBorder worldBorder, long inputTime) {
-		if (useDeprecated) {
+		if (USE_DEPRECATED) {
 			long time = Math2.multiplyClamped(inputTime, 20);
 			int warningTime = ((int) Math2.fit(0, time, Integer.MAX_VALUE)) / 20;
 			worldBorder.setWarningTime(warningTime);
