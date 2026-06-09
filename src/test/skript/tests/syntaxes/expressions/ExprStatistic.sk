@@ -1,0 +1,24 @@
+using error catching
+
+test "statistic":
+	set player kills statistic of test-offline player to 45
+	assert player kills statistic of test-offline player is 45 with "Failed to set kills statistic"
+	catch runtime errors:
+		set mine block statistic of test-offline player to 5
+	set mine block statistic using sand of test-offline player to 25
+	assert mine block statistic using sand of test-offline player is 25 with "Failed to set mine block statistic using sand"
+	catch runtime errors:
+		set test-offline player's kill entity statistic to 5
+	set kill entity stat using pig of test-offline player to 5
+	assert kill entity statistic using pig of test-offline player is 5 with "Failed to set kill entity statistic using pig"
+	catch runtime errors:
+		set player kills stat using tnt of test-offline player to 75
+	assert player kills stat of test-offline player is 75 with "Failed to ignore type for statistic that doesnt have a type"
+	set jump statistic of test-offline player to 54
+	assert jump statistic of test-offline player is 54 with "Failed to set jump statistic"
+	add 6 to jump statistic of test-offline player
+	assert jump statistic of test-offline player is 60 with "Failed to add to jump statistic"
+	remove 6 from jump statistic of test-offline player
+	assert jump statistic of test-offline player is 54 with "Failed to remove from jump statistic"
+	reset jump statistic of test-offline player
+	assert jump statistic of test-offline player is 0 with "Failed to reset jump statistic"

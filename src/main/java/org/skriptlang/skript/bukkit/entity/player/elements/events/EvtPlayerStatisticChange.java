@@ -31,7 +31,8 @@ public class EvtPlayerStatisticChange extends SkriptEvent {
 			.addExample("""
 				on player statistic increase:
 					broadcast "%player%'s statistic '%event-statistic%' increased! It is now %event-number%!
-				
+				""")
+			.addExample("""   
 				on player statistic increase of leave game:
 					broadcast "%player% has now left the game %event-number% times!"
 				""")

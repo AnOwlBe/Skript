@@ -30,6 +30,7 @@ import java.util.Arrays;
 	Represents a statistic of a player.
 	Some statistics require an entity type or item type to be specified.
 	See https://minecraft.wiki/w/Statistics for a full list of statistics.
+	Using this expression does not call the statistic increment event.
 	""")
 @Example("""
 	command /basicinfo:
@@ -108,7 +109,7 @@ public class ExprStatistic extends PropertyExpression<OfflinePlayer, Integer> {
 
 	@Override
 	public void change(Event event, Object @Nullable [] delta, ChangeMode mode) {
-		 Integer amount = (Integer) delta[0];
+		Integer amount = mode != ChangeMode.RESET ? (Integer) delta[0] : null;
 		 Statistic statistic = statisticExpr.getSingle(event);
 		 if (statistic == null)
 			 return;
