@@ -148,7 +148,6 @@ public class ExprStatistic extends PropertyExpression<OfflinePlayer, Integer> {
 
 	private int getStatistic(OfflinePlayer player, Statistic statistic, Object type) {
 		Statistic.Type statisticType = statistic.getType();
-		System.out.println("stat type: " + statistic.getType());
 		if (type instanceof ItemType item && (statisticType == Statistic.Type.ITEM || statisticType == Statistic.Type.BLOCK)) {
 			return player.getStatistic(statistic, item.getMaterial());
 		} else if (type instanceof EntityData<?> data && statisticType == Statistic.Type.ENTITY) {
