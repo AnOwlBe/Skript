@@ -179,6 +179,7 @@ public class ExprStatistic extends PropertyExpression<OfflinePlayer, Integer> {
 	}
 
 	/**
+	 * Checks if the specified statistic needs a type or not.
 	 *
 	 * @param statistic The statistic itself. See <a href="https://minecraft.wiki/w/Statistics">Statistics</a> for a list of every possible statistic.
 	 * @param ofType The statistic type. Can be ITEM, BLOCK or ENTITY.
