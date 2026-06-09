@@ -68,7 +68,7 @@ public class EvtPlayerStatisticChange extends SkriptEvent {
 	private Literal<Statistic> statistics;
 
 	@Override
-	public boolean init(Literal<?>[] literals, int i, SkriptParser.ParseResult parseResult) {
+	public boolean init(Literal<?>[] literals, int i, ParseResult parseResult) {
 		statistics = (Literal<Statistic>) literals[0];
 		return true;
 	}
