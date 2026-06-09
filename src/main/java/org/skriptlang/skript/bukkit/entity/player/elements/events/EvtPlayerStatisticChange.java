@@ -16,7 +16,6 @@ import org.skriptlang.skript.bukkit.registration.BukkitSyntaxInfos;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
 @SuppressWarnings("unchecked")
-
 public class EvtPlayerStatisticChange extends SkriptEvent {
 
 	public static void register(SyntaxRegistry syntaxRegistry, EventValueRegistry registry) {
@@ -27,7 +26,7 @@ public class EvtPlayerStatisticChange extends SkriptEvent {
 			.addDescription("""
 				Called when a player's statistic changes.
 				Some statistics like 'play one minute' do not call this event, because they get called too often.
-				This event is only called when the server updates a statistic and as such does not call if ExprStatistic is used.
+				This event is only called when the server updates a statistic and as such does not call if the statistic expression is used.
 				""")
 			.addExample("""
 				on player statistic increase:
@@ -64,7 +63,6 @@ public class EvtPlayerStatisticChange extends SkriptEvent {
 			.getter(PlayerStatisticIncrementEvent::getEntityType)
 			.patterns("entity data")
 			.build());
-
 	}
 
 	private Literal<Statistic> statistics;
@@ -96,3 +94,4 @@ public class EvtPlayerStatisticChange extends SkriptEvent {
 	}
 
 }
+

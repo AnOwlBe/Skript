@@ -133,7 +133,6 @@ public class ExprStatistic extends PropertyExpression<OfflinePlayer, Integer> {
 				 for (OfflinePlayer player : getExpr().getArray(event))
 					 applyStatistic(player, statistic, 0, type);
 			 }
-
 		 }
 	}
 
@@ -145,7 +144,6 @@ public class ExprStatistic extends PropertyExpression<OfflinePlayer, Integer> {
 	 * @param type The statistic type. Can be ITEM, BLOCK or ENTITY.
 	 * @return The value of the specified statistic of the player.
 	 */
-
 	private int getStatistic(OfflinePlayer player, Statistic statistic, Object type) {
 		Statistic.Type statisticType = statistic.getType();
 		if (type instanceof ItemType item && (statisticType == Statistic.Type.ITEM || statisticType == Statistic.Type.BLOCK)) {
@@ -165,7 +163,6 @@ public class ExprStatistic extends PropertyExpression<OfflinePlayer, Integer> {
 	 * @param value The value that the statistic should be changed to.
 	 * @param type The statistic type. Can be ITEM, BLOCK or ENTITY.
 	 */
-
 	private void applyStatistic(OfflinePlayer player, Statistic statistic, Integer value, Object type) {
 		Statistic.Type statisticType = statistic.getType();
 		value = Math.max(0, value);
@@ -185,7 +182,6 @@ public class ExprStatistic extends PropertyExpression<OfflinePlayer, Integer> {
 	 * @param ofType The statistic type. Can be ITEM, BLOCK or ENTITY.
 	 * @return Whether it is valid to get or set the statistic with the given type or not.
 	 */
-
 	private boolean checkTyping(Statistic statistic, Object ofType) {
 		Type statisticType = statistic.getType();
 
@@ -230,3 +226,4 @@ public class ExprStatistic extends PropertyExpression<OfflinePlayer, Integer> {
 	}
 
 }
+
