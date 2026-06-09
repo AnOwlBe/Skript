@@ -1,14 +1,18 @@
 package org.skriptlang.skript.bukkit.entity.player;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.classes.EnumClassInfo;
 import ch.njol.skript.lang.util.SimpleEvent;
+import ch.njol.skript.registrations.Classes;
 import io.papermc.paper.event.player.AsyncChatEvent;
+import org.bukkit.Statistic;
 import org.skriptlang.skript.addon.AddonModule;
 import org.skriptlang.skript.addon.HierarchicalAddonModule;
 import org.skriptlang.skript.addon.SkriptAddon;
 import org.skriptlang.skript.bukkit.entity.player.elements.effects.*;
 import org.skriptlang.skript.bukkit.entity.player.elements.events.*;
 import org.skriptlang.skript.bukkit.entity.player.elements.expressions.*;
+import org.skriptlang.skript.bukkit.lang.eventvalue.EventValueRegistry;
 import org.skriptlang.skript.bukkit.registration.BukkitSyntaxInfos;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
@@ -16,6 +20,18 @@ public class PlayerModule extends HierarchicalAddonModule {
 
 	public PlayerModule(AddonModule parentModule) {
 		super(parentModule);
+	}
+
+	@Override
+	protected void initSelf(SkriptAddon addon) {
+		Classes.registerClass(new EnumClassInfo<>(Statistic.class, "statistic", "statistics")
+			.user("statistics?")
+			.name("Statistic")
+			.description(
+				"Represents a countable statistic, which is tracked by the server. "
+					+ "For the list of all available statistics, "
+					+ "see <a href='https://minecraft.wiki/w/Statistics'>the Minecraft wiki</a>.")
+			.since("INSERT VERSION"));
 	}
 
 	@Override
@@ -31,7 +47,8 @@ public class PlayerModule extends HierarchicalAddonModule {
 			ExprOnScreenKickMessage::register,
 			ExprPlayerListHeaderFooter::register,
 			ExprPlayerListName::register,
-			ExprQuitMessage::register
+			ExprQuitMessage::register,
+			ExprStatistic::register
 		);
 		if (Skript.classExists("io.papermc.paper.event.player.PlayerPickBlockEvent")) {
 			register(addon,
@@ -40,7 +57,11 @@ public class PlayerModule extends HierarchicalAddonModule {
 			);
 		}
 
+		EventValueRegistry eventValueRegistry = addon.registry(EventValueRegistry.class);
 		SyntaxRegistry syntaxRegistry = moduleRegistry(addon);
+
+		EvtPlayerStatisticChange.register(syntaxRegistry, eventValueRegistry);
+
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Chat")
 			.addDescription("Called whenever a player chats.",
 				"Use <a href='#ExprChatFormat'>chat format</a> to change message format.",
