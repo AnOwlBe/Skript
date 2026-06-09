@@ -30,12 +30,12 @@ public class EvtPlayerStatisticChange extends SkriptEvent {
 				This event is only called when the server updates a statistic and as such does not call if ExprStatistic is used.
 				""")
 			.addExample("""
-						on player statistic increase:
-							broadcast "%player%'s statistic '%event-statistic%' increased! It is now %event-number%!
-						
-						on player statistic increase of leave game:
-							broadcast "%player% has now left the game %event-number% times!"
-						""")
+				on player statistic increase:
+					broadcast "%player%'s statistic '%event-statistic%' increased! It is now %event-number%!
+				
+				on player statistic increase of leave game:
+					broadcast "%player% has now left the game %event-number% times!"
+				""")
 			.addSince("INSERT VERSION")
 			.build());
 
@@ -77,15 +77,14 @@ public class EvtPlayerStatisticChange extends SkriptEvent {
 
 	@Override
 	public boolean check(Event event) {
-		if (statistics != null) {
-			Statistic statistic = ((PlayerStatisticIncrementEvent) event).getStatistic();
-			for (Statistic value : this.statistics.getAll(event)) {
-				if (statistic.equals(value))
-					return true;
-			}
-			return false;
+		if (statistics == null)
+			return true;
+		Statistic statistic = ((PlayerStatisticIncrementEvent) event).getStatistic();
+		for (Statistic value : this.statistics.getAll(event)) {
+			if (statistic.equals(value))
+				return true;
 		}
-		return true;
+		return false;
 	}
 
 	@Override
