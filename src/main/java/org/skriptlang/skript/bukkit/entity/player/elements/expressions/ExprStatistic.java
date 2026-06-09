@@ -87,9 +87,9 @@ public class ExprStatistic extends PropertyExpression<OfflinePlayer, Integer> {
 	@Override
 	protected Integer[] get(Event event, OfflinePlayer[] source) {
 		Statistic statistic = statisticExpr.getSingle(event);
-		Object type = ofType != null ? ofType.getSingle(event) : null;
 		if (statistic == null)
 			return new Integer[0];
+		Object type = ofType != null ? ofType.getSingle(event) : null;
 		if (checkTyping(statistic, type))
 			return new Integer[0];
 
@@ -112,7 +112,7 @@ public class ExprStatistic extends PropertyExpression<OfflinePlayer, Integer> {
 		 Statistic statistic = statisticExpr.getSingle(event);
 		 if (statistic == null)
 			 return;
-		Object type = ofType != null ? ofType.getSingle(event) : null;
+		 Object type = ofType != null ? ofType.getSingle(event) : null;
 		 if (checkTyping(statistic, type))
 			 return;
 
