@@ -3,8 +3,10 @@ using error catching
 test "statistic":
 	set player kills statistic of test-offline player to 45
 	assert player kills statistic of test-offline player is 45 with "Failed to set kills statistic"
+	set {_error} to "The statistic 'MINE_BLOCK' requires an item type to be specified."
 	catch runtime errors:
 		set mine block statistic of test-offline player to 5
+	assert last caught errors is {_error} with "set player's mine block statistic without giving an item should give error but did not"
 	set mine block statistic using sand of test-offline player to 25
 	assert mine block statistic using sand of test-offline player is 25 with "Failed to set mine block statistic using sand"
 	set {_error} to "The statistic 'KILL_ENTITY' requires an entity data to be specified."
