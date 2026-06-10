@@ -7,13 +7,16 @@ test "statistic":
 		set mine block statistic of test-offline player to 5
 	set mine block statistic using sand of test-offline player to 25
 	assert mine block statistic using sand of test-offline player is 25 with "Failed to set mine block statistic using sand"
+	set {_error} to "The statistic 'KILL_ENTITY' requires an entity data to be specified."
 	catch runtime errors:
 		set test-offline player's kill entity statistic to 5
+	assert last caught errors is {_error} with "set player's kill entity statistic should error but did not"
 	set kill entity stat using pig of test-offline player to 5
-	assert kill entity statistic using pig of test-offline player is 5 with "Failed to set kill entity statistic using pig"
+	assert kill entity statistic using pig of test-offline player is 5 with "Failed to set kill entity stat using pig"
+	set {_error} to "The statistic 'PLAYER_KILLS' does not require an entity data or item type to be provided, so it will be ignored."
 	catch runtime errors:
 		set player kills stat using tnt of test-offline player to 75
-	assert player kills stat of test-offline player is 75 with "Failed to ignore type for statistic that doesnt have a type"
+	assert last caught errors is {_error} with "set player's player kill statistic should give warning but did not"
 	set jump statistic of test-offline player to 54
 	assert jump statistic of test-offline player is 54 with "Failed to set jump statistic"
 	add 6 to jump statistic of test-offline player

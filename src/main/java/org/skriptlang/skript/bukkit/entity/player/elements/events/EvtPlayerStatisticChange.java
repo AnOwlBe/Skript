@@ -2,7 +2,7 @@ package org.skriptlang.skript.bukkit.entity.player.elements.events;
 
 import ch.njol.skript.lang.Literal;
 import ch.njol.skript.lang.SkriptEvent;
-import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.SyntaxStringBuilder;
 import org.bukkit.Material;
 import org.bukkit.Statistic;
