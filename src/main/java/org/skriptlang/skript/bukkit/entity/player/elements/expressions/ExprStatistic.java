@@ -10,7 +10,7 @@ import ch.njol.skript.doc.Since;
 import ch.njol.skript.entity.EntityData;
 import ch.njol.skript.expressions.base.PropertyExpression;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.SyntaxStringBuilder;
 import ch.njol.skript.registrations.Classes;
 import ch.njol.util.Kleenean;
@@ -30,7 +30,7 @@ import java.util.Arrays;
 	Represents a statistic of a player.
 	Some statistics require an entity type or item type to be specified.
 	See https://minecraft.wiki/w/Statistics for a full list of statistics.
-	Using this expression does not call the statistic increment event.
+	Using this expression does not call <a href='#EvtPlayerStatisticChange'>Player Statistic Change</a> event.
 	""")
 @Example("""
 	command /basicinfo:
@@ -72,7 +72,7 @@ public class ExprStatistic extends PropertyExpression<OfflinePlayer, Integer> {
 	private Expression<?> ofType;
 
 	@Override
-	public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
+	public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		if (matchedPattern == 1) {
 			statisticExpr = (Expression<Statistic>) expressions[1];
 			ofType = expressions[2];

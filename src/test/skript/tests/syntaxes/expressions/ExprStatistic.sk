@@ -17,8 +17,16 @@ test "statistic":
 	assert kill entity statistic using pig of test-offline player is 5 with "Failed to set kill entity stat using pig"
 	set {_error} to "The statistic 'PLAYER_KILLS' does not require an entity data or item type to be provided, so it will be ignored."
 	catch runtime errors:
-		set player kills stat using tnt of test-offline player to 75
+		set player kills stat using tnt (itemtype) of test-offline player to 75
 	assert last caught errors is {_error} with "set player's player kill statistic should give warning but did not"
+	set {_error} to "The statistic 'KILL_ENTITY' requires an entity data to be specified."
+	catch runtime errors:
+		set kill entity stat of test-offline player to 5
+	assert last caught errors is {_error} with "set player's kill entity stat without providing an entity data should error but did not"
+	set {_error} to "The statistic 'MINE_BLOCK' requires an item type to be specified."
+	catch runtime errors:
+		set mine block stat of test-offline player to 5
+	assert last caught errors is {_error} with "set player's mine block statistic without providing an item type should error but did not"
 	set jump statistic of test-offline player to 54
 	assert jump statistic of test-offline player is 54 with "Failed to set jump statistic"
 	add 6 to jump statistic of test-offline player
