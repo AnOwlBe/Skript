@@ -27,6 +27,14 @@ test "statistic":
 	catch runtime errors:
 		set mine block stat of test-offline player to 5
 	assert last caught errors is {_error} with "set player's mine block statistic without providing an item type should error but did not"
+	set {_error} to "The statistic 'MINE_BLOCK' requires an item type, but 'pig' was provided."
+	catch runtime errors:
+		set mine block stat using pig of test-offline player to 5
+	assert last caught errors is {_error} with "set player's mine block stat using pig should error but did not"
+	set {_error} to "The statistic 'KILL_ENTITY' requires an entity data, but 'sand' was provided."
+	catch runtime errors:
+		set kill entity stat using sand of test-offline player to 5
+	assert last caught errors is {_error} with "set player's kill entity stat using sand should error but did not"
 	set jump statistic of test-offline player to 54
 	assert jump statistic of test-offline player is 54 with "Failed to set jump statistic"
 	add 6 to jump statistic of test-offline player
