@@ -59,7 +59,7 @@ public class WorldBorderModule extends HierarchicalAddonModule {
 	@Override
 	protected void loadSelf(SkriptAddon addon) {
 		EventValueRegistry eventValueRegistry = addon.registry(EventValueRegistry.class);
-        SyntaxRegistry syntaxRegistry = moduleRegistry(addon);
+		SyntaxRegistry syntaxRegistry = moduleRegistry(addon);
 
 		syntaxRegistry.register(
 			BukkitSyntaxInfos.Event.KEY,
@@ -72,7 +72,7 @@ public class WorldBorderModule extends HierarchicalAddonModule {
 				)
 				.addExample("""
 					on worldborder bounds change:
-					    broadcast "The diameter of %event-worldborder% is changing from %past event-number% to %event-number% over the next %event-timespan%
+						broadcast "The diameter of %event-worldborder% is changing from %past event-number% to %event-number% over the next %event-timespan%
 					""")
 				.addSince("2.11")
 				.build()
@@ -103,7 +103,7 @@ public class WorldBorderModule extends HierarchicalAddonModule {
 					""")
 				.addExample("""
 					on worldborder bounds finish change:
-					    broadcast "Over the past %event-timespan%, the diameter of %event-worldborder% went from %past event-number% to %event-number%"
+						broadcast "Over the past %event-timespan%, the diameter of %event-worldborder% went from %past event-number% to %event-number%"
 					""")
 				.addSince("2.11")
 				.build()
@@ -134,7 +134,7 @@ public class WorldBorderModule extends HierarchicalAddonModule {
 					""")
 				.addExample("""
 					on worldborder center change:
-					    broadcast "The center of %event-worldborder% has moved from %past event-location% to %event-location%
+						broadcast "The center of %event-worldborder% has moved from %past event-location% to %event-location%
 					""")
 				.addSince("2.11")
 				.build()

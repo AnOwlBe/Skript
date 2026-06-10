@@ -28,9 +28,9 @@ import java.util.List;
 
 @Name("Create WorldBorder")
 @Description({
-    "Creates a new, unused world border. World borders can be assigned to either worlds or specific players.",
-    "Borders assigned to worlds apply to all players in that world.",
-    "Borders assigned to players apply only to those players, and different players can have different borders."
+	"Creates a new, unused world border. World borders can be assigned to either worlds or specific players.",
+	"Borders assigned to worlds apply to all players in that world.",
+	"Borders assigned to players apply only to those players, and different players can have different borders."
 })
 @Example("""
 	on join:
