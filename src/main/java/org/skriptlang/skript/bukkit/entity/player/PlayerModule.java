@@ -48,7 +48,7 @@ public class PlayerModule extends HierarchicalAddonModule {
 			ExprPlayerListHeaderFooter::register,
 			ExprPlayerListName::register,
 			ExprQuitMessage::register,
-			ExprStatistic::register
+			ExprStatistic::register,
 			ExprPlayerListPriority::register,
 			ExprQuitMessage::register
 		);
