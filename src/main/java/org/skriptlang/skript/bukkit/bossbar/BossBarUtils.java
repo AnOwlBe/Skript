@@ -9,7 +9,13 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Comparator;
 
-public class BossBarUtils {
+/**
+ * A utility class for boss bars to help with getting RGB from SkriptColor and rounding an RGB to the nearest BarColor.
+ */
+
+public final class BossBarUtils {
+
+	private BossBarUtils() {}
 
 	/**
 	 * All the skript colors for each bar color
@@ -38,7 +44,7 @@ public class BossBarUtils {
 	 * @param color the bar color to get the RGB color for
 	 * @return the corresponding RGB color, or null
 	 */
-	public static @Nullable Color rgbFromBarColor(BarColor color) {
+	public static Color rgbFromBarColor(BarColor color) {
 		return Arrays.stream(BarColorRGB.values())
 			.filter(c -> c.barColor == color)
 			.map(c -> c.color)

@@ -6,6 +6,7 @@ import ch.njol.skript.doc.Name;
 import ch.njol.skript.doc.Since;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import org.bukkit.boss.BossBar;
+import org.bukkit.entity.Boss;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Wither;
@@ -14,11 +15,11 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 
 @Name("Boss Bar From Entities")
 @Description("""
-	Returns a boss bar from one or more entities.
-	If the entity is not a wither or ender dragon nothing will be returned.
+	Returns a boss bar from one or more bosses.
 	""")
 @Example("""
-	set title of (boss bar of nearest wither) to "hm"
+	on spawn of wither:
+	    set title of boss bar of event-entity to "<red>Angry Wither"
 	""")
 @Since("INSERT VERSION")
 public class ExprBossBarFromEntity extends SimplePropertyExpression<Entity, BossBar> {
@@ -40,10 +41,8 @@ public class ExprBossBarFromEntity extends SimplePropertyExpression<Entity, Boss
 
 	@Override
 	public @Nullable BossBar convert(Entity entity) {
-		if (entity instanceof Wither wither)
-			return wither.getBossBar();
-		if (entity instanceof EnderDragon dragon)
-			return dragon.getBossBar();
+		if (entity instanceof Boss boss)
+			return boss.getBossBar();
 		return null;
 	}
 

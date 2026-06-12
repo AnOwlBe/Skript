@@ -12,7 +12,7 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 	""")
 @Example("""
 	if {_mybar} is a keyed boss bar:
-		broadcast "Its keyed!"
+		broadcast "Its keyed! The key: %boss bar key of {_mybar}%"
 	else if {_mybar} is not a keyed boss bar:
 		broadcast "It isn't keyed!"
 	""")

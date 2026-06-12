@@ -11,12 +11,11 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 @Description("""
 	Represents the style of something.
 	""")
-@Examples("""
+@Example("""
 	set style of event-bossbar to 6 notches
 	""")
 @Since("INSERT VERSION")
 @RelatedProperty("style")
-
 public class PropExprStyle extends PropertyBaseExpression<ExpressionPropertyHandler<?,?>> {
 
 	public static void register(SyntaxRegistry registry) {

@@ -103,7 +103,7 @@ public class ExprColorOf extends PropertyExpression<Object, Color> {
 	public Class<?> @Nullable [] acceptChange(ChangeMode mode) {
 		Expression<?> expression = getExpr();
 		if ((mode == ChangeMode.SET || mode == ChangeMode.RESET) && expression.canReturn(BossBar.class))
-			return CollectionUtils.array(Color[].class);
+			return CollectionUtils.array(Color.class);
 
 		if (expression.canReturn(FireworkEffect.class))
 			return CollectionUtils.array(Color[].class);

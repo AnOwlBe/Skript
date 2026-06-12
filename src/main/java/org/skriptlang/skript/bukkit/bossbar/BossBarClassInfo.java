@@ -7,7 +7,6 @@ import ch.njol.skript.classes.Parser;
 import ch.njol.skript.classes.Serializer;
 import ch.njol.skript.expressions.base.EventValueExpression;
 import ch.njol.skript.lang.ParseContext;
-import ch.njol.skript.variables.Variables;
 import ch.njol.util.coll.CollectionUtils;
 import ch.njol.yggdrasil.Fields;
 import net.kyori.adventure.text.Component;
@@ -22,9 +21,6 @@ import org.skriptlang.skript.lang.properties.Property;
 import org.skriptlang.skript.lang.properties.handlers.base.ExpressionPropertyHandler;
 
 import java.io.StreamCorruptedException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import ch.njol.skript.classes.Changer.ChangeMode;
 
@@ -38,7 +34,6 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 			.since("INSERT VERSION")
 			.parser(new BossBarParser())
 			.changer(new BossBarChangeHandler())
-			.serializer(new BossBarSerializer())
 			.defaultExpression(new EventValueExpression<>(BossBar.class))
 			.property(Property.TITLE,
 				"The title of a boss bar.",
@@ -54,7 +49,7 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 				new BossBarStyleHandler())
 			.property(Property.VIEWERS, """
 				The viewers of a boss bar.
-				Removing players from a boss bar will remove all of the effects of the flags of the boss bar.
+				If you remove a player from viewers of a boss bar they will no longer see the flags of the boss bar.
 				""",
 				Skript.instance(),
 				new BossBarViewersHandler());
@@ -104,54 +99,11 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 		@Override
 		public void change(BossBar[] bars, Object @Nullable [] delta, ChangeMode mode) {
 			for (BossBar bar : bars) {
+				bar.removeAll();
 				if (bar instanceof KeyedBossBar keyed) {
 					Bukkit.removeBossBar(keyed.getKey());
 				}
-				bar.removeAll();
 			}
-		}
-		//</editor-fold>
-	}
-
-	private static class BossBarSerializer extends Serializer<BossBar> {
-		//<editor-fold desc="boss bar serializer" defaultstate="collapsed">
-		@Override
-		public Fields serialize(BossBar bar) {
-			Fields fields = new Fields();
-			if (bar instanceof KeyedBossBar keyedBar) {
-				fields.putObject("key", keyedBar.getKey().toString());
-				return fields;
-			}
-			return fields;
-		}
-
-		@Override
-		public void deserialize(BossBar bar, Fields fields) {
-			assert false;
-		}
-
-		@Override
-		protected BossBar deserialize(Fields fields) throws StreamCorruptedException {
-			String stringKey = fields.getObject("key", String.class);
-			NamespacedKey key = null;
-			if (stringKey != null)
-				key = NamespacedKey.fromString(stringKey);
-			if (key == null)
-				throw new StreamCorruptedException();
-			BossBar bar = Bukkit.getBossBar(key);
-			if (bar == null)
-				throw new StreamCorruptedException();
-			return bar;
-		}
-
-		@Override
-		public boolean mustSyncDeserialization() {
-			return true;
-		}
-
-		@Override
-		public boolean canBeInstantiated() {
-			return false;
 		}
 		//</editor-fold>
 	}
@@ -166,7 +118,7 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 		@Override
 		public Class<?> @Nullable [] acceptChange(ChangeMode mode) {
 			return switch (mode) {
-				case SET, RESET -> CollectionUtils.array(Component.class);
+				case SET, DELETE, RESET -> CollectionUtils.array(Component.class);
 				default -> null;
 			};
 		}

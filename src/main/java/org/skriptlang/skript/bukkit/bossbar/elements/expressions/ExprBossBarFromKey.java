@@ -39,18 +39,18 @@ public class ExprBossBarFromKey extends SimpleExpression<KeyedBossBar> {
 		);
 	}
 
-	private Expression<String> keyExpr;
+	private Expression<String> keys;
 
 	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
-		keyExpr = (Expression<String>) exprs[0];
+		keys = (Expression<String>) exprs[0];
 		return true;
 	}
 
 	@Override
 	protected KeyedBossBar @Nullable [] get(Event event) {
 		List<KeyedBossBar> bars = new ArrayList<>();
-		for (String string : keyExpr.getArray(event)) {
+		for (String string : keys.getArray(event)) {
 			NamespacedKey key = NamespacedUtils.checkValidationAndSend(string, this);
 			if (key == null)
 				continue;
@@ -63,7 +63,7 @@ public class ExprBossBarFromKey extends SimpleExpression<KeyedBossBar> {
 
 	@Override
 	public boolean isSingle() {
-		return false;
+		return keys.isSingle();
 	}
 
 	@Override
@@ -73,10 +73,10 @@ public class ExprBossBarFromKey extends SimpleExpression<KeyedBossBar> {
 
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
-		SyntaxStringBuilder builder = new SyntaxStringBuilder(event, debug);
-		builder.append("boss bar from keys");
-		builder.append(keyExpr);
-		return builder.toString();
+		return new SyntaxStringBuilder(event, debug)
+		    .append("boss bar from keys")
+			.append(keys)
+			.toString();
 	}
 
 }

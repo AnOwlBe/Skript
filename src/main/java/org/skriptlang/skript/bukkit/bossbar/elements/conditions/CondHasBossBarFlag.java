@@ -31,11 +31,11 @@ public class CondHasBossBarFlag extends Condition {
 
 	private static final Patterns<BarFlag> PATTERNS = new Patterns<>(new Object[][]{
 		{"%bossbars% [do[es]] darken[s] the sky", BarFlag.DARKEN_SKY},
-		{"%bossbars% (doesn't|do[es] not) darken the sky", BarFlag.DARKEN_SKY},
+		{"%bossbars% (doesn't|does not|do not|don't) darken the sky", BarFlag.DARKEN_SKY},
 		{"%bossbars% [do[es]] create[s] fog", BarFlag.CREATE_FOG},
-		{"%bossbars% (doesn't|do[es] not) create fog", BarFlag.CREATE_FOG},
+		{"%bossbars% (doesn't|does not|do not|don't) create fog", BarFlag.CREATE_FOG},
 		{"%bossbars% [do[es]] play[s] boss music", BarFlag.PLAY_BOSS_MUSIC},
-		{"%bossbars% (doesn't|do[es] not) play boss music", BarFlag.PLAY_BOSS_MUSIC},
+		{"%bossbars% (doesn't|does not|do not|don't) play boss music", BarFlag.PLAY_BOSS_MUSIC},
 	});
 
 	public static void register(SyntaxRegistry registry) {

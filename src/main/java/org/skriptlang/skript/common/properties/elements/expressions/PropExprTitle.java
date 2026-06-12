@@ -11,12 +11,17 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 @Description("""
 	Represents the title of something.
 	""")
-@Examples("""
+@Example("""
 	set title of event-bossbar to "<red>hello!"
+	""")
+@Example("""
+	on inventory click:
+		if type of event-item is written book:
+			set title of event-item to formatted "<obf>%random uuid%"
+			send "Your books title is now forever forgotten.." to player
 	""")
 @Since("INSERT VERSION")
 @RelatedProperty("title")
-
 public class PropExprTitle extends PropertyBaseExpression<ExpressionPropertyHandler<?,?>> {
 
 	public static void register(SyntaxRegistry registry) {

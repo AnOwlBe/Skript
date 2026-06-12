@@ -11,12 +11,11 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 @Description("""
 	Represents the progress of something.
 	""")
-@Examples("""
+@Example("""
 	set progress of event-bossbar to 75%
 	""")
 @Since("INSERT VERSION")
 @RelatedProperty("progress")
-
 public class PropExprProgress extends PropertyBaseExpression<ExpressionPropertyHandler<?,?>> {
 
 	public static void register(SyntaxRegistry registry) {

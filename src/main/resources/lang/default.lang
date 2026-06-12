@@ -2810,6 +2810,7 @@ types:
 	itemflag: item flag¦s @an
 	biome: biome¦s @a
 	bossbar: bossbar¦s @a
+	keyedbossbar: keyedbossbar¦s @a
 	bossbarstyle: boss bar style¦s @a
 	potioneffecttype: potion effect type¦s @a
 	potioneffecttypecategory: potion effect type categor¦y¦ies @a

@@ -20,6 +20,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
+import org.bukkit.boss.KeyedBossBar;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
@@ -126,14 +127,16 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 	}
 
 	@Override
-	public Class<BossBar> getReturnType() {
+	public Class<? extends BossBar> getReturnType() {
+		if (keyExpr != null)
+			return KeyedBossBar.class;
 		return BossBar.class;
 	}
 
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
 		if (keyExpr != null) {
-			return "a keyed bossbar";
+			return "a keyed bossbar with key" + keyExpr;
 		}
 		else {
 			return "a bossbar";

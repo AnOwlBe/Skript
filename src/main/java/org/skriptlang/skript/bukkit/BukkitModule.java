@@ -37,9 +37,9 @@ public class BukkitModule extends HierarchicalAddonModule {
 	public Iterable<AddonModule> children() {
 		return List.of(
 			new BlockModule(this),
+			new BossBarModule(this),
 			new BreedingModule(this),
 			new BrewingModule(this),
-			new BossBarModule(this),
 			new DamageSourceModule(this),
 			new EntityModule(this),
 			new FishingModule(this),
