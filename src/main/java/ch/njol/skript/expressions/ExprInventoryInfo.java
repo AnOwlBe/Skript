@@ -31,7 +31,7 @@ import java.util.List;
 @Since("2.2-dev34, 2.5 (slots)")
 public class ExprInventoryInfo extends SimpleExpression<Object> {
 	
-	private final static int HOLDER = 1,  ROWS = 2, SLOTS = 3;
+	private final static int HOLDER = 1, ROWS = 2, SLOTS = 3;
 	
 	static {
 		Skript.registerExpression(ExprInventoryInfo.class, Object.class, ExpressionType.PROPERTY,
