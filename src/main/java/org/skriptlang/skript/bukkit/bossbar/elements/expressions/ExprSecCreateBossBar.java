@@ -132,7 +132,12 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
-		return "a bossbar";
+		if (keyExpr != null) {
+			return "a keyed bossbar";
+		}
+		else {
+			return "a bossbar";
+		}
 	}
 
 	public static class CreateBossBarEvent extends Event {
