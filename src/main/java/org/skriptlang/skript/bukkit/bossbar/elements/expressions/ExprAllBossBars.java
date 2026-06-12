@@ -18,7 +18,7 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 import java.util.ArrayList;
 import java.util.List;
 
-@Name("All Boss Bars")
+@Name("All Keyed Boss Bars")
 @Description("""
 	Returns all persistent boss bars.
 	Only returns keyed boss bars not normal ones.
@@ -33,7 +33,7 @@ public class ExprAllBossBars extends SimpleExpression<KeyedBossBar> {
 		registry.register(
 			SyntaxRegistry.EXPRESSION,
 			SyntaxInfo.Expression.builder(ExprAllBossBars.class, KeyedBossBar.class)
-				.addPatterns("[(all|the|all [of] the)] keyed boss[ ]bars")
+				.addPatterns("[all [[of] the]|the] keyed boss[ ]bars")
 				.supplier(ExprAllBossBars::new)
 				.build()
 		);

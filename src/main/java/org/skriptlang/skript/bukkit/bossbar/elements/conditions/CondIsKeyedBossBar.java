@@ -7,9 +7,7 @@ import org.bukkit.boss.KeyedBossBar;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
 @Name("Is Keyed")
-@Description("""
-	Checks if a boss bar is keyed or not.
-	""")
+@Description("Checks whether a boss bar is keyed or not.")
 @Example("""
 	if {_mybar} is a keyed boss bar:
 		broadcast "Its keyed! The key: %boss bar key of {_mybar}%"
@@ -35,10 +33,7 @@ public class CondIsKeyedBossBar extends PropertyCondition<BossBar> {
 
 	@Override
 	public boolean check(BossBar bar) {
-		if (bar instanceof KeyedBossBar) {
-			return !isNegated();
-		}
-		return isNegated();
+		return bar instanceof KeyedBossBar;
 	}
 
 	@Override
@@ -48,7 +43,7 @@ public class CondIsKeyedBossBar extends PropertyCondition<BossBar> {
 
 	@Override
 	protected String getPropertyName() {
-		return "boss bar key";
+		return "a keyed boss bar";
 	}
 
 }

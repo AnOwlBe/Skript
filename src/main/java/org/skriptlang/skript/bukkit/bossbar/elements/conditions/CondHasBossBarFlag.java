@@ -16,11 +16,11 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 
 @Name("Has Boss Bar Flag")
 @Description("""
-	Checks if a boss bar has a specific flag.
-	There are 3 flags:
-	`darken the sky`
-	`create fog`
-	`play boss music`
+	Checks whether a boss bar has a specific flag.
+	There are three flags:
+	- 'darken the sky'
+	- 'create fog'
+	- 'play boss music'
 	""")
 @Example("""
 	if {_mybar} does darken the sky:
@@ -66,15 +66,15 @@ public class CondHasBossBarFlag extends Condition {
 
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
-		SyntaxStringBuilder builder = new SyntaxStringBuilder(event, debug);
-		builder.append(bars);
-		builder.append(isNegated() ? "does not" : "does");
-		builder.append(switch (flag) {
-			case DARKEN_SKY -> "darken the sky";
-			case CREATE_FOG -> "create fog";
-			case PLAY_BOSS_MUSIC -> "play boss music";
-		});
-		return builder.toString();
+		return new SyntaxStringBuilder(event, debug)
+			.append(bars)
+			.append(isNegated() ? "does not" : "does")
+			.append(switch (flag) {
+				case DARKEN_SKY -> "darken the sky";
+				case CREATE_FOG -> "create fog";
+				case PLAY_BOSS_MUSIC -> "play boss music";
+			})
+			.toString();
 	}
 
 }

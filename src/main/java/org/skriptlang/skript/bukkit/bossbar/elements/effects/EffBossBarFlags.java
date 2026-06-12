@@ -17,15 +17,18 @@ import org.jetbrains.annotations.Nullable;
 import org.skriptlang.skript.registration.SyntaxInfo;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
-@Name("BossBar Flags")
+@Name("Boss Bar Flags")
 @Description("""
 	Makes a boss bar have or not have a flag.
 	The `play boss music` flag does not actually play any sound or do anything.
 	However you can use a resource pack to play your own custom sound.
 	""")
 @Example("""
-	make {_mybar} create fog
-	make {_mybar} no longer create fog
+	broadcast "The boss has entered a new phase! Watch out for the fog..."
+	make {_bossbar} create fog
+	wait 30 seconds
+	broadcast "The fog has subsided... for now"
+	make {_bossbar} no longer create fog
 	""")
 @Since("INSERT VERSION")
 public class EffBossBarFlags extends Effect {
@@ -71,16 +74,15 @@ public class EffBossBarFlags extends Effect {
 
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
-		SyntaxStringBuilder builder = new SyntaxStringBuilder(event, debug);
-		builder.append("make", bars);
-		if (!add)
-			builder.append("no longer");
-		builder.append(switch (flag) {
-			case BarFlag.DARKEN_SKY -> "darken the sky";
-			case BarFlag.CREATE_FOG -> "create fog";
-			case BarFlag.PLAY_BOSS_MUSIC -> "play boss music";
-		});
-		return builder.toString();
+		return new SyntaxStringBuilder(event, debug)
+			.append("make", bars)
+			.appendIf(!add, "no longer")
+			.append(switch (flag) {
+				case BarFlag.DARKEN_SKY -> "darken the sky";
+				case BarFlag.CREATE_FOG -> "create fog";
+				case BarFlag.PLAY_BOSS_MUSIC -> "play boss music";
+			})
+			.toString();
 	}
 
 }
