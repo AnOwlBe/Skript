@@ -302,7 +302,7 @@ public record Property<Handler extends PropertyHandler<?>>(
 	 */
 	public static final Property<ExpressionPropertyHandler<?,?>> STYLE = Property.of(
 		"style",
-		"The style of something",
+		"The style of something.",
 		"INSERT VERSION",
 		Skript.instance(),
 		ExpressionPropertyHandler.class);

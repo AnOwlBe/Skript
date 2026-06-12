@@ -2809,7 +2809,7 @@ types:
 	itementity: dropped item¦s @a # same as entities.dropped item.name
 	itemflag: item flag¦s @an
 	biome: biome¦s @a
-	bossbar: bossbar¦s @a
+	bossbar: boss bar¦s @a
 	keyedbossbar: keyed boss bar¦s @a
 	bossbarstyle: boss bar style¦s @a
 	potioneffecttype: potion effect type¦s @a

@@ -6,12 +6,8 @@ import org.joml.Vector3d;
 import org.joml.Vector3dc;
 
 /**
- *
  * Credit to <a href="https://github.com/UnderscoreTud/mc2d/blob/master/common%2Fsrc%2Fmain%2Fjava%2Fme%2Ftud%2Fmc2d%2Futil%2Fcolor%2FLabColor.java">LabColor</a>
  * for this.
- * This is primarily used for BossBarUtils to get the nearest bar color from an RGB
- * Though possibly can be used for other things in the future
-
  */
 public record LabColor(
 	double L,

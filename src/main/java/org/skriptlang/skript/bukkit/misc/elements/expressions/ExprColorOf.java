@@ -53,12 +53,12 @@ import java.util.function.Consumer;
 			message "This wool block is <%color of block%>%color of block%<reset>!"
 			set the color of the block to black
 	""")
-@Since("1.2, 2.10 (displays), INSERT VERSION (bossbars)")
+@Since("1.2, 2.10 (displays), INSERT VERSION (boss bars)")
 public class ExprColorOf extends PropertyExpression<Object, Color> {
 
 	public static void register(SyntaxRegistry syntaxRegistry) {
 		syntaxRegistry.register(SyntaxRegistry.EXPRESSION,
-			infoBuilder(ExprColorOf.class, Color.class, "colo[u]r[s]", "blocks/itemtypes/entities/fireworkeffects/potioneffecttypes/displays/bossbars", true)
+			infoBuilder(ExprColorOf.class, Color.class, "colo[u]r[s]", "blocks/itemtypes/entities/fireworkeffects/potioneffecttypes/displays/bossbars", false)
 				.supplier(ExprColorOf::new)
 				.build());
 	}
