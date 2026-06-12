@@ -69,7 +69,7 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 				if (emptyTitle) {
 					return "boss bar with id '" + keyed.getKey() + "'";
 				} else {
-					return "boss bar with id '" + keyed.getKey() + "' named '" + bar.getTitle() + "'";
+					return "boss bar with id '" + keyed.getKey() + "' titled '" + bar.getTitle() + "'";
 				}
 			} else {
 				if (emptyTitle) {
@@ -154,13 +154,13 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 
 		@Override
 		public void change(BossBar bar, Object @Nullable [] delta, ChangeMode mode) {
-			Double progress = delta != null ? (Double) delta[0] : null;
-			switch (mode) {
-				case SET -> bar.setProgress(Math.clamp(progress, 0.0, 1.0));
-				case RESET -> bar.setProgress(0.0);
-				case ADD -> bar.setProgress(Math.clamp(bar.getProgress() + progress, 0.0, 1.0));
-				case REMOVE -> bar.setProgress(Math.clamp(bar.getProgress() - progress, 0.0, 1.0));
+			double progress = delta == null ? 0.0 : (double) delta[0];
+			if (mode == ChangeMode.ADD) {
+				progress += bar.getProgress();
+			} else if (mode == ChangeMode.REMOVE) {
+				progress -= bar.getProgress();
 			}
+			bar.setProgress(Math.clamp(progress, 0.0, 1.0));
 		}
 
 		@Override

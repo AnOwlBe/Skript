@@ -13,7 +13,7 @@ import org.bukkit.entity.Wither;
 import org.jetbrains.annotations.Nullable;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
-@Name("Boss Bar From Entities")
+@Name("Boss Bar From Boss")
 @Description("""
 	Returns a boss bar from one or more bosses.
 	""")

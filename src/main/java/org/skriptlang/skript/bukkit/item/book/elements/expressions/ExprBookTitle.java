@@ -37,9 +37,8 @@ public class ExprBookTitle extends SimplePropertyExpression<ItemType, Component>
 
 	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
-		ScriptWarning.printDeprecationWarning("This element is deprecated & scheduled for removal in a future release. Consider using `set title of..` instead.");
-		setExpr((Expression<ItemType>) exprs[0]);
-		return true;
+		ScriptWarning.printDeprecationWarning("This element is deprecated and scheduled for removal in a future release. Consider using 'title of '" + "" + exprs[0].toString(null, false) + "' instead.");
+		return super.init(exprs, matchedPattern, isDelayed, parseResult);
 	}
 
 	@Override

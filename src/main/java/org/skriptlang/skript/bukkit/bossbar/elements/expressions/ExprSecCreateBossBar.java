@@ -36,7 +36,7 @@ import static org.skriptlang.skript.bukkit.bossbar.BossBarUtils.nearest;
 
 @Name("Create BossBar")
 @Description("""
-	Creates a new, unused boss bar. Boss bars can have viewers removed or added to them.
+	Creates a new boss bar. Boss bars can have viewers removed or added to them.
 	Making the boss bar `keyed` will add it to the persistent storage of the server and will be editable by commands and restored after restart.
 	""")
 @Example("""

@@ -36,13 +36,13 @@ public class BossBarModule extends HierarchicalAddonModule {
 		EventValueRegistry eventValueRegistry = addon.registry(EventValueRegistry.class);
 		register(addon,
 			a -> ExprSecCreateBossBar.register(a, eventValueRegistry),
-				ExprAllBossBars::register,
-				ExprBossBarFromKey::register,
-				ExprBossBarFromEntity::register,
-				ExprKeyOfBossBar::register,
-				EffBossBarFlags::register,
-				CondHasBossBarFlag::register,
-			    CondIsKeyedBossBar::register
+			ExprAllBossBars::register,
+			ExprBossBarFromKey::register,
+			ExprBossBarFromEntity::register,
+			ExprKeyOfBossBar::register,
+			EffBossBarFlags::register,
+			CondHasBossBarFlag::register,
+			CondIsKeyedBossBar::register
 		);
 	}
 

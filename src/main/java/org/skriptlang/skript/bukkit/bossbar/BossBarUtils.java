@@ -62,7 +62,8 @@ public final class BossBarUtils {
 		var value = Arrays.stream(BarColorRGB.values())
 			.min(Comparator.comparingDouble(c -> lab.euclideanDistanceSquared(
 				LabColor.fromRGB(c.color.getRed(), c.color.getGreen(), c.color.getBlue()))));
-		if (value.isEmpty()) return null;
+		if (value.isEmpty())
+			return null;
 		LabColor bestLab = LabColor.fromRGB(value.get().color.getRed(), value.get().color.getGreen(), value.get().color.getBlue());
 		return lab.euclideanDistanceSquared(bestLab) < 2500 ? value.get().barColor : null;
 	}
