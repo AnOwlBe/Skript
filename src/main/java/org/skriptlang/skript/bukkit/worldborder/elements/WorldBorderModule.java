@@ -152,7 +152,7 @@ public class WorldBorderModule extends HierarchicalAddonModule {
 			.build());
 
 		register(addon,
-			a -> ExprSecCreateWorldBorder.register(a,eventValueRegistry),
+			a -> ExprSecCreateWorldBorder.register(a, eventValueRegistry),
 			ExprWorldBorder::register,
 			ExprWorldBorderCenter::register,
 			ExprWorldBorderSize::register,
