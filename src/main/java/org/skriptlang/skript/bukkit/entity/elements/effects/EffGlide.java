@@ -15,6 +15,7 @@ import org.jetbrains.annotations.Nullable;
 import org.skriptlang.skript.registration.SyntaxInfo;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
+@SuppressWarnings("unchecked")
 @Name("Make Entity Glide")
 @Description("""
 	Makes an entity start/stop gliding if they have an elytra or a chestplate with a glider component. If the entity has neither, the state of the entity will flicker for 1 tick.
@@ -29,6 +30,7 @@ public class EffGlide extends Effect {
 			SyntaxInfo.builder(EffGlide.class)
 				.addPatterns(
 					"make %livingentities% ((start|begin) gliding|glide)",
+					"stop %livingentities% from gliding",
 					"make %livingentities% (stop gliding|no longer glide)"
 				)
 				.supplier(EffGlide::new)
@@ -42,7 +44,7 @@ public class EffGlide extends Effect {
 	@Override
 	public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		entities = (Expression<LivingEntity>) expressions[0];
-		negated = matchedPattern == 1;
+		negated = matchedPattern != 0;
 		return true;
 	}
 

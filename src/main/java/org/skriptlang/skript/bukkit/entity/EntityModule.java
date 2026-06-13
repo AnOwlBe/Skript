@@ -58,8 +58,8 @@ public class EntityModule extends HierarchicalAddonModule {
 			.addEvent(EntityToggleGlideEvent.class)
 			.build());
 		register(addon,
-			ExprDeathMessage::register,
-			EffGlide::register
+			EffGlide::register,
+			ExprDeathMessage::register
 		);
 	}
 
