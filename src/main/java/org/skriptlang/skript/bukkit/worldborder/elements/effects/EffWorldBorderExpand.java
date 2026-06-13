@@ -35,10 +35,11 @@ public class EffWorldBorderExpand extends Effect {
 			SyntaxRegistry.EFFECT,
 			SyntaxInfo.builder(EffWorldBorderExpand.class)
 				.supplier(EffWorldBorderExpand::new)
-				.addPattern("(expand|grow) [[the] (diameter|:radius) of] %worldborders% (by|:to) %number% [over [a period of] %-timespan%]")
-				.addPattern("(expand|grow) %worldborders%['s (diameter|:radius)] (by|:to) %number% [over [a period of] %-timespan%]")
-				.addPattern("(contract|shrink) [[the] (diameter|:radius) of] %worldborders% (by|:to) %number% [over [a period of] %-timespan%]")
-				.addPattern("(contract|shrink) %worldborders%['s (diameter|:radius)] (by|:to) %number% [over [a period of] %-timespan%]")
+				.addPatterns("(expand|grow) [[the] (diameter|:radius) of] %worldborders% (by|:to) %number% [over [a period of] %-timespan%]",
+					"(expand|grow) %worldborders%['s (diameter|:radius)] (by|:to) %number% [over [a period of] %-timespan%]",
+				"(contract|shrink) [[the] (diameter|:radius) of] %worldborders% (by|:to) %number% [over [a period of] %-timespan%]",
+				"(contract|shrink) %worldborders%['s (diameter|:radius)] (by|:to) %number% [over [a period of] %-timespan%]"
+				)
 				.build()
 		);
 	}

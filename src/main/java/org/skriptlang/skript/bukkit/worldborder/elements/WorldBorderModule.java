@@ -152,15 +152,15 @@ public class WorldBorderModule extends HierarchicalAddonModule {
 			.build());
 
 		register(addon,
-			a -> ExprSecCreateWorldBorder.register(a, eventValueRegistry),
+			a -> ExprSecCreateWorldBorder.register(a,eventValueRegistry),
+			EffWorldBorderExpand::register,
 			ExprWorldBorder::register,
 			ExprWorldBorderCenter::register,
-			ExprWorldBorderSize::register,
 			ExprWorldBorderDamageAmount::register,
 			ExprWorldBorderDamageBuffer::register,
+			ExprWorldBorderSize::register,
 			ExprWorldBorderWarningDistance::register,
-			ExprWorldBorderWarningTime::register,
-			EffWorldBorderExpand::register
+			ExprWorldBorderWarningTime::register
 		);
 	}
 
