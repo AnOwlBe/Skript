@@ -40,14 +40,14 @@ public class ExprSkullTexture extends SimplePropertyExpression<ItemType, String>
 
 	@Override
 	public @Nullable String convert(ItemType item) {
-		if (item.getMaterial() != Material.PLAYER_HEAD) {
-			return null;
+		PlayerProfile profile = null;
+		if (item.getItemMeta() instanceof SkullMeta meta ) {
+			profile = meta.getPlayerProfile();
+			if (profile == null)
+				return null;
 		}
-		SkullMeta meta = (SkullMeta) item.getItemMeta();
-		PlayerProfile profile = meta.getPlayerProfile();
-		if (profile == null) {
+		if (profile == null)
 			return null;
-		}
 		return profile.getProperties().stream()
 			.filter(property -> property.getName().equals("textures"))
 			.findFirst()
@@ -70,24 +70,20 @@ public class ExprSkullTexture extends SimplePropertyExpression<ItemType, String>
 		switch (mode) {
 			case DELETE, RESET:
 				for (ItemType item : getExpr().getArray(event)) {
-					if (item.getMaterial() != Material.PLAYER_HEAD) {
-						continue;
+					if (item.getItemMeta() instanceof SkullMeta meta) {
+						meta.setPlayerProfile(null);
+						item.setItemMeta(meta);
 					}
-					SkullMeta meta = (SkullMeta) item.getItemMeta();
-					meta.setPlayerProfile(null);
-					item.setItemMeta(meta);
 				}
 				break;
 			case SET:
 				for (ItemType item : getExpr().getArray(event)) {
-					if (item.getMaterial() != Material.PLAYER_HEAD) {
-						continue;
+					if (item.getItemMeta() instanceof SkullMeta meta) {
+						PlayerProfile playerProfile = Bukkit.createProfile(UUID.randomUUID());
+						playerProfile.setProperty(new ProfileProperty("textures", value));
+						meta.setPlayerProfile(playerProfile);
+						item.setItemMeta(meta);
 					}
-					SkullMeta meta = (SkullMeta) item.getItemMeta();
-					PlayerProfile playerProfile = Bukkit.createProfile(UUID.randomUUID());
-					playerProfile.setProperty(new ProfileProperty("textures", value));
-					meta.setPlayerProfile(playerProfile);
-					item.setItemMeta(meta);
 				}
 		}
 	}
