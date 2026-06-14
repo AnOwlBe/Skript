@@ -19,10 +19,10 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 
 @Name("Send Block Damage")
 @Description("""
-    Makes a player see a block's damage as something else.
-    This will not actually change the block's break progress in any way.
-    Note that a single entity can only be breaking 1 block at a time.
-    """)
+	Makes a player see a block's damage as something else.
+	This will not actually change the block's break progress in any way.
+	Note that a single entity can only be breaking 1 block at a time.
+	""")
 @Example("make player see block damage of target block of player as 100%")
 @Example("make player see block damage of block at player as 75% using random integer between 1 and 999")
 @Since("INSERT VERSION")

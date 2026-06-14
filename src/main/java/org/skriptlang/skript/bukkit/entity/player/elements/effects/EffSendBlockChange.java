@@ -24,9 +24,9 @@ import java.util.Map;
 @SuppressWarnings("UnstableApiUsage")
 @Name("Send Block Change")
 @Description("""
-     Makes a player see a block as something else or as the original.
-     This will not actually change the world in any way.
-     """)
+	 Makes a player see a block as something else or as the original.
+	 This will not actually change the world in any way.
+	 """)
 @Example("make player see block at player as dirt")
 @Example("make player see player's target block as campfire[facing=south]")
 @Example("""
