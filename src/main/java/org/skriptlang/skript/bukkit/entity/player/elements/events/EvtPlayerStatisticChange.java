@@ -1,10 +1,10 @@
 package org.skriptlang.skript.bukkit.entity.player.elements.events;
 
+import ch.njol.skript.aliases.ItemType;
 import ch.njol.skript.lang.Literal;
 import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.SyntaxStringBuilder;
-import org.bukkit.Material;
 import org.bukkit.Statistic;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.Event;
@@ -52,12 +52,11 @@ public class EvtPlayerStatisticChange extends SkriptEvent {
 
 		registry.register(EventValue.builder(PlayerStatisticIncrementEvent.class, Statistic.class)
 			.getter(PlayerStatisticIncrementEvent::getStatistic)
-			.patterns("statistic")
 			.build());
 
-		registry.register(EventValue.builder(PlayerStatisticIncrementEvent.class, Material.class)
-			.getter(PlayerStatisticIncrementEvent::getMaterial)
-			.patterns("material")
+		registry.register(EventValue.builder(PlayerStatisticIncrementEvent.class, ItemType.class)
+			.getter(event -> new ItemType(event.getMaterial()))
+			.patterns("item type")
 			.build());
 
 		registry.register(EventValue.builder(PlayerStatisticIncrementEvent.class, EntityType.class)
