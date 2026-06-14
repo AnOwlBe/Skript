@@ -53,7 +53,7 @@ public class EntityModule extends HierarchicalAddonModule {
 			.addDescription("Called whenever an entity tries to pathfind to a location or another entity.")
 			.addExample("""
 				on pathfind:
-				    	broadcast "%event-entity%'s is about to move to %event-location%!"
+				    	broadcast "%event-entity% is about to move to %event-location%!"
 				""")
 			.addSince("INSERT VERSION")
 			.addPattern("[entity] [start[s]] pathfind[ing]")
