@@ -38,18 +38,18 @@ public class EffSendArmorChange extends Effect {
 			.build());
 	}
 
-	private Expression<Player> playersExpr;
-	private Expression<LivingEntity> entitiesExpr;
-	private Expression<EquipmentSlot> equipmentExpr;
+	private Expression<Player> players;
+	private Expression<LivingEntity> entities;
+	private Expression<EquipmentSlot> equipment;
 	private Expression<ItemType> itemExpr;
 	private boolean asOriginal;
 
 	@Override
 	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
-		playersExpr = (Expression<Player>) expressions[0];
-		entitiesExpr = (Expression<LivingEntity>) expressions[1];
-		equipmentExpr = (Expression<EquipmentSlot>) expressions[2];
+		players = (Expression<Player>) expressions[0];
+		entities = (Expression<LivingEntity>) expressions[1];
+		equipment = (Expression<EquipmentSlot>) expressions[2];
 		asOriginal = matchedPattern == 1;
 		if (!asOriginal)
 			itemExpr = (Expression<ItemType>) expressions[3];
@@ -58,12 +58,12 @@ public class EffSendArmorChange extends Effect {
 
 	@Override
 	protected void execute(Event event) {
-		EquipmentSlot equipment = equipmentExpr.getSingle(event);
+		EquipmentSlot equipment = this.equipment.getSingle(event);
 		if (equipment == null)
 			return;
 
-		Player[] players = playersExpr.getArray(event);
-		LivingEntity[] entities = entitiesExpr.getArray(event);
+		Player[] players = this.players.getArray(event);
+		LivingEntity[] entities = this.entities.getArray(event);
 		ItemType itemType = asOriginal ? null : itemExpr.getSingle(event);
 		ItemStack item = itemType != null ? itemType.getRandom() : new ItemStack(Material.AIR);
 
@@ -79,7 +79,7 @@ public class EffSendArmorChange extends Effect {
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
 		return new SyntaxStringBuilder(event, debug)
-			.append("make", playersExpr, "see", entitiesExpr, equipmentExpr, "as")
+			.append("make", players, "see", entities, equipment, "as")
 			.appendIf(asOriginal, "its original")
 			.appendIf(!asOriginal, itemExpr)
 			.toString();

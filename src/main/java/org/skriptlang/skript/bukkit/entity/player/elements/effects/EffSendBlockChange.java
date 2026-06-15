@@ -44,26 +44,26 @@ public class EffSendBlockChange extends Effect {
 			.build());
 	}
 
-	private Expression<Player> playersExpr;
-	private Expression<Location> locationsExpr;
-	private @Nullable Expression<Object> typeExpr;
+	private Expression<Player> players;
+	private Expression<Location> locations;
+	private @Nullable Expression<Object> type;
 	private boolean asOriginal;
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
-		playersExpr = (Expression<Player>) exprs[0];
-		locationsExpr = (Expression<Location>) exprs[1];
+	public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
+		players = (Expression<Player>) expressions[0];
+		locations = (Expression<Location>) expressions[1];
 		asOriginal = matchedPattern == 1;
 		if (!asOriginal)
-			typeExpr = (Expression<Object>) exprs[2];
+			type = (Expression<Object>) expressions[2];
 		return true;
 	}
 
 	@Override
 	protected void execute(Event event) {
-		Player[] players = playersExpr.getArray(event);
-		Location[] locations = locationsExpr.getArray(event);
+		Player[] players = this.players.getArray(event);
+		Location[] locations = this.locations.getArray(event);
 
 		if (asOriginal) {
 			Map<Location, BlockData> changes = new HashMap<>();
@@ -74,9 +74,9 @@ public class EffSendBlockChange extends Effect {
 			return;
 		}
 
-		if (typeExpr == null)
+		if (this.type == null)
 			return;
-		Object type = typeExpr.getSingle(event);
+		Object type = this.type.getSingle(event);
 		if (type == null)
 			return;
 		Map<Location, BlockData> changes = new HashMap<>();
@@ -95,9 +95,9 @@ public class EffSendBlockChange extends Effect {
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
 		return new SyntaxStringBuilder(event, debug)
-			.append("make", playersExpr, "see", locationsExpr, "as")
+			.append("make", players, "see", locations, "as")
 			.appendIf(asOriginal, "original")
-			.appendIf(!asOriginal, typeExpr)
+			.appendIf(!asOriginal, type)
 			.toString();
 	}
 
