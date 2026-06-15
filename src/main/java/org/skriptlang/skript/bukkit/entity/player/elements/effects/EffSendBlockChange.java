@@ -40,7 +40,7 @@ public class EffSendBlockChange extends Effect {
 		syntaxRegistry.register(SyntaxRegistry.EFFECT, SyntaxInfo.builder(EffSendBlockChange.class)
 			.supplier(EffSendBlockChange::new)
 			.addPatterns("make %players% see %locations% as %itemtype/blockdata%",
-			"make %players% see %locations% as [the|its] (original|normal|actual) [block]")
+				"make %players% see %locations% as [the|its] (original|normal|actual) [block]")
 			.build());
 	}
 
