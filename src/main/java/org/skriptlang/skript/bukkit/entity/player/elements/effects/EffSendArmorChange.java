@@ -71,7 +71,8 @@ public class EffSendArmorChange extends Effect {
 			for (Player player : players) {
 				EntityEquipment entityEquipment = entity.getEquipment();
 				ItemStack slotItem = asOriginal && entityEquipment != null ? entityEquipment.getItem(equipment) : item;
-				if (slotItem == null) slotItem = new ItemStack(Material.AIR);
+				if (slotItem == null)
+					slotItem = new ItemStack(Material.AIR);
 				player.sendEquipmentChange(entity, equipment, slotItem);
 			}
 	}
