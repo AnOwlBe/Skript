@@ -26,6 +26,7 @@ public class PlayerModule extends HierarchicalAddonModule {
 			EffSendArmorChange::register,
 			EffSendBlockChange::register,
 			EffSendBlockDamage::register,
+			EffSendExperienceChange::register,
 			EffSendHurtAnimation::register,
 			EffSendHealthChange::register,
 			ExprChatFormat::register,
