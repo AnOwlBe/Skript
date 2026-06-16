@@ -57,7 +57,6 @@ public class EffSendHurtAnimation extends Effect {
 			for (Player player : players)
 				player.sendHurtAnimation(yaw);
 		}
-
 	}
 
 	@Override
