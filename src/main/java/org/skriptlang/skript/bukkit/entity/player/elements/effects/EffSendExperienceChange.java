@@ -28,7 +28,7 @@ public class EffSendExperienceChange extends Effect {
 	public static void register(SyntaxRegistry syntaxRegistry) {
 		syntaxRegistry.register(SyntaxRegistry.EFFECT, SyntaxInfo.builder(EffSendExperienceChange.class)
 			.supplier(EffSendExperienceChange::new)
-			.addPatterns("make %players% see their [own] (experience|xp) as level %integer% with %number% progress")
+			.addPatterns("make %players% see their [own] (experience|exp|xp) as level %integer% with %number% progress")
 			.build());
 	}
 
