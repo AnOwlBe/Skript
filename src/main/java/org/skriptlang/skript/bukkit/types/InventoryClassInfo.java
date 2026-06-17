@@ -298,19 +298,20 @@ public class InventoryClassInfo extends ClassInfo<Inventory> {
 		//</editor-fold>
 	}
 
-	private static class InventoryViewersHandler implements ExpressionPropertyHandler<Inventory, Player[]> {
+	private static class InventoryViewersHandler implements ExpressionPropertyHandler<Inventory, Object> {
 		//<editor-fold desc="inventory viewers handler" defaultstate="collapsed">
 
 		@Override
-		public Player @Nullable [] convert(Inventory inventory) {
+		public Object convert(Inventory inventory) {
 			return inventory.getViewers().stream()
 				.filter(viewer -> viewer instanceof Player)
 				.toArray(Player[]::new);
 		}
 
 		@Override
-		public @NotNull Class<Player[]> returnType() {
-			return Player[].class;
+		@SuppressWarnings({"unchecked", "rawtypes"})
+		public @NotNull Class<Object> returnType() {
+			return (Class) Player.class;
 		}
 		//</editor-fold>
 	}
