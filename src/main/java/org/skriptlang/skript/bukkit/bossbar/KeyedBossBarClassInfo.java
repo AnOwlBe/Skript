@@ -16,7 +16,6 @@ public class KeyedBossBarClassInfo extends ClassInfo<KeyedBossBar> {
 		super(KeyedBossBar.class, "keyedbossbar");
 		this.user("keyed boss ?bars?")
 			.name(ClassInfo.NO_DOC)
-			.description(ClassInfo.NO_DOC)
 			.since("INSERT VERSION")
 			.serializer(new KeyedBossBarSerializer())
 			.defaultExpression(new EventValueExpression<>(KeyedBossBar.class));

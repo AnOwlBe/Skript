@@ -23,7 +23,7 @@ public class BossBarModule extends HierarchicalAddonModule {
 		Classes.registerClass(new BossBarClassInfo());
 		Classes.registerClass(new KeyedBossBarClassInfo());
 		Classes.registerClass(new EnumClassInfo<>(BarStyle.class, "bossbarstyle", "boss bar styles")
-			.user("boss ?bar ?styles?")
+			.user("boss ?bar styles?")
 			.name("Boss Bar Style")
 			.description("""
 				The style of a boss bar.
@@ -35,7 +35,7 @@ public class BossBarModule extends HierarchicalAddonModule {
 	protected void loadSelf(SkriptAddon addon) {
 		EventValueRegistry eventValueRegistry = addon.registry(EventValueRegistry.class);
 		register(addon,
-			a -> ExprSecCreateBossBar.register(a, eventValueRegistry),
+			syntaxRegistry -> ExprSecCreateBossBar.register(syntaxRegistry, eventValueRegistry),
 			ExprAllBossBars::register,
 			ExprBossBarFromKey::register,
 			ExprBossBarFromEntity::register,

@@ -303,7 +303,9 @@ public class InventoryClassInfo extends ClassInfo<Inventory> {
 
 		@Override
 		public Player @Nullable [] convert(Inventory inventory) {
-			return inventory.getViewers().stream().filter(viewer -> viewer instanceof Player).toArray(Player[]::new);
+			return inventory.getViewers().stream()
+				.filter(viewer -> viewer instanceof Player)
+				.toArray(Player[]::new);
 		}
 
 		@Override

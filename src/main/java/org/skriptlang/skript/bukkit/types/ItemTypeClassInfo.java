@@ -51,7 +51,7 @@ public class ItemTypeClassInfo extends ClassInfo<ItemType> {
 			.cloner(ItemType::clone)
 			.serializer(new YggdrasilSerializer<>())
 			.property(Property.TITLE,
-				"An item's title. This currently only applied to signed books.",
+				"An item's title. This currently only applies to signed books.",
 				Skript.instance(),
 				new ItemTypeTitleHandler())
 			.property(Property.NAME,

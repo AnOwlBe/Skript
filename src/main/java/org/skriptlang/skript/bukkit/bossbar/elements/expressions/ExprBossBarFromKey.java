@@ -74,8 +74,7 @@ public class ExprBossBarFromKey extends SimpleExpression<KeyedBossBar> {
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
 		return new SyntaxStringBuilder(event, debug)
-		    .append("boss bar from keys")
-			.append(keys)
+		    .append("boss bar from keys", keys)
 			.toString();
 	}
 

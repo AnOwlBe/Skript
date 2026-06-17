@@ -34,10 +34,11 @@ import java.util.List;
 
 import static org.skriptlang.skript.bukkit.bossbar.BossBarUtils.nearest;
 
-@Name("Create BossBar")
+@Name("Create Boss Bar")
 @Description("""
-	Creates a new boss bar. Boss bars can have viewers removed or added to them.
-	Making the boss bar `keyed` will add it to the persistent storage of the server and will be editable by commands and restored after restart.
+	Creates a new boss bar.
+	Boss bars can have viewers removed or added to them.
+	Making the boss bar 'keyed' will add it to the persistent storage of the server and will be editable by commands and restored after restart.
 	""")
 @Example("""
 	on join:
@@ -58,8 +59,8 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 		syntaxRegistry.register(
 			SyntaxRegistry.EXPRESSION,
 			SyntaxInfo.Expression.builder(ExprSecCreateBossBar.class, BossBar.class)
-				.addPattern("[a] [new] [%-color%] boss[ ]bar")
-				.addPattern("[a] [new] keyed [%-color%] boss[ ]bar with (id|key) %string%")
+				.addPatterns("[a] [new] [%-color%] boss[ ]bar",
+					"[a] [new] keyed [%-color%] boss[ ]bar with (id|key) %string%")
 				.build()
 		);
 		eventValueRegistry.register(EventValue.builder(CreateBossBarEvent.class, BossBar.class)
@@ -143,7 +144,7 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 		}
 	}
 
-	public static class CreateBossBarEvent extends Event {
+	private static class CreateBossBarEvent extends Event {
 		private final BossBar bar;
 
 		public CreateBossBarEvent(BossBar bar) {

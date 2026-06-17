@@ -18,7 +18,7 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 	on inventory click:
 		if type of event-item is written book:
 			set title of event-item to formatted "<obf>%random uuid%"
-			send "Your books title is now forever forgotten.." to player
+			send "Your book's title is now forever forgotten.." to player
 	""")
 @Since("INSERT VERSION")
 @RelatedProperty("title")

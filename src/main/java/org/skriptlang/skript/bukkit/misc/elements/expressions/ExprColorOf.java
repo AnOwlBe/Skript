@@ -130,7 +130,7 @@ public class ExprColorOf extends PropertyExpression<Object, Color> {
 				if (mode == ChangeMode.SET) {
 					BarColor barColor = BossBarUtils.nearest(colors[0]);
 					if (barColor == null) {
-						error("Could not round to a colour that is similar to rgb(" + colors[0].getRed() + "," + colors[0].getGreen() + "," + colors[0].getBlue() + ")");
+						error("Could not round to a color that is similar to " + Classes.toString(colors[0]));
 					} else {
 						bar.setColor(barColor);
 					}

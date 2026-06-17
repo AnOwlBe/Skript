@@ -10,8 +10,8 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 @Description("Checks whether a boss bar is keyed or not.")
 @Example("""
 	if {_mybar} is a keyed boss bar:
-		broadcast "Its keyed! The key: %boss bar key of {_mybar}%"
-	else if {_mybar} is not a keyed boss bar:
+		broadcast "It's keyed: %boss bar key of {_mybar}%"
+	else:
 		broadcast "It isn't keyed!"
 	""")
 @Since("INSERT VERSION")
