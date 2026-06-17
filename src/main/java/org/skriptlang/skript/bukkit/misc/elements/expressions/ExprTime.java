@@ -40,7 +40,7 @@ public class ExprTime extends PropertyExpression<Object, Time> {
 	public static void register(SyntaxRegistry syntaxRegistry) {
 		syntaxRegistry.register(SyntaxRegistry.EXPRESSION, SyntaxInfo.Expression.builder(ExprTime.class, Time.class)
 			.supplier(ExprTime::new)
-			.addPatterns("[the] time[s] [([with]in|of) %players/worlds%]", "%players/worlds%'[s] time[s]",
+			.addPatterns("[the] time[s] [([with]in|of) %worlds/players%]", "%worlds/players%'[s] time[s]",
 			"[the] (custom|client) time [of %players%]",
 			"%players%'[s] (custom|client) time")
 			.build());
