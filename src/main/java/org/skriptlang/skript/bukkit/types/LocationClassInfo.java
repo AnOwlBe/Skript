@@ -10,10 +10,12 @@ import ch.njol.skript.lang.ParseContext;
 import ch.njol.yggdrasil.Fields;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.skriptlang.skript.lang.converter.Converters;
 import org.skriptlang.skript.lang.properties.Property;
 import org.skriptlang.skript.lang.properties.handlers.WXYZHandler;
 import org.skriptlang.skript.lang.properties.handlers.base.PropertyHandler;
@@ -41,6 +43,8 @@ public class LocationClassInfo extends ClassInfo<Location> {
 				"The X, Y, or Z coordinate of the location.",
 				Skript.instance(),
 				new LocationWXYZHandler());
+
+		Converters.registerConverter(OfflinePlayer.class, Location.class, OfflinePlayer::getLocation);
 
 	}
 
