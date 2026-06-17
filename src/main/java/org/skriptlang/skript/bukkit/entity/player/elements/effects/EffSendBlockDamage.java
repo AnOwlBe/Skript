@@ -70,16 +70,18 @@ public class EffSendBlockDamage extends Effect {
 				return;
 
 			if (this.source == null) {
-				for (Location location : locations)
+				for (Location location : locations) {
 					for (Player player : players)
 						player.sendBlockDamage(location, (float) Math.clamp(amount, 0.0, 1.0));
+				}
 				return;
 			}
 			Object source = this.source.getSingle(event);
 			if (source instanceof Integer sourceId) {
-				for (Location location : locations)
+				for (Location location : locations) {
 					for (Player player : players)
 						player.sendBlockDamage(location, (float) Math.clamp(amount, 0.0, 1.0), sourceId);
+				}
 			} else if (source instanceof Entity entity) {
 				for (Location location : locations) {
 					for (Player player : players)
