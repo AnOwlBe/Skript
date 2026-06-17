@@ -34,6 +34,7 @@ import java.util.List;
 
 import static org.skriptlang.skript.bukkit.bossbar.BossBarUtils.nearest;
 
+@SuppressWarnings("unchecked")
 @Name("Create Boss Bar")
 @Description("""
 	Creates a new boss bar.
@@ -71,14 +72,16 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 	private Trigger trigger = null;
 	private Expression<String> keyExpr;
 	private Expression<Color> colorExpr;
-	private Integer matchedPattern;
+	private Boolean isKeyed;
 
 	@Override
-	public boolean init(Expression<?>[] expressions, int pattern, Kleenean delayed, ParseResult result, @Nullable SectionNode node, @Nullable List<TriggerItem> triggerItems) {
-		matchedPattern = pattern;
+	public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean delayed, ParseResult result, @Nullable SectionNode node, @Nullable List<TriggerItem> triggerItems) {
 		colorExpr = (Expression<Color>) expressions[0];
-		if (pattern == 1) {
+		if (matchedPattern == 1) {
+			isKeyed = true;
 			keyExpr = (Expression<String>) expressions[1];
+		} else {
+			isKeyed = false;
 		}
 		if (node != null) {
 			trigger = SectionUtils.loadLinkedCode("create bossbar", (beforeLoading, afterLoading)
@@ -90,29 +93,24 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 
 	@Override
 	protected BossBar @Nullable [] get(Event event) {
-		BossBar bar = null;
+		BossBar bar;
 		Color color = null;
+		BarColor barColor;
 		if (colorExpr != null) {
 			color = colorExpr.getSingle(event);
 		}
+		barColor = color != null && nearest(color) != null ? nearest(color) : BarColor.WHITE;
+		if (barColor == null)
+			return new BossBar[0];
 
-		if (matchedPattern == 1) {
+		if (isKeyed) {
 			NamespacedKey key = NamespacedUtils.checkValidationAndSend(keyExpr.getSingle(event), this);
 			if (key == null)
 				return new BossBar[0];
-			Bukkit.createBossBar(key, null, BarColor.WHITE, BarStyle.SOLID);
+			Bukkit.createBossBar(key, null, barColor, BarStyle.SOLID);
 			bar = Bukkit.getBossBar(key);
 		} else {
-			bar = Bukkit.createBossBar(null, BarColor.WHITE, BarStyle.SOLID);
-		}
-
-		if (bar == null)
-			return new BossBar[0];
-		if (color != null) {
-			BarColor nearest = nearest(color);
-			if (nearest != null) {
-				bar.setColor(nearest);
-			}
+			bar = Bukkit.createBossBar(null, barColor, BarStyle.SOLID);
 		}
 
 		if (trigger == null)

@@ -46,15 +46,14 @@ public class ExprBossBarFromEntity extends SimplePropertyExpression<Entity, Boss
 		return null;
 	}
 
+	@Override
+	public Class<BossBar> getReturnType() {
+		return BossBar.class;
+	}
 
 	@Override
 	protected String getPropertyName() {
 		return "boss bar";
-	}
-
-	@Override
-	public Class<BossBar> getReturnType() {
-		return BossBar.class;
 	}
 
 }

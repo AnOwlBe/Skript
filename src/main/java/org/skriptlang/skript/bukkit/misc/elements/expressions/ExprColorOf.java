@@ -10,6 +10,7 @@ import ch.njol.skript.doc.Since;
 import ch.njol.skript.expressions.base.PropertyExpression;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.registrations.Classes;
 import ch.njol.skript.util.Color;
 import ch.njol.skript.util.ColorRGB;
 import ch.njol.skript.util.SkriptColor;
@@ -102,13 +103,11 @@ public class ExprColorOf extends PropertyExpression<Object, Color> {
 	@Override
 	public Class<?> @Nullable [] acceptChange(ChangeMode mode) {
 		Expression<?> expression = getExpr();
-		if ((mode == ChangeMode.SET || mode == ChangeMode.RESET) && expression.canReturn(BossBar.class))
-			return CollectionUtils.array(Color.class);
 
 		if (expression.canReturn(FireworkEffect.class))
 			return CollectionUtils.array(Color[].class);
 
-		if ((mode == ChangeMode.RESET || mode == ChangeMode.SET) && expression.canReturn(Display.class))
+		if ((mode == ChangeMode.RESET || mode == ChangeMode.SET) && expression.canReturn(Display.class) || expression.canReturn(BossBar.class))
 			return CollectionUtils.array(Color.class);
 
 		if (mode == ChangeMode.SET &&

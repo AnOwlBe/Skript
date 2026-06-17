@@ -3,7 +3,7 @@ using error catching
 test "create bossbar":
 	set {_bar} to red bossbar
 	assert {_bar} is set with "Failed to create bossbar"
-	set {_error} to "Could not round to a colour that is similar to rgb(18,18,17)"
+	set {_error} to "Could not round to a color that is similar to rgb 18, 18, 17"
 	set {_bar1} to boss bar
 	catch runtime errors:
 		set color of {_bar1} to rgb(18, 18, 17)

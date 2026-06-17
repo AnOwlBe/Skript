@@ -20,7 +20,7 @@ public class BossBarModule extends HierarchicalAddonModule {
 
 	@Override
 	protected void initSelf(SkriptAddon addon) {
-		Classes.registerClass(new BossBarClassInfo());
+		Classes.registerClass(new BossBarClassInfo(addon));
 		Classes.registerClass(new KeyedBossBarClassInfo());
 		Classes.registerClass(new EnumClassInfo<>(BarStyle.class, "bossbarstyle", "boss bar styles")
 			.user("boss ?bar styles?")

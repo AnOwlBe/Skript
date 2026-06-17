@@ -17,6 +17,7 @@ import org.bukkit.boss.*;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.skriptlang.skript.addon.SkriptAddon;
 import org.skriptlang.skript.lang.properties.Property;
 import org.skriptlang.skript.lang.properties.handlers.base.ExpressionPropertyHandler;
 
@@ -26,7 +27,7 @@ import ch.njol.skript.classes.Changer.ChangeMode;
 
 public class BossBarClassInfo extends ClassInfo<BossBar> {
 
-	public BossBarClassInfo() {
+	public BossBarClassInfo(SkriptAddon addon) {
 		super(BossBar.class, "bossbar");
 		this.user("boss ?bars?")
 			.name("BossBar")
@@ -37,21 +38,25 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 			.defaultExpression(new EventValueExpression<>(BossBar.class))
 			.property(Property.TITLE,
 				"The title of a boss bar.",
-				Skript.instance(),
+				addon,
+				new BossBarTitleHandler())
+			.property(Property.NAME,
+				"The name of a boss bar.",
+				addon,
 				new BossBarTitleHandler())
 			.property(Property.PROGRESS,
 				"The progress of a boss bar.",
-				Skript.instance(),
+				addon,
 				new BossBarProgressHandler())
 			.property(Property.STYLE,
 				"The style of a boss bar.",
-				Skript.instance(),
+				addon,
 				new BossBarStyleHandler())
 			.property(Property.VIEWERS, """
 				The viewers of a boss bar.
 				If you remove a player from viewers of a boss bar they will no longer see the flags of the boss bar.
 				""",
-				Skript.instance(),
+				addon,
 				new BossBarViewersHandler());
 	}
 
