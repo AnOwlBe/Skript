@@ -40,9 +40,11 @@ public class ExprTime extends PropertyExpression<Object, Time> {
 	public static void register(SyntaxRegistry syntaxRegistry) {
 		syntaxRegistry.register(SyntaxRegistry.EXPRESSION, SyntaxInfo.Expression.builder(ExprTime.class, Time.class)
 			.supplier(ExprTime::new)
-			.addPatterns("[the] time[s] [([with]in|of) %worlds/players%]", "%worlds/players%'[s] time[s]",
-			"[the] (custom|client) time [of %players%]",
-			"%players%'[s] (custom|client) time")
+			.addPatterns(
+				"[the] time[s] [([with]in|of) %worlds/players%]", 
+				"%worlds/players%'[s] time[s]",
+				"[the] (custom|client) time [of %players%]",
+				"%players%'[s] (custom|client) time")
 			.build());
 	}
 
@@ -69,8 +71,7 @@ public class ExprTime extends PropertyExpression<Object, Time> {
 	}
 
 	@Override
-	@Nullable
-	public Class<?>[] acceptChange(final ChangeMode mode) {
+	public Class<?> @Nullable [] acceptChange(ChangeMode mode) {
 		return switch (mode) {
 			case ADD, REMOVE ->
 				// allow time to avoid conversion to timespan, which causes all sorts of headaches
@@ -132,7 +133,7 @@ public class ExprTime extends PropertyExpression<Object, Time> {
 	public String toString(@Nullable Event event, boolean debug) {
 		return new SyntaxStringBuilder(event, debug)
 			.append("the time of")
-			.append(getExpr().toString(event, debug))
+			.append(getExpr())
 			.toString();
 	}
 
