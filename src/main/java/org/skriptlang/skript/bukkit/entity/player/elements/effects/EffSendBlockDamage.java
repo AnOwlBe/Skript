@@ -9,7 +9,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.SyntaxStringBuilder;
 import ch.njol.util.Kleenean;
-import org.bukkit.block.Block;
+import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -31,13 +31,13 @@ public class EffSendBlockDamage extends Effect {
 	public static void register(SyntaxRegistry syntaxRegistry) {
 		syntaxRegistry.register(SyntaxRegistry.EFFECT, SyntaxInfo.builder(EffSendBlockDamage.class)
 			.supplier(EffSendBlockDamage::new)
-			.addPatterns("make %players% see [block] damage of %block% as %number% [using %-entity/integer%]",
+			.addPatterns("make %players% see [block] damage of %locations% as %number% [using %-entity/integer%]",
 			"make %players% see [block] damage of %locations% as [the|its] (original|normal|actual) [damage]")
 			.build());
 	}
 
 	private Expression<Player> players;
-	private Expression<Block> blocks;
+	private Expression<Location> locations;
 	private Expression<Double> amount;
 	private Expression<Object> source;
 	private boolean asOriginal;
@@ -46,7 +46,7 @@ public class EffSendBlockDamage extends Effect {
 	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		players = (Expression<Player>) expressions[0];
-		blocks = (Expression<Block>) expressions[1];
+		locations = (Expression<Location>) expressions[1];
 		asOriginal = matchedPattern == 1;
 		if (!asOriginal) {
 			amount = (Expression<Double>) expressions[2];
@@ -58,11 +58,11 @@ public class EffSendBlockDamage extends Effect {
 	@Override
 	protected void execute(Event event) {
 		Player[] players = this.players.getArray(event);
-		Block[] blocks = this.blocks.getArray(event);
+		Location[] locations = this.locations.getArray(event);
 		if (asOriginal) {
-			for (Block block : blocks) {
+			for (Location location : locations) {
 				for (Player player : players)
-					player.sendBlockDamage(block.getLocation(), 0);
+					player.sendBlockDamage(location, 0);
 			}
 		} else {
 			Double amount = this.amount.getSingle(event);
@@ -70,20 +70,20 @@ public class EffSendBlockDamage extends Effect {
 				return;
 
 			if (this.source == null) {
-				for (Block block : blocks)
+				for (Location location : locations)
 					for (Player player : players)
-						player.sendBlockDamage(block.getLocation(), (float) Math.clamp(amount, 0.0, 1.0));
+						player.sendBlockDamage(location, (float) Math.clamp(amount, 0.0, 1.0));
 				return;
 			}
 			Object source = this.source.getSingle(event);
 			if (source instanceof Integer sourceId) {
-				for (Block block : blocks)
+				for (Location location : locations)
 					for (Player player : players)
-						player.sendBlockDamage(block.getLocation(), (float) Math.clamp(amount, 0.0, 1.0), sourceId);
+						player.sendBlockDamage(location, (float) Math.clamp(amount, 0.0, 1.0), sourceId);
 			} else if (source instanceof Entity entity) {
-				for (Block block : blocks) {
+				for (Location location : locations) {
 					for (Player player : players)
-						player.sendBlockDamage(block.getLocation(), (float) Math.clamp(amount, 0.0, 1.0), entity);
+						player.sendBlockDamage(location, (float) Math.clamp(amount, 0.0, 1.0), entity);
 				}
 			}
 		}
@@ -92,7 +92,7 @@ public class EffSendBlockDamage extends Effect {
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
 		return new SyntaxStringBuilder(event, debug)
-			.append("make", players, "see block damage of", blocks, "as")
+			.append("make", players, "see block damage of", locations, "as")
 			.appendIf(asOriginal, "its original block damage")
 			.appendIf(!asOriginal, amount)
 			.toString();
