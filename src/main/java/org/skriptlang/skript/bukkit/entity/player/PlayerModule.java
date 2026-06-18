@@ -9,6 +9,7 @@ import org.skriptlang.skript.addon.SkriptAddon;
 import org.skriptlang.skript.bukkit.entity.player.elements.effects.*;
 import org.skriptlang.skript.bukkit.entity.player.elements.events.*;
 import org.skriptlang.skript.bukkit.entity.player.elements.expressions.*;
+import org.skriptlang.skript.bukkit.lang.eventvalue.EventValueRegistry;
 import org.skriptlang.skript.bukkit.registration.BukkitSyntaxInfos;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
@@ -26,6 +27,7 @@ public class PlayerModule extends HierarchicalAddonModule {
 			ExprChatFormat::register,
 			ExprChatMessage::register,
 			ExprChatRecipients::register,
+			ExprGameMode::register,
 			ExprJoinMessage::register,
 			ExprKickMessage::register,
 			ExprOnScreenKickMessage::register,
@@ -41,7 +43,11 @@ public class PlayerModule extends HierarchicalAddonModule {
 			);
 		}
 
+		EventValueRegistry eventValueRegistry = addon.registry(EventValueRegistry.class);
 		SyntaxRegistry syntaxRegistry = moduleRegistry(addon);
+
+		EvtPlayerGameModeChange.register(syntaxRegistry, eventValueRegistry);
+
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Chat")
 			.addDescription("Called whenever a player chats.",
 				"Use <a href='#ExprChatFormat'>chat format</a> to change message format.",
