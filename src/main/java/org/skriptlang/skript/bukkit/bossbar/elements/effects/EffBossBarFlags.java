@@ -55,12 +55,12 @@ public class EffBossBarFlags extends Effect {
 
 	private Expression<BossBar> bars;
 	private BarFlag flag;
-	private boolean add;
+	private boolean remove;
 
 	@Override
 	public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		bars = (Expression<BossBar>) expressions[0];
-		add = !parseResult.hasTag("remove") || !(matchedPattern % 2 == 1);
+		remove = parseResult.hasTag("remove") || (matchedPattern % 2 == 1);
 		flag = PATTERNS.getInfo(matchedPattern);
 		return true;
 	}
@@ -68,10 +68,10 @@ public class EffBossBarFlags extends Effect {
 	@Override
 	protected void execute(Event event) {
 		for (BossBar bar : bars.getArray(event)) {
-			if (add) {
-				bar.addFlag(flag);
-			} else {
+			if (remove) {
 				bar.removeFlag(flag);
+			} else {
+				bar.addFlag(flag);
 			}
 		}
 	}
@@ -80,7 +80,7 @@ public class EffBossBarFlags extends Effect {
 	public String toString(@Nullable Event event, boolean debug) {
 		return new SyntaxStringBuilder(event, debug)
 			.append("make", bars)
-			.appendIf(!add, "no longer")
+			.appendIf(remove, "no longer")
 			.append(switch (flag) {
 				case BarFlag.DARKEN_SKY -> "darken the sky";
 				case BarFlag.CREATE_FOG -> "create fog";
