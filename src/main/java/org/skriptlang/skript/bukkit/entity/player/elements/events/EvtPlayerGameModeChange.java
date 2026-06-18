@@ -1,4 +1,4 @@
-package org.skriptlang.skript.bukkit.entity.player.elements.effects;
+package org.skriptlang.skript.bukkit.entity.player.elements.events;
 
 import ch.njol.skript.lang.Literal;
 import ch.njol.skript.lang.SkriptEvent;
@@ -61,10 +61,10 @@ public class EvtPlayerGameModeChange extends SkriptEvent {
 
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
-		SyntaxStringBuilder builder = new SyntaxStringBuilder(event, debug);
-		builder.append("player gamemode change");
-		builder.appendIf(gamemode != null, "of", gamemode);
-		return builder.toString();
+		return new SyntaxStringBuilder(event, debug)
+			.append("player gamemode change")
+			.appendIf(gamemode != null, "of", gamemode)
+			.toString();
 	}
 
 }

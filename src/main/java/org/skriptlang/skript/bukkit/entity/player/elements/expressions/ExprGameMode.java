@@ -21,6 +21,9 @@ import org.jetbrains.annotations.Nullable;
 import org.skriptlang.skript.registration.SyntaxInfo;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Name("Game Mode")
 @Description("""
 	The gamemode of a player. See <a href="#gamemode">Gamemodes</a>
@@ -65,13 +68,14 @@ public class ExprGameMode extends PropertyExpression<Player, GameMode> {
 	@Override
 	public void change(Event event, @Nullable Object[] delta, ChangeMode mode) {
 		GameMode gamemode = delta == null ? Bukkit.getDefaultGameMode() : (GameMode) delta[0];
+		List<? extends Player> players = Arrays.stream(getExpr().getArray(event)).toList();
+		if (getTime() >= 0 && event instanceof PlayerGameModeChangeEvent playerEvent && players.contains(playerEvent.getPlayer()) && !Delay.isDelayed(event)) {
+			if (playerEvent.getNewGameMode() != gamemode)
+				playerEvent.setCancelled(true);
+		}
+		if (gamemode == null)
+			return;
 		for (Player player : getExpr().getArray(event)) {
-			if (getTime() >= 0 && event instanceof PlayerGameModeChangeEvent playerEvent && playerEvent.getPlayer() == player && !Delay.isDelayed(event)) {
-				if (playerEvent.getNewGameMode() != gamemode)
-					playerEvent.setCancelled(true);
-			}
-			if (gamemode == null)
-				return;
 			player.setGameMode(gamemode);
 		}
 	}
@@ -85,6 +89,7 @@ public class ExprGameMode extends PropertyExpression<Player, GameMode> {
 	public String toString(@Nullable Event event, boolean debug) {
 		return new SyntaxStringBuilder(event, debug)
 			.append("the gamemode of")
+			.append(getExpr())
 			.toString();
 	}
 
