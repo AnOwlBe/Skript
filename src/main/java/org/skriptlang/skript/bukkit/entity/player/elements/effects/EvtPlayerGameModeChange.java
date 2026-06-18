@@ -20,7 +20,7 @@ public class EvtPlayerGameModeChange extends SkriptEvent {
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(EvtPlayerGameModeChange.class, "Player GameMode Change")
 			.supplier(EvtPlayerGameModeChange::new)
 			.addEvent(PlayerGameModeChangeEvent.class)
-			.addPatterns("game[ ]mode change [to %gamemode%]")
+			.addPatterns("[player] game[ ]mode change [to %gamemode%]")
 			.addDescription("""
 				Called when a player's gamemode is changed. See <a href='#gamemode'>gamemode</a>.
 				""")
