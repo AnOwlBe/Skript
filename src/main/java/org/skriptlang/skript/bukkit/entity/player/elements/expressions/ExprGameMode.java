@@ -66,15 +66,13 @@ public class ExprGameMode extends PropertyExpression<Player, GameMode> {
 	}
 
 	@Override
-	public void change(Event event, @Nullable Object[] delta, ChangeMode mode) {
+	public void change(Event event, Object @Nullable [] delta, ChangeMode mode) {
 		GameMode gamemode = delta == null ? Bukkit.getDefaultGameMode() : (GameMode) delta[0];
 		List<? extends Player> players = Arrays.stream(getExpr().getArray(event)).toList();
 		if (getTime() >= 0 && event instanceof PlayerGameModeChangeEvent playerEvent && players.contains(playerEvent.getPlayer()) && !Delay.isDelayed(event)) {
 			if (playerEvent.getNewGameMode() != gamemode)
 				playerEvent.setCancelled(true);
 		}
-		if (gamemode == null)
-			return;
 		for (Player player : players) {
 			player.setGameMode(gamemode);
 		}
