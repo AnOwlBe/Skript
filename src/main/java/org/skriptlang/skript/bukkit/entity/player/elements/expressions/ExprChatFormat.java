@@ -20,16 +20,17 @@ import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import org.skriptlang.skript.lang.script.ScriptWarning;
 import org.skriptlang.skript.registration.SyntaxInfo;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
 @Name("Chat Format")
-@Description({
-	"Can be used to modify the chat format.",
-	"The sender of a message is represented by [player] or [sender].",
-	"The message is represented by [message] or [msg].",
-})
-@Example("set the chat format to \"<yellow>[player]<light gray>: <green>[message]\"")
+@Description("""
+	Can be used to modify the chat format.
+	The sender of a message is represented by %player%.
+	The message is represented by %message%.
+	""")
+@Example("set the chat format to \"<yellow>%player%<light gray>: <green>%message%\"")
 @Since("2.2-dev31")
 @Events("chat")
 public class ExprChatFormat extends SimpleExpression<Component> implements EventRestrictedSyntax {
@@ -41,6 +42,9 @@ public class ExprChatFormat extends SimpleExpression<Component> implements Event
 			.build());
 	}
 
+	private boolean containsReplacement;
+	private boolean suppressDeprecatedWarning;
+
 	@Override
 	public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		var stackIterator = getParser().getParsingStack().iterator();
@@ -48,6 +52,8 @@ public class ExprChatFormat extends SimpleExpression<Component> implements Event
 			Skript.error("'" + toString(null, false) + "' can only be changed, not obtained");
 			return false;
 		}
+		if (getParser().getCurrentScript() != null)
+		    suppressDeprecatedWarning = (getParser().getCurrentScript().suppressesWarning(ScriptWarning.DEPRECATED_SYNTAX));
 		return true;
 	}
 
@@ -83,12 +89,18 @@ public class ExprChatFormat extends SimpleExpression<Component> implements Event
 			return;
 		}
 
-		asyncChatEvent.renderer(ChatRenderer.viewerUnaware(((source, sourceDisplayName, message) ->
+		asyncChatEvent.renderer(ChatRenderer.viewerUnaware((source, sourceDisplayName, message) ->
 			((Component) delta[0]).replaceText(TextReplacementConfig.builder()
 				.match("(?i)\\[(player|sender|message|msg)]")
-				.replacement(((matchResult, builder) ->
-					matchResult.group(1).startsWith("m") ? message : sourceDisplayName))
-				.build()))));
+				.replacement((matchResult, builder) -> {
+					containsReplacement = true;
+					return matchResult.group(1).startsWith("m") ? message : sourceDisplayName;
+				})
+				.build())));
+		if (containsReplacement) {
+			if (suppressDeprecatedWarning)
+			    warning("Using [player], [sender], [message] or [msg] is deprecated and scheduled for removal. Please use e.g. %player% instead.");
+		}
 	}
 
 	@Override
