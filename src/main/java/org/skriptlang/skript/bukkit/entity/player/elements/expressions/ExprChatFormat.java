@@ -97,6 +97,7 @@ public class ExprChatFormat extends SimpleExpression<Component> implements Event
 					return matchResult.group(1).startsWith("m") ? message : sourceDisplayName;
 				})
 				.build())));
+
 		if (containsReplacement) {
 			if (!(suppressDeprecatedWarning))
 			    warning("Using [player], [sender], [message] or [msg] is deprecated and scheduled for removal. Please use e.g. %player% instead.");
