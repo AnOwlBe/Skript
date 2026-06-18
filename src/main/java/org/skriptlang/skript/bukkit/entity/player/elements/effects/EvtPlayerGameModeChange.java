@@ -63,7 +63,7 @@ public class EvtPlayerGameModeChange extends SkriptEvent {
 	public String toString(@Nullable Event event, boolean debug) {
 		SyntaxStringBuilder builder = new SyntaxStringBuilder(event, debug);
 		builder.append("player gamemode change");
-		builder.appendIf(gamemode != null, "of", gamemode.toString(event, debug));
+		builder.appendIf(gamemode != null, "of", gamemode);
 		return builder.toString();
 	}
 

@@ -35,19 +35,19 @@ public class ExprGameMode extends PropertyExpression<Player, GameMode> {
 		syntaxRegistry.register(SyntaxRegistry.EXPRESSION, SyntaxInfo.Expression.builder(ExprGameMode.class, GameMode.class)
 			.supplier(ExprGameMode::new)
 			.addPatterns("[the] game[ ]mode of %players%",
-			"%players%'[s] game[ ]mode")
+				"%players%'[s] game[ ]mode")
 			.build());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public boolean init(final Expression<?>[] expressions, int matchedPattern, Kleenean isDelayed, ParseResult parser) {
+	@SuppressWarnings("unchecked")
+	public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean isDelayed, ParseResult parser) {
 		setExpr((Expression<Player>) expressions[0]);
 		return true;
 	}
 
 	@Override
-	protected GameMode[] get(final Event event, final Player[] source) {
+	protected GameMode[] get(Event event, Player[] source) {
 		return get(source, player -> {
 			if (getTime() >= 0 && event instanceof PlayerGameModeChangeEvent playerEvent && playerEvent.getPlayer() == player && !Delay.isDelayed(event))
 				return playerEvent.getNewGameMode();
@@ -56,8 +56,7 @@ public class ExprGameMode extends PropertyExpression<Player, GameMode> {
 	}
 
 	@Override
-	@Nullable
-	public Class<?>[] acceptChange(final ChangeMode mode) {
+	public Class<?> @Nullable [] acceptChange(ChangeMode mode) {
 		if (mode == ChangeMode.SET || mode == ChangeMode.RESET)
 			return CollectionUtils.array(GameMode.class);
 		return null;
@@ -65,7 +64,7 @@ public class ExprGameMode extends PropertyExpression<Player, GameMode> {
 
 	@Override
 	public void change(Event event, @Nullable Object[] delta, ChangeMode mode) {
-		final GameMode gamemode = delta == null ? Bukkit.getDefaultGameMode() : (GameMode) delta[0];
+		GameMode gamemode = delta == null ? Bukkit.getDefaultGameMode() : (GameMode) delta[0];
 		for (Player player : getExpr().getArray(event)) {
 			if (getTime() >= 0 && event instanceof PlayerGameModeChangeEvent playerEvent && playerEvent.getPlayer() == player && !Delay.isDelayed(event)) {
 				if (playerEvent.getNewGameMode() != gamemode)
@@ -83,14 +82,14 @@ public class ExprGameMode extends PropertyExpression<Player, GameMode> {
 	}
 
 	@Override
-	public String toString(final @Nullable Event event, final boolean debug) {
+	public String toString(@Nullable Event event, boolean debug) {
 		return new SyntaxStringBuilder(event, debug)
 			.append("the gamemode of")
 			.toString();
 	}
 
 	@Override
-	public boolean setTime(final int time) {
+	public boolean setTime(int time) {
 		return super.setTime(time, PlayerGameModeChangeEvent.class);
 	}
 
