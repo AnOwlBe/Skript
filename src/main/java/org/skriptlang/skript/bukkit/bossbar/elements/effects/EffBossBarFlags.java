@@ -35,11 +35,11 @@ public class EffBossBarFlags extends Effect {
 
 	private static final Patterns<BarFlag> PATTERNS = new Patterns<>(new Object[][]{
 		{"make %bossbars% [remove:(not|no longer)] darken the sky", BarFlag.DARKEN_SKY},
-		{"remove: stop %bossbar% from darkening the sky", BarFlag.DARKEN_SKY},
+		{"stop %bossbar% from darkening the sky", BarFlag.DARKEN_SKY},
 		{"make %bossbars% [remove:(not|no longer)] create fog", BarFlag.CREATE_FOG},
-		{"remove: stop %bossbar% from creating fog", BarFlag.CREATE_FOG},
+		{"stop %bossbar% from creating fog", BarFlag.CREATE_FOG},
 		{"make %bossbars% [remove:(not|no longer)] play boss music", BarFlag.PLAY_BOSS_MUSIC},
-		{"remove: stop %bossbar% from playing [the] boss music", BarFlag.PLAY_BOSS_MUSIC},
+		{"stop %bossbar% from playing [the] boss music", BarFlag.PLAY_BOSS_MUSIC},
 	});
 
 	public static void register(SyntaxRegistry registry) {
@@ -59,7 +59,7 @@ public class EffBossBarFlags extends Effect {
 	@Override
 	public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		bars = (Expression<BossBar>) expressions[0];
-		add = !parseResult.hasTag("remove");
+		add = !parseResult.hasTag("remove") || (matchedPattern % 2 == 1);
 		flag = PATTERNS.getInfo(matchedPattern);
 		return true;
 	}
