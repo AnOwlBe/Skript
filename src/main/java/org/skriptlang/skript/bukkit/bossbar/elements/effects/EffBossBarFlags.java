@@ -35,8 +35,11 @@ public class EffBossBarFlags extends Effect {
 
 	private static final Patterns<BarFlag> PATTERNS = new Patterns<>(new Object[][]{
 		{"make %bossbars% [remove:(not|no longer)] darken the sky", BarFlag.DARKEN_SKY},
+		{"remove: stop %bossbar% from darkening the sky", BarFlag.DARKEN_SKY},
 		{"make %bossbars% [remove:(not|no longer)] create fog", BarFlag.CREATE_FOG},
-		{"make %bossbars% [remove:(not|no longer)] play boss music", BarFlag.PLAY_BOSS_MUSIC}
+		{"remove: stop %bossbar% from creating fog", BarFlag.CREATE_FOG},
+		{"make %bossbars% [remove:(not|no longer)] play boss music", BarFlag.PLAY_BOSS_MUSIC},
+		{"remove: %bossbar% from playing [the] boss music", BarFlag.PLAY_BOSS_MUSIC},
 	});
 
 	public static void register(SyntaxRegistry registry) {

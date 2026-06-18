@@ -37,11 +37,6 @@ public class CondIsKeyedBossBar extends PropertyCondition<BossBar> {
 	}
 
 	@Override
-	protected PropertyType getPropertyType() {
-		return PropertyType.BE;
-	}
-
-	@Override
 	protected String getPropertyName() {
 		return "a keyed boss bar";
 	}

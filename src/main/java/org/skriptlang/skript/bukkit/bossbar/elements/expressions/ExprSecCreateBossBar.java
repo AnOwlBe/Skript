@@ -8,6 +8,7 @@ import ch.njol.skript.doc.Since;
 import ch.njol.skript.expressions.base.SectionExpression;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SyntaxStringBuilder;
 import ch.njol.skript.lang.Trigger;
 import ch.njol.skript.lang.TriggerItem;
 import ch.njol.skript.lang.util.SectionUtils;
@@ -70,16 +71,16 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 	}
 
 	private Trigger trigger = null;
-	private Expression<String> keyExpr;
-	private Expression<Color> colorExpr;
+	private Expression<String> key;
+	private Expression<Color> color;
 	private Boolean isKeyed;
 
 	@Override
 	public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean delayed, ParseResult result, @Nullable SectionNode node, @Nullable List<TriggerItem> triggerItems) {
-		colorExpr = (Expression<Color>) expressions[0];
+		color = (Expression<Color>) expressions[0];
 		if (matchedPattern == 1) {
 			isKeyed = true;
-			keyExpr = (Expression<String>) expressions[1];
+			key = (Expression<String>) expressions[1];
 		} else {
 			isKeyed = false;
 		}
@@ -94,17 +95,15 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 	@Override
 	protected BossBar @Nullable [] get(Event event) {
 		BossBar bar;
-		Color color = null;
+		Color color = this.color.getSingle(event);
 		BarColor barColor;
-		if (colorExpr != null) {
-			color = colorExpr.getSingle(event);
-		}
 		barColor = color != null && nearest(color) != null ? nearest(color) : BarColor.WHITE;
+
 		if (barColor == null)
 			return new BossBar[0];
 
 		if (isKeyed) {
-			NamespacedKey key = NamespacedUtils.checkValidationAndSend(keyExpr.getSingle(event), this);
+			NamespacedKey key = NamespacedUtils.checkValidationAndSend(this.key.getSingle(event), this);
 			if (key == null)
 				return new BossBar[0];
 			Bukkit.createBossBar(key, null, barColor, BarStyle.SOLID);
@@ -127,19 +126,17 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 
 	@Override
 	public Class<? extends BossBar> getReturnType() {
-		if (keyExpr != null)
+		if (key != null)
 			return KeyedBossBar.class;
 		return BossBar.class;
 	}
 
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
-		if (keyExpr != null) {
-			return "a keyed bossbar with key" + keyExpr;
-		}
-		else {
-			return "a bossbar";
-		}
+		return new SyntaxStringBuilder(event, debug)
+			.appendIf(key != null, "a keyed boss bar with key" + key)
+			.appendIf(key == null, "a bossbar")
+			.toString();
 	}
 
 	private static class CreateBossBarEvent extends Event {
