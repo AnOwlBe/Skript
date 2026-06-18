@@ -27,8 +27,8 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 @Name("Chat Format")
 @Description("""
 	Can be used to modify the chat format.
-	The sender of a message is represented by %player%.
-	The message is represented by %message%.
+	The sender of a message is represented by player.
+	The message is represented by message.
 	""")
 @Example("set the chat format to \"<yellow>%player%<light gray>: <green>%message%\"")
 @Since("2.2-dev31")
@@ -98,10 +98,8 @@ public class ExprChatFormat extends SimpleExpression<Component> implements Event
 				})
 				.build())));
 
-		if (containsReplacement) {
-			if (!(suppressDeprecatedWarning))
-			    warning("Using [player], [sender], [message] or [msg] is deprecated and scheduled for removal. Please use e.g. %player% instead.");
-		}
+		if (containsReplacement && !suppressDeprecatedWarning)
+			warning("Using [player], [sender], [message] or [msg] is deprecated and scheduled for removal. Please use e.g. %player% instead.");
 	}
 
 	@Override
