@@ -75,7 +75,7 @@ public class ExprGameMode extends PropertyExpression<Player, GameMode> {
 		}
 		if (gamemode == null)
 			return;
-		for (Player player : getExpr().getArray(event)) {
+		for (Player player : players) {
 			player.setGameMode(gamemode);
 		}
 	}
