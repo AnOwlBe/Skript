@@ -17,6 +17,7 @@ import org.jetbrains.annotations.Nullable;
 import org.skriptlang.skript.registration.SyntaxInfo;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
+@SuppressWarnings("unchecked")
 @Name("Boss Bar Flags")
 @Description("""
 	Makes a boss bar have or not have a flag.
