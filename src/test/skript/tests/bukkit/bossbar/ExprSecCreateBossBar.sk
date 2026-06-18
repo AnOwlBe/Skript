@@ -33,3 +33,6 @@ test "create bossbar":
 	assert progress of {_bar3} is 75% with "Failed to set progress of keyed bossbar"
 	assert style of {_bar3} is 20 notches with "Failed to set style of keyed bossbar"
 	assert color of {_bar3} is light green with "Failed to set color of keyed bossbar"
+	set {_bar4} to a boss bar:
+		set name of event-bossbar to "okay"
+	assert name of {_bar4} is "okay" with "Failed to set name of bossbar"

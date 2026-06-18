@@ -95,7 +95,9 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 	@Override
 	protected BossBar @Nullable [] get(Event event) {
 		BossBar bar;
-		Color color = this.color.getSingle(event);
+		Color color = null;
+		if (this.color != null)
+		    color = this.color.getSingle(event);
 		BarColor barColor;
 		barColor = color != null && nearest(color) != null ? nearest(color) : BarColor.WHITE;
 
