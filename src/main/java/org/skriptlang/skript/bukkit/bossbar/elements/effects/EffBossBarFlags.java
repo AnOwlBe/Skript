@@ -60,7 +60,7 @@ public class EffBossBarFlags extends Effect {
 	@Override
 	public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		bars = (Expression<BossBar>) expressions[0];
-		add = !parseResult.hasTag("remove") || (matchedPattern % 2 == 1);
+		add = !parseResult.hasTag("remove") || !(matchedPattern % 2 == 1);
 		flag = PATTERNS.getInfo(matchedPattern);
 		return true;
 	}
