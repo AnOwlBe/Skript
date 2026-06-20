@@ -9,6 +9,7 @@ import org.skriptlang.skript.addon.SkriptAddon;
 import org.skriptlang.skript.bukkit.entity.player.elements.effects.*;
 import org.skriptlang.skript.bukkit.entity.player.elements.events.*;
 import org.skriptlang.skript.bukkit.entity.player.elements.expressions.*;
+import org.skriptlang.skript.bukkit.lang.eventvalue.EventValueRegistry;
 import org.skriptlang.skript.bukkit.registration.BukkitSyntaxInfos;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
@@ -41,7 +42,44 @@ public class PlayerModule extends HierarchicalAddonModule {
 			);
 		}
 
+        EventValueRegistry eventValueRegistry = addon.registry(EventValueRegistry.class);
 		SyntaxRegistry syntaxRegistry = moduleRegistry(addon);
+
+		EvtPlayerAnimation.register(syntaxRegistry);
+		EvtPlayerArmorChange.register(syntaxRegistry, eventValueRegistry);
+		EvtPlayerBedEnter.register(syntaxRegistry, eventValueRegistry);
+		EvtPlayerBedLeave.register(syntaxRegistry, eventValueRegistry);
+		EvtPlayerBreakItem.register(syntaxRegistry, eventValueRegistry);
+		EvtPlayerChangeBeaconEffect.register(syntaxRegistry, eventValueRegistry);
+		EvtPlayerDamageItem.register(syntaxRegistry, eventValueRegistry);
+		EvtPlayerDeepSleep.register(syntaxRegistry);
+		EvtPlayerElytraBoost.register(syntaxRegistry, eventValueRegistry);
+		EvtPlayerEmptyBucket.register(syntaxRegistry, eventValueRegistry);
+		EvtPlayerExprCooldownChange.register(syntaxRegistry, eventValueRegistry);
+		EvtPlayerFillBucket.register(syntaxRegistry, eventValueRegistry);
+		EvtPlayerFlightToggle.register(syntaxRegistry);
+		EvtPlayerHeldItem.register(syntaxRegistry, eventValueRegistry);
+		EvtPlayerInventorySlotChange.register(syntaxRegistry, eventValueRegistry);
+		EvtPlayerJoin.register(syntaxRegistry);
+		EvtPlayerJump.register(syntaxRegistry);
+		EvtPlayerKick.register(syntaxRegistry);
+		EvtPlayerLocaleChange.register(syntaxRegistry);
+		EvtPlayerLogin.register(syntaxRegistry);
+		EvtPlayerMendItem.register(syntaxRegistry, eventValueRegistry);
+		EvtPlayerMoveOn.register(syntaxRegistry, eventValueRegistry);
+		EvtPlayerQuit.register(syntaxRegistry, eventValueRegistry);
+		EvtPlayerReadyArrow.register(syntaxRegistry);
+		EvtPlayerRespawn.register(syntaxRegistry, eventValueRegistry);
+		EvtPlayerRiptide.register(syntaxRegistry, eventValueRegistry);
+		EvtPlayerSneakToggle.register(syntaxRegistry);
+		EvtPlayerSpectate.register(syntaxRegistry);
+		EvtPlayerSprintToggle.register(syntaxRegistry);
+		EvtPlayerStopUsingItem.register(syntaxRegistry, eventValueRegistry);
+		EvtPlayerSwapHandItems.register(syntaxRegistry);
+		EvtPlayerThrowEgg.register(syntaxRegistry, eventValueRegistry);
+		EvtPlayerTrade.register(syntaxRegistry, eventValueRegistry);
+		EvtPlayerWorldChange.register(syntaxRegistry, eventValueRegistry);
+
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Chat")
 			.addDescription("Called whenever a player chats.",
 				"Use <a href='#ExprChatFormat'>chat format</a> to change message format.",
