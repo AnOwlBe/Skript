@@ -1,9 +1,11 @@
 package org.skriptlang.skript.bukkit.entity.player.elements.events;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Literal;
 import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.SyntaxStringBuilder;
+import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerQuitEvent.QuitReason;
@@ -37,14 +39,10 @@ public class EvtPlayerQuit extends SkriptEvent {
 	}
 
 	@Override
-	public boolean init(Literal<?>[] args, int matchedPattern, ParseResult parseResult) {
-		return true;
-	}
+	public boolean init(Literal<?>[] args, int matchedPattern, ParseResult parseResult) { return true; }
 
 	@Override
-	public boolean check(Event event) {
-		return true;
-	}
+	public boolean check(Event event) { return true; }
 
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
