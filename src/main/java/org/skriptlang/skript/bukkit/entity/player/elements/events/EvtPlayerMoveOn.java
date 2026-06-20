@@ -45,7 +45,7 @@ public class EvtPlayerMoveOn extends SkriptEvent {
 				Please note that this event is called extremely often internally and may cause performance issues.
 				""")
 			.addExample("""
-				on stepping on stone:
+				on walking on stone:
 				    send "Well these don't feel like stepping stones.."
 				""")
 			.addSince("2.0")

@@ -5,7 +5,7 @@ import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.SyntaxStringBuilder;
 import org.bukkit.event.Event;
-import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.jetbrains.annotations.Nullable;
 
 import org.skriptlang.skript.bukkit.registration.BukkitSyntaxInfos;
@@ -14,9 +14,9 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 public class EvtPlayerFlightToggle extends SkriptEvent {
 
 	public static void register(SyntaxRegistry syntaxRegistry) {
-		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(EvtPlayerSneakToggle.class, "Player Flight Toggle")
-			.supplier(EvtPlayerSneakToggle::new)
-			.addEvent(PlayerToggleSneakEvent.class)
+		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(EvtPlayerFlightToggle.class, "Player Flight Toggle")
+			.supplier(EvtPlayerFlightToggle::new)
+			.addEvent(PlayerToggleFlightEvent.class)
 			.addPatterns("[player] flight toggl(e|ing)",
 				"[player] toggl(e|ing) flight")
 			.addDescription("""

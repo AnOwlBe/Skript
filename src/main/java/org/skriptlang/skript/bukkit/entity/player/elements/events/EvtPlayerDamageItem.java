@@ -6,7 +6,6 @@ import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.SyntaxStringBuilder;
 import org.bukkit.event.Event;
-import org.bukkit.event.player.PlayerItemBreakEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
@@ -18,9 +17,9 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 public class EvtPlayerDamageItem extends SkriptEvent {
 
 	public static void register(SyntaxRegistry syntaxRegistry, EventValueRegistry eventValueRegistry) {
-		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(EvtPlayerBreakItem.class, "Player Tool Break")
-			.supplier(EvtPlayerBreakItem::new)
-			.addEvent(PlayerItemBreakEvent.class)
+		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(EvtPlayerDamageItem.class, "Player Tool Break")
+			.supplier(EvtPlayerDamageItem::new)
+			.addEvent(PlayerItemDamageEvent.class)
 			.addPatterns("item damag(e|ing)")
 			.addDescription("""
 				Called when an item is damaged. Most tools are damaged by using them; armor is damaged when the wearer takes damage.

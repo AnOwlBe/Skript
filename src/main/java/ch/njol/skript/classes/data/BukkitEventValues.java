@@ -311,17 +311,6 @@ public final class BukkitEventValues {
 		registry.register(EventValue.simple(PlayerEvent.class, Player.class, PlayerEvent::getPlayer));
 		registry.register(EventValue.simple(PlayerEvent.class, World.class, event -> event.getPlayer().getWorld()));
 
-		// PlayerBucketEvents
-		registry.register(EventValue.simple(PlayerBucketFillEvent.class, Block.class, PlayerBucketEvent::getBlockClicked));
-		registry.register(EventValue.builder(PlayerBucketFillEvent.class, Block.class)
-			.getter(event -> {
-				BlockState state = event.getBlockClicked().getState();
-				state.setType(Material.AIR);
-				return new BlockStateBlock(state, true);
-			})
-			.time(Time.FUTURE)
-			.build());
-
 		// PlayerDropItemEvent
 		registry.register(EventValue.simple(PlayerDropItemEvent.class, Player.class, PlayerEvent::getPlayer));
 		registry.register(EventValue.simple(PlayerDropItemEvent.class, Item.class, PlayerDropItemEvent::getItemDrop));

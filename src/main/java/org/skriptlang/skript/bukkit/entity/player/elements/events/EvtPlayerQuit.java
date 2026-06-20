@@ -19,7 +19,7 @@ public class EvtPlayerQuit extends SkriptEvent {
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(EvtPlayerQuit.class, "Player Quit")
 			.supplier(EvtPlayerQuit::new)
 			.addEvent(PlayerQuitEvent.class)
-			.addPatterns("(quit[ting]|disconnect[ing]|log[ ]out|logging out|leav(e|ing))")
+			.addPatterns("[player] (quit[ting]|disconnect[ing]|log[ ]out|logging out|leav(e|ing))")
 			.addDescription("""
 				Called when a player leaves the server.
 				This event cannot be cancelled.

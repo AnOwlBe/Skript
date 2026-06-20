@@ -25,7 +25,7 @@ public class EvtPlayerBedLeave extends SkriptEvent {
 				Called when a player leaves a bed.
 				""")
 			.addExample("""
-				on bed enter:
+				on player leaving a bed:
 				""")
 			.addSince("1.0")
 			.build());

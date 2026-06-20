@@ -16,7 +16,7 @@ public class EvtPlayerSwapHandItems extends SkriptEvent {
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(EvtPlayerSwapHandItems.class, "Player Hand Swap Items")
 			.supplier(EvtPlayerSwapHandItems::new)
 			.addEvent(PlayerSwapHandItemsEvent.class)
-			.addPatterns("swap[ping of] [(hand|held)] item[s]")
+			.addPatterns("[player] swap[ping of] [(hand|held)] item[s]")
 			.addDescription("""
 				Called whenever a player swaps the items in their main- and offhand slots.
 				Works also when one or both of the slots are empty.

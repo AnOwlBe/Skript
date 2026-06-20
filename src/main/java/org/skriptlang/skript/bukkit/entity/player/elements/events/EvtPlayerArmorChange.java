@@ -61,21 +61,21 @@ public class EvtPlayerArmorChange extends SkriptEvent {
 				//noinspection deprecation
 				return slotTypeMap.get(event.getSlotType());
 			};
-
-			eventValueRegistry.register(EventValue.builder(PlayerArmorChangeEvent.class, EquipmentSlot.class)
-				.getter(GET_SLOT)
-				.build());
-
-			eventValueRegistry.register(EventValue.builder(PlayerArmorChangeEvent.class, ItemStack.class)
-				.getter(PlayerArmorChangeEvent::getOldItem)
-				.time(Time.PAST)
-				.build());
-
-			eventValueRegistry.register(EventValue.builder(PlayerArmorChangeEvent.class, ItemStack.class)
-				.getter(PlayerArmorChangeEvent::getNewItem)
-				.time(Time.FUTURE)
-				.build());
 		}
+
+		eventValueRegistry.register(EventValue.builder(PlayerArmorChangeEvent.class, EquipmentSlot.class)
+			.getter(GET_SLOT)
+			.build());
+
+		eventValueRegistry.register(EventValue.builder(PlayerArmorChangeEvent.class, ItemStack.class)
+			.getter(PlayerArmorChangeEvent::getOldItem)
+			.time(Time.PAST)
+			.build());
+
+		eventValueRegistry.register(EventValue.builder(PlayerArmorChangeEvent.class, ItemStack.class)
+			.getter(PlayerArmorChangeEvent::getNewItem)
+			.time(Time.FUTURE)
+			.build());
 	}
 
 	private @Nullable EquipmentSlot slot = null;

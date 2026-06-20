@@ -19,12 +19,12 @@ public class EvtPlayerChangeBeaconEffect extends SkriptEvent {
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(EvtPlayerChangeBeaconEffect.class, "Player Change Beacon Effect")
 			.supplier(EvtPlayerChangeBeaconEffect::new)
 			.addEvent(PlayerChangeBeaconEffectEvent.class)
-			.addPatterns("player chang(e[s]|ing) [of] beacon effect")
+			.addPatterns("[player] chang(e[s]|ing) [of] beacon effect")
 			.addDescription("""
 				Called when a player changes the effects of a beacon.
 				""")
 			.addExample("""
-				on beacon effect change:
+				on player changing of beacon effect:
 				    broadcast "The player who did this: %player%"
 				    broadcast "The location: %location of event-block%"
 				    broadcast "Hurry to the given location!"

@@ -5,7 +5,7 @@ import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.SyntaxStringBuilder;
 import org.bukkit.event.Event;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerLocaleChangeEvent;
 import org.jetbrains.annotations.Nullable;
 import org.skriptlang.skript.bukkit.registration.BukkitSyntaxInfos;
 import org.skriptlang.skript.registration.SyntaxRegistry;
@@ -13,9 +13,9 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 public class EvtPlayerLocaleChange extends SkriptEvent {
 
 	public static void register(SyntaxRegistry syntaxRegistry) {
-		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(EvtPlayerQuit.class, "Player Locale Change")
-			.supplier(EvtPlayerQuit::new)
-			.addEvent(PlayerQuitEvent.class)
+		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(EvtPlayerLocaleChange.class, "Player Locale Change")
+			.supplier(EvtPlayerLocaleChange::new)
+			.addEvent(PlayerLocaleChangeEvent.class)
 			.addPatterns("[player] (language|locale) chang(e|ing)",
 			"[player] chang(e|ing) (language|locale)")
 			.addDescription("""

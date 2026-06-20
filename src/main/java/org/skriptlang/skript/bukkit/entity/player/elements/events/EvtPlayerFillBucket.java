@@ -25,8 +25,8 @@ public class EvtPlayerFillBucket extends SkriptEvent {
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(EvtPlayerFillBucket.class, "Player Fill Bucket")
 			.supplier(EvtPlayerFillBucket::new)
 			.addEvent(PlayerBucketFillEvent.class)
-			.addPatterns("bucket fill[ing] [liquid: with %itemtype%]",
-				"[player] fill[ing] [a] bucket [liquid: (with|of) %itemtype%]")
+			.addPatterns("bucket fill[ing] [liquid: with %-itemtype%]",
+				"[player] fill[ing] [a] bucket [liquid: (with|of) %-itemtype%]")
 			.addDescription("""
 				Called when a player fills a bucket.
 				""")

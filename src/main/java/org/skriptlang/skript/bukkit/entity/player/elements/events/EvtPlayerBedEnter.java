@@ -25,7 +25,7 @@ public class EvtPlayerBedEnter extends SkriptEvent {
 				Called when a player starts sleeping.
 				""")
 			.addExample("""
-				on player leaving a bed:
+				on player entering a bed:
 				""")
 			.addSince("1.0")
 			.build());
