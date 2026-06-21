@@ -52,6 +52,7 @@ public class CondHasBossBarFlag extends Condition {
 	private BarFlag flag;
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		flag = PATTERNS.getInfo(matchedPattern);
 		bars = (Expression<BossBar>) exprs[0];

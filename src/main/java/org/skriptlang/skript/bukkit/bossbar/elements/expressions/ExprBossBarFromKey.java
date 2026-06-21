@@ -42,6 +42,7 @@ public class ExprBossBarFromKey extends SimpleExpression<KeyedBossBar> {
 	private Expression<String> keys;
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		keys = (Expression<String>) exprs[0];
 		return true;

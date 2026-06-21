@@ -25,9 +25,7 @@ public class BossBarModule extends HierarchicalAddonModule {
 		Classes.registerClass(new EnumClassInfo<>(BarStyle.class, "bossbarstyle", "boss bar styles")
 			.user("boss ?bar styles?")
 			.name("Boss Bar Style")
-			.description("""
-				The style of a boss bar.
-				""")
+			.description("The style of a boss bar.")
 			.since("INSERT VERSION"));
 	}
 
