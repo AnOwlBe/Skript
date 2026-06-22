@@ -212,17 +212,18 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 			if (delta == null && mode != ChangeMode.RESET)
 				return;
 
-			for (Object value : delta)
-				if (value instanceof Player player)
-					switch (mode) {
-						case SET -> bar.addPlayer(player);
-						case ADD -> {
-							bar.removeAll();
-							bar.addPlayer(player);
-						}
-						case REMOVE -> bar.removePlayer(player);
-						case RESET -> bar.removeAll();
+			for (Object value : delta) {
+				Player player = (Player) value;
+				switch (mode) {
+					case SET -> bar.addPlayer(player);
+					case ADD -> {
+						bar.removeAll();
+						bar.addPlayer(player);
 					}
+					case REMOVE -> bar.removePlayer(player);
+					case RESET -> bar.removeAll();
+				}
+			}
 		}
 
 		@Override
