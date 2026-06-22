@@ -25,7 +25,10 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 		super(BossBar.class, "bossbar");
 		this.user("boss ?bars?")
 			.name("BossBar")
-			.description("Represents a boss bar.")
+			.description("""
+				Represents a boss bar.
+				A boss bar is displayed at the top of a players screen & can have its title, progress, style, colour & viewers set.
+				""")
 			.since("INSERT VERSION")
 			.parser(new BossBarParser())
 			.changer(new BossBarChangeHandler())
@@ -64,19 +67,11 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 		@Override
 		public String toString(BossBar bar, int flags) {
 			boolean emptyTitle = bar.getTitle().isEmpty();
-			if (bar instanceof KeyedBossBar keyed) {
-				if (emptyTitle) {
-					return "boss bar with id '" + keyed.getKey() + "'";
-				} else {
-					return "boss bar with id '" + keyed.getKey() + "' titled '" + bar.getTitle() + "'";
-				}
+			if (emptyTitle) {
+				return "boss bar";
 			} else {
-				if (emptyTitle) {
-					return "boss bar";
-				} else {
-					return "boss bar titled '" + bar.getTitle() + "'";
+				return "boss bar titled '" + bar.getTitle() + "'";
 				}
-			}
 		}
 
 		@Override
@@ -214,26 +209,20 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 
 		@Override
 		public void change(BossBar bar, Object @Nullable [] delta, ChangeMode mode) {
-			Player[] players = delta != null ? (Player[]) delta : null;
-			if (players == null && mode != Changer.ChangeMode.RESET)
+			if (delta == null && mode != ChangeMode.RESET)
 				return;
-			switch (mode) {
-				case SET -> {
-					bar.removeAll();
-					for (Player player : players)
-						bar.addPlayer(player);
-				}
-				case ADD -> {
-					for (Player player : players)
-						if (!bar.getPlayers().contains(player))
+
+			for (Object value : delta)
+				if (value instanceof Player player)
+					switch (mode) {
+						case SET -> bar.addPlayer(player);
+						case ADD -> {
+							bar.removeAll();
 							bar.addPlayer(player);
-				}
-				case REMOVE -> {
-					for (Player player : players)
-						bar.removePlayer(player);
-				}
-				case RESET -> bar.removeAll();
-			}
+						}
+						case REMOVE -> bar.removePlayer(player);
+						case RESET -> bar.removeAll();
+					}
 		}
 
 		@Override

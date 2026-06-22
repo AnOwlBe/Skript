@@ -36,3 +36,4 @@ test "create bossbar":
 	set {_bar4} to a boss bar:
 		set name of event-bossbar to "okay"
 	assert name of {_bar4} is "okay" with "Failed to set name of bossbar"
+	delete boss bar in {_bar3}

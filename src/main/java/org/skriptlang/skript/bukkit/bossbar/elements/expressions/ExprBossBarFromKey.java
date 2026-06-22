@@ -24,7 +24,14 @@ import java.util.List;
 @Name("Boss Bar From Key")
 @Description("Obtains a keyed boss bar from the specified key.")
 @Example("""
-	set the title of the boss bar with the key "test" to "My Test Title"
+	set {_bar} to a keyed red boss bar with key "example":
+	    set title of event-bossbar to "My Test Title"
+	    set color of event-bossbar to red
+	    set progress of event-bossbar to 86%
+	    set style of event-bossbar to 6 notches
+	
+	// some structure later on and you need to access it
+	set the title of the boss bar with the key "example" to "My Updated Test Title"
 	""")
 @Since("INSERT VERSION")
 public class ExprBossBarFromKey extends SimpleExpression<KeyedBossBar> {

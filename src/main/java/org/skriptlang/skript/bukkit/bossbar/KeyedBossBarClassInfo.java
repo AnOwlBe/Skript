@@ -1,8 +1,10 @@
 package org.skriptlang.skript.bukkit.bossbar;
 
 import ch.njol.skript.classes.ClassInfo;
+import ch.njol.skript.classes.Parser;
 import ch.njol.skript.classes.Serializer;
 import ch.njol.skript.expressions.base.EventValueExpression;
+import ch.njol.skript.lang.ParseContext;
 import ch.njol.yggdrasil.Fields;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
@@ -17,9 +19,35 @@ public class KeyedBossBarClassInfo extends ClassInfo<KeyedBossBar> {
 		this.user("keyed boss ?bars?")
 			.name(ClassInfo.NO_DOC)
 			.since("INSERT VERSION")
+			.parser(new KeyedBossBarParser())
+			.supplier(Bukkit::getBossBars)
 			.serializer(new KeyedBossBarSerializer())
 			.defaultExpression(new EventValueExpression<>(KeyedBossBar.class));
 
+	}
+
+	private static class KeyedBossBarParser extends Parser<KeyedBossBar> {
+		//<editor-fold desc="boss bar parser" defaultstate="collapsed">
+		@Override
+		public boolean canParse(ParseContext context) {
+			return false;
+		}
+
+		@Override
+		public String toString(KeyedBossBar bar, int flags) {
+			boolean emptyTitle = bar.getTitle().isEmpty();
+			if (emptyTitle) {
+				return "boss bar with id '" + bar.getKey() + "'";
+			} else {
+				return "boss bar with id '" + bar.getKey() + "' titled '" + bar.getTitle() + "'";
+			}
+		}
+
+		@Override
+		public String toVariableNameString(KeyedBossBar bar) {
+			return toString(bar, 0);
+		}
+		//</editor-fold>
 	}
 
 	private static class KeyedBossBarSerializer extends Serializer<KeyedBossBar> {

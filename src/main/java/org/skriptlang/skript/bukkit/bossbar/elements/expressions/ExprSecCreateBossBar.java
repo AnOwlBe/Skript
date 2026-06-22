@@ -136,10 +136,11 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
 		return new SyntaxStringBuilder(event, debug)
-			.appendIf(key != null && color == null, "a keyed boss bar with key" + key)
-			.appendIf(key != null && color != null, "a keyed", color, "boss bar with key" + key)
-			.appendIf(key == null && color == null, "a bossbar")
-			.appendIf(key == null && color != null, "a", color, "bossbar")
+			.append("a")
+			.appendIf(key != null, "keyed")
+			.appendIf(color != null, color)
+			.append("boss bar")
+			.appendIf(key != null, "with key", key)
 			.toString();
 	}
 
