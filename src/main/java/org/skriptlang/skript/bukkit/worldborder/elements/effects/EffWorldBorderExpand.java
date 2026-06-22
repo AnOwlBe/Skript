@@ -37,9 +37,8 @@ public class EffWorldBorderExpand extends Effect {
 				.supplier(EffWorldBorderExpand::new)
 				.addPatterns("(expand|grow) [[the] (diameter|:radius) of] %worldborders% (by|:to) %number% [over [a period of] %-timespan%]",
 					"(expand|grow) %worldborders%['s (diameter|:radius)] (by|:to) %number% [over [a period of] %-timespan%]",
-				"(contract|shrink) [[the] (diameter|:radius) of] %worldborders% (by|:to) %number% [over [a period of] %-timespan%]",
-				"(contract|shrink) %worldborders%['s (diameter|:radius)] (by|:to) %number% [over [a period of] %-timespan%]"
-				)
+					"(contract|shrink) [[the] (diameter|:radius) of] %worldborders% (by|:to) %number% [over [a period of] %-timespan%]",
+					"(contract|shrink) %worldborders%['s (diameter|:radius)] (by|:to) %number% [over [a period of] %-timespan%]")
 				.build()
 		);
 	}
@@ -51,7 +50,7 @@ public class EffWorldBorderExpand extends Effect {
 	private Expression<Number> numberExpr;
 	private @Nullable Expression<Timespan> timespan;
 	private static final double MAX_WORLDBORDER_SIZE = 59999968;
-	private static final boolean USE_DEPRECATED = !Skript.methodExists(org.bukkit.WorldBorder.class, "changeSize");
+	private static final boolean USE_DEPRECATED = !Skript.methodExists(WorldBorder.class, "changeSize");
 
 	@Override
 	@SuppressWarnings("unchecked")
