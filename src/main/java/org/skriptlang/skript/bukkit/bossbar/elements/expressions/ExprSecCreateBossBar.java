@@ -38,7 +38,7 @@ import static org.skriptlang.skript.bukkit.bossbar.BossBarUtils.nearest;
 @SuppressWarnings("unchecked")
 @Name("Create Boss Bar")
 @Description("""
-	Creates a new boss bar.
+	Creates a new boss bar. Bossbars can by green/x/y/z, and will pick the closest valid colour to the one you provide.
 	Boss bars can have viewers removed or added to them.
 	Making the boss bar 'keyed' will add it to the persistent storage of the server and will be editable by commands and restored after restart.
 	""")
@@ -73,7 +73,7 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 	private Trigger trigger = null;
 	private Expression<String> key;
 	private Expression<Color> color;
-	private Boolean isKeyed;
+	private boolean isKeyed;
 
 	@Override
 	public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean delayed, ParseResult result, @Nullable SectionNode node, @Nullable List<TriggerItem> triggerItems) {
