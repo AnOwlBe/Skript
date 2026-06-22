@@ -67,7 +67,7 @@ public class EffSendArmorChange extends Effect {
 		ItemType itemType = asOriginal ? null : itemExpr.getSingle(event);
 		ItemStack item = itemType != null ? itemType.getRandom() : new ItemStack(Material.AIR);
 
-		for (LivingEntity entity : entities)
+		for (LivingEntity entity : entities) {
 			for (Player player : players) {
 				EntityEquipment entityEquipment = entity.getEquipment();
 				ItemStack slotItem = asOriginal && entityEquipment != null ? entityEquipment.getItem(equipment) : item;
@@ -75,13 +75,14 @@ public class EffSendArmorChange extends Effect {
 					slotItem = new ItemStack(Material.AIR);
 				player.sendEquipmentChange(entity, equipment, slotItem);
 			}
+		}
 	}
 
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
 		return new SyntaxStringBuilder(event, debug)
 			.append("make", players, "see", entities, equipment, "as")
-			.appendIf(asOriginal, "its original")
+			.appendIf(asOriginal, "the original")
 			.appendIf(!asOriginal, itemExpr)
 			.toString();
 	}

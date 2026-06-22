@@ -28,7 +28,7 @@ public class EffSendHurtAnimation extends Effect {
 	public static void register(SyntaxRegistry syntaxRegistry) {
 		syntaxRegistry.register(SyntaxRegistry.EFFECT, SyntaxInfo.builder(EffSendHurtAnimation.class)
 			.supplier(EffSendHurtAnimation::new)
-			.addPatterns("send hurt animation to %players% [yaw:with yaw %integer%]")
+			.addPatterns("play [fake] hurt animation on %players% [yaw:from yaw %integer%]")
 			.build());
 	}
 
