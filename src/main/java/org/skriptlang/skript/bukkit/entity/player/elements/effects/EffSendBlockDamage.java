@@ -22,6 +22,8 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 	Makes a player see a block's damage as something else.
 	This will not actually change the block's break progress in any way.
 	Note that a single entity can only be breaking 1 block at a time.
+	When a source is provided (an entity or integer), the block damage is shown on the provided block using that source,
+	allowing multiple blocks to display damage independently for the provided players.
 	""")
 @Example("make player see block damage of target block of player as 100%")
 @Example("make player see block damage of block at player as 75% using random integer between 1 and 999")
@@ -31,7 +33,7 @@ public class EffSendBlockDamage extends Effect {
 	public static void register(SyntaxRegistry syntaxRegistry) {
 		syntaxRegistry.register(SyntaxRegistry.EFFECT, SyntaxInfo.builder(EffSendBlockDamage.class)
 			.supplier(EffSendBlockDamage::new)
-			.addPatterns("make %players% see [block] damage of %locations% as %number% [using %-entity/integer%]",
+			.addPatterns("make %players% see [block] damage of %locations% as %number% [(with|using) source %-entity/integer%]",
 				"make %players% see [block] damage of %locations% as [the|its] (original|normal|actual) [damage]")
 			.build());
 	}
