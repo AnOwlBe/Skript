@@ -42,7 +42,7 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 				addon,
 				new BossBarTitleHandler())
 			.property(Property.PROGRESS,
-				"The progress of a boss bar.",
+				"The progress of a boss bar. Ranges from 0 to 1.",
 				addon,
 				new BossBarProgressHandler())
 			.property(Property.STYLE,
@@ -51,7 +51,7 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 				new BossBarStyleHandler())
 			.property(Property.VIEWERS, """
 				The viewers of a boss bar.
-				If you remove a player from viewers of a boss bar they will no longer see the flags of the boss bar.
+				If you remove a player from viewers of a boss bar they will no longer see the bossbar or be affected by its flags.
 				""",
 				addon,
 				new BossBarViewersHandler());
