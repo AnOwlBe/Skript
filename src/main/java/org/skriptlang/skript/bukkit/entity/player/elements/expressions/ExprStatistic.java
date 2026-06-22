@@ -179,9 +179,10 @@ public class ExprStatistic extends PropertyExpression<OfflinePlayer, Integer> {
 	/**
 	 * Checks if the specified statistic needs a type or not.
 	 *
+	 *
 	 * @param statistic The statistic itself. See <a href="https://minecraft.wiki/w/Statistics">Statistics</a> for a list of every possible statistic.
 	 * @param ofType The statistic type. Can be ITEM, BLOCK or ENTITY.
-	 * @return Whether it is valid to get or set the statistic with the given type or not.
+	 * @return True if the statistic with the given type is invalid else false if it is valid.
 	 */
 	private boolean checkTyping(Statistic statistic, Object ofType) {
 		Type statisticType = statistic.getType();
