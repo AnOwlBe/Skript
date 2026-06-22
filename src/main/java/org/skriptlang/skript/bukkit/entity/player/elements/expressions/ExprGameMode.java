@@ -18,7 +18,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.jetbrains.annotations.Nullable;
-import org.skriptlang.skript.registration.SyntaxInfo;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
 import java.util.Arrays;
@@ -34,12 +33,19 @@ import java.util.List;
 @Since("1.0")
 public class ExprGameMode extends PropertyExpression<Player, GameMode> {
 
-	public static void register(SyntaxRegistry syntaxRegistry) {
-		syntaxRegistry.register(SyntaxRegistry.EXPRESSION, SyntaxInfo.Expression.builder(ExprGameMode.class, GameMode.class)
-			.supplier(ExprGameMode::new)
-			.addPatterns("[the] game[ ]mode of %players%",
-				"%players%'[s] game[ ]mode")
-			.build());
+	public static void register(SyntaxRegistry registry) {
+		registry.register(
+			SyntaxRegistry.EXPRESSION,
+			infoBuilder(
+				ExprGameMode.class,
+				GameMode.class,
+				"[the] game[ ]mode",
+				"players",
+				false
+			)
+				.supplier(ExprGameMode::new)
+				.build()
+		);
 	}
 
 	@Override
