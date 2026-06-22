@@ -11,6 +11,7 @@ import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerStatisticIncrementEvent;
 import org.jetbrains.annotations.Nullable;
 import org.skriptlang.skript.bukkit.lang.eventvalue.EventValue;
+import org.skriptlang.skript.bukkit.lang.eventvalue.EventValue.Time;
 import org.skriptlang.skript.bukkit.lang.eventvalue.EventValueRegistry;
 import org.skriptlang.skript.bukkit.registration.BukkitSyntaxInfos;
 import org.skriptlang.skript.registration.SyntaxRegistry;
@@ -47,7 +48,7 @@ public class EvtPlayerStatisticChange extends SkriptEvent {
 		registry.register(EventValue.builder(PlayerStatisticIncrementEvent.class, Integer.class)
 			.getter(PlayerStatisticIncrementEvent::getPreviousValue)
 			.patterns("number")
-			.time(EventValue.Time.PAST)
+			.time(Time.PAST)
 			.build());
 
 		registry.register(EventValue.builder(PlayerStatisticIncrementEvent.class, Statistic.class)
