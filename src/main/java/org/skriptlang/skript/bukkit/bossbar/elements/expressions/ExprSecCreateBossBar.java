@@ -38,7 +38,8 @@ import static org.skriptlang.skript.bukkit.bossbar.BossBarUtils.nearest;
 @SuppressWarnings("unchecked")
 @Name("Create Boss Bar")
 @Description("""
-	Creates a new boss bar. Boss bars can be red/green/blue, and will pick the closest valid colour to the one you provide.
+	Creates a new boss bar.
+	Boss bars can be pink/blue/red/green/yellow/purple/white, and will pick the closest valid colour to the one you provide.
 	Boss bars can have viewers removed or added to them.
 	Making the boss bar 'keyed' will add it to the persistent storage of the server and will be editable by commands and restored after restart.
 	""")
