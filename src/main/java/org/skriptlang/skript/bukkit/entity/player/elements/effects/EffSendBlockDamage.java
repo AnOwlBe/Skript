@@ -26,6 +26,7 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 	allowing multiple blocks to display damage independently for the provided players.
 	When a source is provided (an entity or integer), the block damage is shown on the provided block using that source, \
 	allowing multiple blocks to display damage independently for the provided players.
+	""")
 @Example("""
 	on leftclick on reinforced deepslate:
 		player's tool is air
