@@ -24,7 +24,8 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 	Note that a single entity can only be breaking 1 block at a time.
 	When a source is provided (an entity or integer), the block damage is shown on the provided block using that source,
 	allowing multiple blocks to display damage independently for the provided players.
-	""")
+	When a source is provided (an entity or integer), the block damage is shown on the provided block using that source, \
+	allowing multiple blocks to display damage independently for the provided players.
 @Example("""
 	on leftclick on reinforced deepslate:
 		player's tool is air
