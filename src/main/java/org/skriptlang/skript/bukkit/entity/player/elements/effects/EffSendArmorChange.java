@@ -33,14 +33,14 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 			make player see loop-player's chestplate as air
 			make player see loop-player's leggings as air
 			make player see loop-player's boots as air
-		wait 10 seconds:
-			loop all players:
-				 make player see loop-player's helmet as its original equipment
-				 make player see loop-player's chestplate as its original equipment
-				 make player see loop-player's leggings as its original equipment
-				 make player see loop-player's boots as its original equipment
-			 send "Better run! They were just hiding their armor!" to player
 		send "Hm.. it seems like no one else has armor!" to player
+		wait 10 seconds
+		loop all players:
+			make player see loop-player's helmet as its original equipment
+			make player see loop-player's chestplate as its original equipment
+			make player see loop-player's leggings as its original equipment
+			make player see loop-player's boots as its original equipment
+		send "Better run! They were just hiding their armor!" to player
 	""")
 @Since("INSERT VERSION")
 public class EffSendArmorChange extends Effect {
