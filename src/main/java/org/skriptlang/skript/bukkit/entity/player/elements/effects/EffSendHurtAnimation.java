@@ -20,8 +20,18 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 	Sends a fake hurt animation. This fakes incoming damage towards the player from the given yaw relative to the player's direction.
 	This does not actually damage the player in any way.
 	""")
-@Example("send hurt animation to player")
-@Example("send hurt animation to player with yaw 90")
+@Example("""
+	on break of oak log:
+		play fake hurt animation on player
+		send "You chopped down a living tree.. Your soul has been damaged.." to player
+	""")
+@Example("""
+	on damage of player:
+		send "You dare hurt another player!" to victim
+		loop 360 times:
+			 play fake hurt animation on victim from yaw loop-counter
+			 wait 1 tick
+	""")
 @Since("INSERT VERSION")
 public class EffSendHurtAnimation extends Effect {
 

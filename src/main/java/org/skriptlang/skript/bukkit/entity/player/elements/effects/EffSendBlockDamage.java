@@ -25,8 +25,15 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 	When a source is provided (an entity or integer), the block damage is shown on the provided block using that source,
 	allowing multiple blocks to display damage independently for the provided players.
 	""")
-@Example("make player see block damage of target block of player as 100%")
-@Example("make player see block damage of block at player as 75% using random integer between 1 and 999")
+@Example("""
+	on leftclick on reinforced deepslate:
+		player's tool is air
+		loop 100 times:
+			make player see block damage of event-block as loop-counter%
+			wait 2 ticks
+		make player see block damage of event-block as 0%
+		send "Wow! You almost broke reinforced deepslate with your fists! Sadly it healed itself somehow.." to player
+	""")
 @Since("INSERT VERSION")
 public class EffSendBlockDamage extends Effect {
 
@@ -70,11 +77,12 @@ public class EffSendBlockDamage extends Effect {
 			Double amount = this.amount.getSingle(event);
 			if (amount == null)
 				return;
+			float clamped = (float) Math.clamp(amount, 0.0, 1.0);
 
 			if (this.source == null) {
 				for (Location location : locations) {
 					for (Player player : players)
-						player.sendBlockDamage(location, (float) Math.clamp(amount, 0.0, 1.0));
+						player.sendBlockDamage(location, clamped);
 				}
 				return;
 			}
@@ -82,12 +90,12 @@ public class EffSendBlockDamage extends Effect {
 			if (source instanceof Integer sourceId) {
 				for (Location location : locations) {
 					for (Player player : players)
-						player.sendBlockDamage(location, (float) Math.clamp(amount, 0.0, 1.0), sourceId);
+						player.sendBlockDamage(location, clamped, sourceId);
 				}
 			} else if (source instanceof Entity entity) {
 				for (Location location : locations) {
 					for (Player player : players)
-						player.sendBlockDamage(location, (float) Math.clamp(amount, 0.0, 1.0), entity);
+						player.sendBlockDamage(location, clamped, entity);
 				}
 			}
 		}
