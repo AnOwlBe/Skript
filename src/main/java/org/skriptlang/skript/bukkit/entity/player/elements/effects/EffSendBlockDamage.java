@@ -40,8 +40,8 @@ public class EffSendBlockDamage extends Effect {
 	public static void register(SyntaxRegistry syntaxRegistry) {
 		syntaxRegistry.register(SyntaxRegistry.EFFECT, SyntaxInfo.builder(EffSendBlockDamage.class)
 			.supplier(EffSendBlockDamage::new)
-			.addPatterns("make %players% see [block] damage of %locations% as %number% [(with|using) source %-entity/integer%]",
-				"make %players% see [block] damage of %locations% as [the|its] (original|normal|actual) [damage]")
+			.addPatterns("make %players% see block damage of %locations% as %number% [(with|using) source %-entity/integer%]",
+				"make %players% see block damage of %locations% as [the|its] (original|normal|actual) [damage]")
 			.build());
 	}
 
