@@ -66,4 +66,3 @@ public class EffGlide extends Effect {
 	}
 
 }
-
