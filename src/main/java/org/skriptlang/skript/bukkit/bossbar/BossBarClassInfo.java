@@ -27,7 +27,7 @@ public class BossBarClassInfo extends ClassInfo<BossBar> {
 			.name("BossBar")
 			.description("""
 				Represents a boss bar.
-				A boss bar is displayed at the top of a players screen & can have its title, progress, style, colour & viewers set.
+				A boss bar is displayed at the top of a players screen and can have its title, progress, style, color, and viewers changed.
 				""")
 			.since("INSERT VERSION")
 			.parser(new BossBarParser())
