@@ -55,10 +55,7 @@ public class KeyedBossBarClassInfo extends ClassInfo<KeyedBossBar> {
 		@Override
 		public Fields serialize(KeyedBossBar bar) {
 			Fields fields = new Fields();
-			if (bar instanceof KeyedBossBar keyedBar) {
-				fields.putObject("key", keyedBar.getKey().toString());
-				return fields;
-			}
+			fields.putObject("key", bar.getKey().toString());
 			return fields;
 		}
 

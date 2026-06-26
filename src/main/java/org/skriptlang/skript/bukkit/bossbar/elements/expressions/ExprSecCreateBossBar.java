@@ -16,6 +16,8 @@ import ch.njol.skript.util.Color;
 import ch.njol.skript.variables.Variables;
 import ch.njol.skript.doc.Example;
 import ch.njol.util.Kleenean;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.boss.BarColor;
@@ -62,8 +64,8 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 		syntaxRegistry.register(
 			SyntaxRegistry.EXPRESSION,
 			SyntaxInfo.Expression.builder(ExprSecCreateBossBar.class, BossBar.class)
-				.addPatterns("[a] [new] [%-color%] boss[ ]bar",
-					"[a] [new] keyed [%-color%] boss[ ]bar with (id|key) %string%")
+				.addPatterns("[a] [new] [%-color%] boss[ ]bar [title:(with title|titled) %-textcomponent%]",
+					"[a] [new] keyed [%-color%] boss[ ]bar with (id|key) %string% [title:(with title|titled) %-textcomponent%]")
 				.build()
 		);
 		eventValueRegistry.register(EventValue.builder(CreateBossBarEvent.class, BossBar.class)
@@ -74,6 +76,7 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 	private Trigger trigger = null;
 	private Expression<String> key;
 	private Expression<Color> color;
+	private Expression<Component> title;
 	private boolean isKeyed;
 
 	@Override
@@ -85,6 +88,8 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 		} else {
 			isKeyed = false;
 		}
+		if (result.hasTag("title"))
+			title = (Expression<Component>) expressions[matchedPattern == 1 ? 2 : 1];
 		if (node != null) {
 			trigger = SectionUtils.loadLinkedCode("create bossbar", (beforeLoading, afterLoading)
 				-> loadCode(node, "create bossbar", beforeLoading, afterLoading, CreateBossBarEvent.class));
@@ -101,18 +106,25 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 		    color = this.color.getSingle(event);
 		BarColor barColor;
 		barColor = color != null && nearest(color) != null ? nearest(color) : BarColor.WHITE;
-
 		if (barColor == null)
 			return new BossBar[0];
+
+		String legacyTitle = null;
+		if (this.title != null) {
+			Component title = this.title.getSingle(event);
+			if (title == null)
+				return new BossBar[0];
+			legacyTitle = LegacyComponentSerializer.legacySection().serialize(title);
+		}
 
 		if (isKeyed) {
 			NamespacedKey key = NamespacedUtils.checkValidationAndSend(this.key.getSingle(event), this);
 			if (key == null)
 				return new BossBar[0];
-			Bukkit.createBossBar(key, null, barColor, BarStyle.SOLID);
+			Bukkit.createBossBar(key, legacyTitle, barColor, BarStyle.SOLID);
 			bar = Bukkit.getBossBar(key);
 		} else {
-			bar = Bukkit.createBossBar(null, barColor, BarStyle.SOLID);
+			bar = Bukkit.createBossBar(legacyTitle, barColor, BarStyle.SOLID);
 		}
 
 		if (trigger == null)
