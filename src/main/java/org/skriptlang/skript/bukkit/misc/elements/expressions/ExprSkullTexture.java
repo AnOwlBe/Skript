@@ -61,16 +61,14 @@ public class ExprSkullTexture extends SimplePropertyExpression<ItemType, String>
 
 	@Override
 	public void change(Event event, Object @Nullable [] delta, ChangeMode mode) {
-		String value = delta == null ? null : (String) delta[0];
+		PlayerProfile profile = null;
+		if (delta != null) {
+			profile = Bukkit.createProfile(UUID.randomUUID());
+			profile.setProperty(new ProfileProperty("textures", (String) delta[0]));
+		}
 		for (ItemType item : getExpr().getArray(event)) {
 			if (item.getItemMeta() instanceof SkullMeta meta) {
-				if (value == null) {
-					meta.setPlayerProfile(null);
-				} else {
-					PlayerProfile playerProfile = Bukkit.createProfile(UUID.randomUUID());
-					playerProfile.setProperty(new ProfileProperty("textures", value));
-					meta.setPlayerProfile(playerProfile);
-				}
+				meta.setPlayerProfile(profile);
 				item.setItemMeta(meta);
 			}
 		}
