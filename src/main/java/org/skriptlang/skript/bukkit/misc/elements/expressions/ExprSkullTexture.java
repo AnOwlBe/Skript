@@ -38,12 +38,9 @@ public class ExprSkullTexture extends SimplePropertyExpression<ItemType, String>
 
 	@Override
 	public @Nullable String convert(ItemType item) {
-		PlayerProfile profile = null;
-		if (item.getItemMeta() instanceof SkullMeta meta ) {
-			profile = meta.getPlayerProfile();
-			if (profile == null)
-				return null;
-		}
+		if (!(item.getItemMeta() instanceof SkullMeta meta))
+			return null;
+		PlayerProfile profile = meta.getPlayerProfile();
 		if (profile == null)
 			return null;
 		return profile.getProperties().stream()
