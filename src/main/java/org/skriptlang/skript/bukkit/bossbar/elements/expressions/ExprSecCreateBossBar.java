@@ -64,8 +64,8 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 		syntaxRegistry.register(
 			SyntaxRegistry.EXPRESSION,
 			SyntaxInfo.Expression.builder(ExprSecCreateBossBar.class, BossBar.class)
-				.addPatterns("[a] [new] [%-color%] boss[ ]bar [title:(with title|titled) %-textcomponent%]",
-					"[a] [new] keyed [%-color%] boss[ ]bar with (id|key) %string% [title:(with title|titled) %-textcomponent%]")
+				.addPatterns("[a] [new] [%-color%] boss[ ]bar [(with title|titled) %-textcomponent%]",
+					"[a] [new] keyed [%-color%] boss[ ]bar with (id|key) %string% [(with title|titled) %-textcomponent%]")
 				.build()
 		);
 		eventValueRegistry.register(EventValue.builder(CreateBossBarEvent.class, BossBar.class)
@@ -88,8 +88,7 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 		} else {
 			isKeyed = false;
 		}
-		if (result.hasTag("title"))
-			title = (Expression<Component>) expressions[matchedPattern == 1 ? 2 : 1];
+		title = (Expression<Component>) expressions[expressions.length - 1];
 		if (node != null) {
 			trigger = SectionUtils.loadLinkedCode("create bossbar", (beforeLoading, afterLoading)
 				-> loadCode(node, "create bossbar", beforeLoading, afterLoading, CreateBossBarEvent.class));
