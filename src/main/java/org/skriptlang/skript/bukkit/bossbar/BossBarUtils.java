@@ -12,7 +12,6 @@ import java.util.Comparator;
 /**
  * A utility class for boss bars to help with getting RGB from SkriptColor and rounding an RGB to the nearest BarColor.
  */
-
 public final class BossBarUtils {
 
 	private BossBarUtils() {}
