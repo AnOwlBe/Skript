@@ -694,15 +694,6 @@ public final class BukkitEventValues {
 			registry.register(EventValue.simple(PlayerStopUsingItemEvent.class, ItemType.class, event -> new ItemType(event.getItem())));
 		}
 
-		// EntityResurrectEvent
-		registry.register(EventValue.simple(EntityResurrectEvent.class, Slot.class, event -> {
-			EquipmentSlot hand = event.getHand();
-			EntityEquipment equipment = event.getEntity().getEquipment();
-			if (equipment == null || hand == null)
-				return null;
-			return new ch.njol.skript.util.slot.EquipmentSlot(equipment, hand);
-		}));
-
 		// PlayerItemHeldEvent
 		registry.register(EventValue.simple(PlayerItemHeldEvent.class, Slot.class, event -> new InventorySlot(event.getPlayer().getInventory(), event.getNewSlot())));
 		registry.register(EventValue.builder(PlayerItemHeldEvent.class, Slot.class)
@@ -842,20 +833,6 @@ public final class BukkitEventValues {
 				.registerChanger(ChangeMode.SET, VaultDisplayItemEvent::setDisplayItem)
 				.build());
 		}
-
-		registry.register(EventValue.simple(VillagerCareerChangeEvent.class, VillagerCareerChangeEvent.ChangeReason.class, VillagerCareerChangeEvent::getReason));
-		registry.register(EventValue.builder(VillagerCareerChangeEvent.class, Villager.Profession.class)
-			.getter(VillagerCareerChangeEvent::getProfession)
-			.registerChanger(ChangeMode.SET, (event, profession) -> {
-				if (profession == null)
-					return;
-				event.setProfession(profession);
-			})
-			.build());
-		registry.register(EventValue.builder(VillagerCareerChangeEvent.class, Villager.Profession.class)
-			.getter(event -> event.getEntity().getProfession())
-			.time(Time.PAST)
-			.build());
 
 	}
 
