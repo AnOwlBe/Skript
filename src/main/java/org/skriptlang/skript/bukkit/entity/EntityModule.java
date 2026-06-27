@@ -49,11 +49,14 @@ public class EntityModule extends HierarchicalAddonModule {
 
 		EntityEvents.register(syntaxRegistry, eventValueRegistry);
 
+		EvtEntityBlockChange.register(syntaxRegistry, eventValueRegistry);
 		EvtEntityBreakDoor.register(syntaxRegistry);
 		EvtEntityDamage.register(syntaxRegistry);
 		EvtEntityDeath.register(syntaxRegistry);
 		EvtEntityShootBow.register(syntaxRegistry, eventValueRegistry);
 		EvtEntitySpawn.register(syntaxRegistry);
+		EvtEntityTarget.register(syntaxRegistry);
+		EvtEntityTransform.register(syntaxRegistry, eventValueRegistry);
 
 	}
 

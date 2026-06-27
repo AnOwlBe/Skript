@@ -268,18 +268,6 @@ public final class BukkitEventValues {
 		// EntityTameEvent
 		registry.register(EventValue.simple(EntityTameEvent.class, Entity.class, EntityTameEvent::getEntity));
 
-		// EntityChangeBlockEvent
-		registry.register(EventValue.builder(EntityChangeBlockEvent.class, Block.class)
-			.getter(EntityChangeBlockEvent::getBlock)
-			.time(Time.PAST)
-			.build());
-		registry.register(EventValue.simple(EntityChangeBlockEvent.class, Block.class, EntityChangeBlockEvent::getBlock));
-		registry.register(EventValue.simple(EntityChangeBlockEvent.class, BlockData.class, EntityChangeBlockEvent::getBlockData));
-		registry.register(EventValue.builder(EntityChangeBlockEvent.class, BlockData.class)
-			.getter(EntityChangeBlockEvent::getBlockData)
-			.time(Time.FUTURE)
-			.build());
-
 		// AreaEffectCloudApplyEvent
 		registry.register(EventValue.simple(AreaEffectCloudApplyEvent.class, LivingEntity[].class, event -> event.getAffectedEntities().toArray(new LivingEntity[0])));
 		registry.register(EventValue.simple(AreaEffectCloudApplyEvent.class, PotionEffectType.class, new Converter<>() {
@@ -716,10 +704,6 @@ public final class BukkitEventValues {
 		// PlayerStonecutterRecipeSelectEvent
 		if (Skript.classExists("io.papermc.paper.event.player.PlayerStonecutterRecipeSelectEvent"))
 			registry.register(EventValue.simple(PlayerStonecutterRecipeSelectEvent.class, ItemStack.class, event -> event.getStonecuttingRecipe().getResult()));
-
-		// EntityTransformEvent
-		registry.register(EventValue.simple(EntityTransformEvent.class, Entity[].class, event -> event.getTransformedEntities().stream().toArray(Entity[]::new)));
-		registry.register(EventValue.simple(EntityTransformEvent.class, TransformReason.class, EntityTransformEvent::getTransformReason));
 
 		// BellRingEvent - these are BlockEvents and not EntityEvents, so they have declared methods for getEntity()
 		if (Skript.classExists("org.bukkit.event.block.BellRingEvent")) {

@@ -14,6 +14,8 @@ import org.jetbrains.annotations.Nullable;
 import org.skriptlang.skript.bukkit.registration.BukkitSyntaxInfos;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
+import java.util.Arrays;
+
 @SuppressWarnings("rawtypes")
 public class EvtEntitySpawn extends SkriptEvent {
 
@@ -60,9 +62,7 @@ public class EvtEntitySpawn extends SkriptEvent {
 	public boolean check(Event event) {
 		if (entityData != null) {
 			EntitySpawnEvent entityEvent = (EntitySpawnEvent) event;
-			for (EntityData<?> value : entityData) {
-				return value.getType().isInstance(entityEvent.getEntityType());
-			}
+			return Arrays.stream(entityData).anyMatch(entity ->  entity.isInstance(entityEvent.getEntity()));
 		}
 		return true;
 	}

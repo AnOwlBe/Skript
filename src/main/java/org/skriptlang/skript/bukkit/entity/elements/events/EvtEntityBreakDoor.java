@@ -11,6 +11,8 @@ import org.jetbrains.annotations.Nullable;
 import org.skriptlang.skript.bukkit.registration.BukkitSyntaxInfos;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
+import java.util.Arrays;
+
 @SuppressWarnings("rawtypes")
 public class EvtEntityBreakDoor extends SkriptEvent {
 
@@ -18,7 +20,7 @@ public class EvtEntityBreakDoor extends SkriptEvent {
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(EvtEntityBreakDoor.class, "Entity Break Door")
 			.supplier(EvtEntityBreakDoor::new)
 			.addEvent(EntityBreakDoorEvent.class)
-			.addPatterns("[entity:%entitydata%] break[ing] [a] [wood[en]] door")
+			.addPatterns("[entity:%entitydatas%] break[ing] [a] [wood[en]] door")
 			.addDescription("""
 				Called when an entity (usually a zombie) is breaking a door.
 				Can be cancelled to prevent the entity from breaking the door.
@@ -48,8 +50,7 @@ public class EvtEntityBreakDoor extends SkriptEvent {
 	public boolean check(Event event) {
 		if (entityData != null) {
 			EntityBreakDoorEvent entityEvent = (EntityBreakDoorEvent) event;
-			for (EntityData entity : entityData)
-			     return entity.isInstance(entityEvent.getEntity());
+			return Arrays.stream(entityData).anyMatch(entity -> entity.isInstance(entityEvent.getEntity()));
 		}
 		return true;
 	}

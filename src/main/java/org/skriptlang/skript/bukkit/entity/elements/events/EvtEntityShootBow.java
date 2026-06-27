@@ -19,6 +19,8 @@ import org.skriptlang.skript.bukkit.lang.eventvalue.EventValueRegistry;
 import org.skriptlang.skript.bukkit.registration.BukkitSyntaxInfos;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
+import java.util.Arrays;
+
 @SuppressWarnings("rawtypes")
 public class EvtEntityShootBow extends SkriptEvent {
 
@@ -82,8 +84,7 @@ public class EvtEntityShootBow extends SkriptEvent {
 	public boolean check(Event event) {
 		if (entityData != null) {
 			EntityShootBowEvent entityEvent = (EntityShootBowEvent) event;
-			for (EntityData entity : entityData)
-				return entity.isInstance(entityEvent.getEntity());
+			return Arrays.stream(entityData).anyMatch(entity -> entity.isInstance(entityEvent.getEntity()));
 		}
 		return true;
 	}

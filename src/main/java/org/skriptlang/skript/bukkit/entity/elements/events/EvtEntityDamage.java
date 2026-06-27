@@ -14,6 +14,8 @@ import org.jetbrains.annotations.Nullable;
 import org.skriptlang.skript.bukkit.registration.BukkitSyntaxInfos;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
+import java.util.Arrays;
+
 @SuppressWarnings("rawtypes")
 public class EvtEntityDamage extends SkriptEvent {
 
@@ -61,32 +63,21 @@ public class EvtEntityDamage extends SkriptEvent {
 	@Override
 	public boolean check(Event event) {
 		EntityDamageEvent entityDamageEvent = (EntityDamageEvent) event;
+		boolean damagerMatched = !(event instanceof EntityDamageByEntityEvent entityEvent)
+			? byEntityData == null
+			: byEntityData == null
+				|| Arrays.stream(byEntityData)
+				.anyMatch(data -> data.isInstance(entityEvent.getDamager()));
 
-		if (event instanceof EntityDamageByEntityEvent entityEvent) {
-			if (byEntityData != null) {
-				boolean matched = false;
-				for (EntityData<?> value : byEntityData) {
-					if (value.isInstance(entityEvent.getDamager()))
-						matched = true;
-				}
-				if (!matched)
-					return false;
-			}
-		} else if (byEntityData != null) {
-			return false;
-		}
+		boolean entityMatched = ofEntityData == null
+			|| Arrays.stream(ofEntityData)
+			.anyMatch(data -> data.isInstance(entityDamageEvent.getEntity()));
 
-		if (ofEntityData != null) {
-			boolean matched = false;
-			for (EntityData<?> value : ofEntityData) {
-				if (value.isInstance(entityDamageEvent.getEntity()))
-					matched = true;
-			}
-			if (!matched)
-				return false;
-		}
+		boolean healthMatched = !(entityDamageEvent.getEntity() instanceof LivingEntity entity)
+			|| !(HealthUtils.getHealth(entity) <= 0);
 
-		return !(entityDamageEvent.getEntity() instanceof LivingEntity entity) || !(HealthUtils.getHealth(entity) <= 0);
+		return damagerMatched && entityMatched && healthMatched;
+
 	}
 
 	@Override
