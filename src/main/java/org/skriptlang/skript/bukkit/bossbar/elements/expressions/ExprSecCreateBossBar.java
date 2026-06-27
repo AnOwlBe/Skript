@@ -154,6 +154,7 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 			.appendIf(color != null, color)
 			.append("boss bar")
 			.appendIf(key != null, "with key", key)
+			.appendIf(title != null, "with title", title)
 			.toString();
 	}
 
