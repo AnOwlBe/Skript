@@ -66,6 +66,7 @@ public class ExprSecCreateBossBar extends SectionExpression<BossBar> {
 			SyntaxInfo.Expression.builder(ExprSecCreateBossBar.class, BossBar.class)
 				.addPatterns("[a] [new] [%-color%] boss[ ]bar [(with title|titled) %-textcomponent%]",
 					"[a] [new] keyed [%-color%] boss[ ]bar with (id|key) %string% [(with title|titled) %-textcomponent%]")
+				.supplier(ExprSecCreateBossBar::new)
 				.build()
 		);
 		eventValueRegistry.register(EventValue.builder(CreateBossBarEvent.class, BossBar.class)
