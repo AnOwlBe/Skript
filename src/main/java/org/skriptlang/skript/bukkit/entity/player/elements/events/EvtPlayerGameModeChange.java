@@ -33,7 +33,7 @@ public class EvtPlayerGameModeChange extends SkriptEvent {
 				on game mode change:
 					send "Wow! Your gamemode changed!"
 				""")
-			.addSince("INSERT VERSION")
+			.addSince("1.0")
 			.build());
 
 		registry.register(EventValue.builder(PlayerGameModeChangeEvent.class, GameMode.class)
