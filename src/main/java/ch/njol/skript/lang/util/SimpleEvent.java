@@ -14,7 +14,15 @@ import org.jetbrains.annotations.Nullable;
  */
 public class SimpleEvent extends SkriptEvent {
 
-	public SimpleEvent() {}
+	private final String toString;
+
+	public SimpleEvent() {
+		this("simple event");
+	}
+
+	public SimpleEvent(String string) {
+		this.toString = string;
+	}
 
 	@Override
 	public boolean check(Event event) {
@@ -29,8 +37,6 @@ public class SimpleEvent extends SkriptEvent {
 	}
 
 	@Override
-	public String toString(@Nullable Event event, boolean debug) {
-		return "simple event";
-	}
+	public String toString(@Nullable Event event, boolean debug) { return toString; }
 
 }
