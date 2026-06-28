@@ -40,6 +40,7 @@ public class PlayerEvents {
 					send "You swung your arm!" to player
 				""")
 			.addSince("2.5.1")
+			.supplier(() -> new SimpleEvent("player arm swing"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Player Bed Enter")
@@ -53,6 +54,7 @@ public class PlayerEvents {
 				on player entering a bed:
 				""")
 			.addSince("1.0")
+			.supplier(() -> new SimpleEvent("player entering bed"))
 			.build());
 
 		eventValueRegistry.register(EventValue.builder(PlayerBedEnterEvent.class, Block.class)
@@ -70,6 +72,7 @@ public class PlayerEvents {
 				on player leaving a bed:
 				""")
 			.addSince("1.0")
+			.supplier(() -> new SimpleEvent("player leaving a bed"))
 			.build());
 
 		eventValueRegistry.register(EventValue.builder(PlayerBedLeaveEvent.class, Block.class)
@@ -89,6 +92,7 @@ public class PlayerEvents {
 					broadcast "well.. its gone now"
 				""")
 			.addSince("2.1.1")
+			.supplier(() -> new SimpleEvent("player breaking a tool"))
 			.build());
 
 		eventValueRegistry.register(EventValue.builder(PlayerItemBreakEvent.class, ItemStack.class)
@@ -111,6 +115,7 @@ public class PlayerEvents {
 					broadcast "Hurry to the given location!"
 				""")
 			.addSince("2.10")
+			.supplier(() -> new SimpleEvent("player changing of beacon effect"))
 			.build());
 
 		eventValueRegistry.register(EventValue.builder(PlayerChangeBeaconEffectEvent.class, Block.class)
@@ -128,6 +133,7 @@ public class PlayerEvents {
 					send actionbar "One of your items is taking damage!" to player
 				""")
 			.addSince("2.5")
+			.supplier(() -> new SimpleEvent("item damaging"))
 			.build());
 
 		eventValueRegistry.register(EventValue.builder(PlayerItemDamageEvent.class, ItemStack.class)
@@ -147,6 +153,7 @@ public class PlayerEvents {
 					send actionbar "Zzzz..." to player
 				""")
 			.addSince("2.7")
+			.supplier(() -> new SimpleEvent("player deep sleeping"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Player Elytra Boost")
@@ -161,6 +168,7 @@ public class PlayerEvents {
 					send "You go forward and up!" to player
 				""")
 			.addSince("1.10")
+			.supplier(() -> new SimpleEvent("player elytra boosting"))
 			.build());
 
 		eventValueRegistry.register(EventValue.builder(PlayerElytraBoostEvent.class, ItemStack.class)
@@ -183,6 +191,7 @@ public class PlayerEvents {
 				on player emptying a bucket:
 				""")
 			.addSince("1.0")
+			.supplier(() -> new SimpleEvent("player empty a bucket"))
 			.build());
 
 		eventValueRegistry.register(EventValue.builder(PlayerBucketEmptyEvent.class, Block.class)
@@ -213,6 +222,7 @@ public class PlayerEvents {
 					broadcast xp cooldown change reason
 				""")
 			.addSince("2.10")
+			.supplier(() -> new SimpleEvent("player experience cooldown change"))
 			.build());
 
 		eventValueRegistry.register(EventValue.builder(PlayerExpCooldownChangeEvent.class, PlayerExpCooldownChangeEvent.ChangeReason.class)
@@ -242,6 +252,7 @@ public class PlayerEvents {
 					send "You tried to use an admin ability!" to player
 				""")
 			.addSince("2.2-dev36")
+			.supplier(() -> new SimpleEvent("player toggle flight"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Player Tool Change")
@@ -281,6 +292,7 @@ public class PlayerEvents {
 						send "One diamond for me!" to player
 				""")
 			.addSince("2.7")
+			.supplier(() -> new SimpleEvent("player inventory slot change"))
 			.build());
 
 		eventValueRegistry.register(EventValue.builder(PlayerInventorySlotChangeEvent.class, ItemStack.class)
@@ -318,6 +330,7 @@ public class PlayerEvents {
 					send "Hello %player%!"
 				""")
 			.addSince("1.0")
+			.supplier(() -> new SimpleEvent("player join"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Player Jump")
@@ -337,6 +350,7 @@ public class PlayerEvents {
 					delete {-example::%player's uuid%}
 				""")
 			.addSince("2.3")
+			.supplier(() -> new SimpleEvent("player jumping"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Player Kick")
@@ -351,6 +365,7 @@ public class PlayerEvents {
 					send "%player% just got kicked!" to all operators
 				""")
 			.addSince("1.0")
+			.supplier(() -> new SimpleEvent("player kick"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Player Locale Change")
@@ -367,6 +382,7 @@ public class PlayerEvents {
 					send "Hello!" to player
 				""")
 			.addSince("2.3")
+			.supplier(() -> new SimpleEvent("player language change"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Player Connect")
@@ -385,6 +401,7 @@ public class PlayerEvents {
 						kick player due to "The last 5 slots are reserved for those with VIP rank!"
 				""")
 			.addSince("2.0")
+			.supplier(() -> new SimpleEvent("player connecting"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Player Item Mend")
@@ -399,6 +416,7 @@ public class PlayerEvents {
 					 send "One of your tools was mended!" to player
 				""")
 			.addSince("2.5.1")
+			.supplier(() -> new SimpleEvent("player item mending"))
 			.build());
 
 		eventValueRegistry.register(EventValue.builder(PlayerItemMendEvent.class, ItemStack.class)
@@ -425,6 +443,7 @@ public class PlayerEvents {
 					set the quit message to "%player% just left :("
 				""")
 			.addSince("1.0 (simple disconnection)")
+			.supplier(() -> new SimpleEvent("player quitting"))
 			.build());
 
 		eventValueRegistry.register(EventValue.builder(PlayerQuitEvent.class, PlayerQuitEvent.QuitReason.class)
@@ -449,6 +468,7 @@ public class PlayerEvents {
 						send "You need a spectral arrow to use a spectral bow!" to player
 				""")
 			.addSince("1.8.0")
+			.supplier(() -> new SimpleEvent("player ready arrow"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Player Riptide")
@@ -465,6 +485,7 @@ public class PlayerEvents {
 						send "You got unlucky.. the sky cleared up!" to player
 				""")
 			.addSince("2.5")
+			.supplier(() -> new SimpleEvent("use of riptide enchantment"))
 			.build());
 
 		eventValueRegistry.register(EventValue.builder(PlayerRiptideEvent.class, ItemStack.class)
@@ -486,6 +507,7 @@ public class PlayerEvents {
 					send "UP!" to player
 				""")
 			.addSince("1.0")
+			.supplier(() -> new SimpleEvent("player toggling sneak"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Player Sprint Toggle")
@@ -506,6 +528,7 @@ public class PlayerEvents {
 					send "You got lucky this time.." to player
 				""")
 			.addSince("1.0")
+			.supplier(() -> new SimpleEvent("player toggling sprint"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Player Stop Using Item")
@@ -520,6 +543,7 @@ public class PlayerEvents {
 					send "You just used %event-item% for %event-timespan% :)" to player
 				""")
 			.addSince("2.8.0")
+			.supplier(() -> new SimpleEvent("player stop using item"))
 			.build());
 
 		eventValueRegistry.register(EventValue.builder(PlayerStopUsingItemEvent.class, ItemStack.class)
@@ -548,6 +572,7 @@ public class PlayerEvents {
 						 cancel event
 				""")
 			.addSince("2.3")
+			.supplier(() -> new SimpleEvent("player swapping of held item"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Player Throw Egg")
@@ -564,6 +589,7 @@ public class PlayerEvents {
 					broadcast "An egg has been thrown!"
 				""")
 			.addSince("1.0")
+			.supplier(() -> new SimpleEvent("throwing of an egg"))
 			.build());
 
 		eventValueRegistry.register(EventValue.builder(PlayerEggThrowEvent.class, Egg.class)
@@ -581,6 +607,7 @@ public class PlayerEvents {
 					send "Did you get a good deal?" to player
 				""")
 			.addSince("2.7")
+			.supplier(() -> new SimpleEvent("player trading"))
 			.build());
 
 		eventValueRegistry.register(EventValue.builder(PlayerTradeEvent.class, AbstractVillager.class)
@@ -599,6 +626,7 @@ public class PlayerEvents {
 					send "Its the end!" to player
 				""")
 			.addSince("2.2-dev28")
+			.supplier(() -> new SimpleEvent("player world changing"))
 			.build());
 
 		eventValueRegistry.register(EventValue.builder(PlayerChangedWorldEvent.class, World.class)
@@ -607,9 +635,13 @@ public class PlayerEvents {
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Chat")
-			.addDescription("Called whenever a player chats.",
-				"Use <a href='#ExprChatFormat'>chat format</a> to change message format.",
-				"Use <a href='#ExprChatRecipients'>chat recipients</a> to edit chat recipients.")
+			.addEvent(AsyncChatEvent.class)
+			.addPattern("[player] chat[ting]")
+			.addDescription("""
+				Called whenever a player chats.
+				Use <a href='#ExprChatFormat'>chat format</a> to change message format.
+				Use <a href='#ExprChatRecipients'>chat recipients</a> to edit chat recipients.
+				""")
 			.addExample("""
 				on chat:
 					if the player has permission "owner":
@@ -619,9 +651,8 @@ public class PlayerEvents {
 					else: # default message format
 						set the chat format to "<orange>[player]<light gray>: <white>[message]"
 				""")
-			.addSince("1.4.1")
-			.addPattern("chat")
-			.addEvent(AsyncChatEvent.class)
+			.addSince("1.4.1, INSERT VERSION (pattern change)")
+			.supplier(() -> new SimpleEvent("player chat"))
 			.build());
 	}
 

@@ -33,7 +33,7 @@ public class EvtPlayerFillBucket extends SkriptEvent {
 			.addExample("""
 				on player filling a bucket:
 				""")
-				.addExample("""
+			.addExample("""
 				on player filling a bucket with water:
 					broadcast "thirsty eh?"
 				""")
