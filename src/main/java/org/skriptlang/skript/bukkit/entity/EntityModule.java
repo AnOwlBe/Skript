@@ -7,6 +7,7 @@ import org.skriptlang.skript.addon.AddonModule;
 import org.skriptlang.skript.addon.HierarchicalAddonModule;
 import org.skriptlang.skript.addon.SkriptAddon;
 import org.skriptlang.skript.bukkit.entity.displays.DisplayModule;
+import org.skriptlang.skript.bukkit.entity.elements.EntityEvents;
 import org.skriptlang.skript.bukkit.entity.elements.events.*;
 import org.skriptlang.skript.bukkit.entity.interactions.InteractionModule;
 import org.skriptlang.skript.bukkit.entity.elements.expressions.ExprDeathMessage;

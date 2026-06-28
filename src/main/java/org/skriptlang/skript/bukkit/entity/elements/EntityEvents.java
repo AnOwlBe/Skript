@@ -1,4 +1,4 @@
-package org.skriptlang.skript.bukkit.entity;
+package org.skriptlang.skript.bukkit.entity.elements;
 
 import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.lang.SkriptEvent;
