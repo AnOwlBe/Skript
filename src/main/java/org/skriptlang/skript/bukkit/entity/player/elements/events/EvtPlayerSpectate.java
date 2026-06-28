@@ -13,15 +13,18 @@ import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.SyntaxStringBuilder;
 import org.skriptlang.skript.bukkit.registration.BukkitSyntaxInfos;
 import org.skriptlang.skript.registration.SyntaxRegistry;
+
 public class EvtPlayerSpectate extends SkriptEvent {
 
 	public static void register(SyntaxRegistry syntaxRegistry) {
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(EvtPlayerSpectate.class, "Player Spectate")
 			.supplier(EvtPlayerSpectate::new)
 			.addEvents(CollectionUtils.array(PlayerStartSpectatingEntityEvent.class, PlayerStopSpectatingEntityEvent.class))
-			.addPatterns("[player] stop spectating [(of|from) %-*entitydatas%]",
-			"[player] (swap|switch) spectating [(of|from) %-*entitydatas%]",
-			"[player] start spectating [of %-*entitydatas%]")
+			.addPatterns(
+				"[player] stop spectating [(of|from) %-*entitydatas%]",
+				"[player] (swap|switch) spectating [(of|from) %-*entitydatas%]",
+				"[player] start spectating [of %-*entitydatas%]"
+			)
 			.addDescription("""
 				Called with a player starts, stops or swaps spectating an entity.
 				""")

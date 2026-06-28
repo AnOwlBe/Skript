@@ -169,8 +169,8 @@ public class EvtPlayerMoveOn extends SkriptEvent {
 
 		if (REGISTERED_EXECUTOR.compareAndSet(false, true)) {
 			Bukkit.getPluginManager().registerEvent(
-				PlayerMoveEvent.class, new Listener() {
-				}, SkriptConfig.defaultEventPriority.value(), EXECUTOR, Skript.getInstance(), true
+				PlayerMoveEvent.class, new Listener() {}, 
+				SkriptConfig.defaultEventPriority.value(), EXECUTOR, Skript.getInstance(), true
 			);
 		}
 		return true;
