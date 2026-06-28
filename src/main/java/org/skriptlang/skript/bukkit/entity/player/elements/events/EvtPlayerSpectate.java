@@ -27,7 +27,7 @@ public class EvtPlayerSpectate extends SkriptEvent {
 				""")
 			.addExample("""
 				on player start spectating of a zombie:
-				    send "Zombie!" to player
+					send "Zombie!" to player
 				""")
 			.addSince("2.7")
 			.build());

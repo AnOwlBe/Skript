@@ -30,7 +30,7 @@ public class EvtPlayerRespawn extends SkriptEvent {
 				""")
 			.addExample("""
 				on respawn:
-				    send "Hi there!"
+					send "Hi there!"
 				""")
 			.addSince("1.0")
 			.build());

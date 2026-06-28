@@ -46,7 +46,7 @@ public class EvtPlayerMoveOn extends SkriptEvent {
 				""")
 			.addExample("""
 				on walking on stone:
-				    send "Well these don't feel like stepping stones.."
+					send "Well these don't feel like stepping stones.."
 				""")
 			.addSince("2.0")
 			.build());

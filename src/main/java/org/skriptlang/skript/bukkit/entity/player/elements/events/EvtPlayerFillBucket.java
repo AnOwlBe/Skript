@@ -34,9 +34,9 @@ public class EvtPlayerFillBucket extends SkriptEvent {
 				on player filling a bucket:
 				""")
 				.addExample("""
-						on player filling a bucket with water:
-						    broadcast "thirsty eh?"
-						""")
+				on player filling a bucket with water:
+					broadcast "thirsty eh?"
+				""")
 			.addSince("1.0, INSERT VERSION (with itemtype)")
 			.build());
 
@@ -68,14 +68,13 @@ public class EvtPlayerFillBucket extends SkriptEvent {
 
 	@Override
 	public boolean check(Event event) {
-		if (liquid != null) {
-			PlayerBucketFillEvent playerEvent = (PlayerBucketFillEvent) event;
-			ItemStack item = playerEvent.getItemStack();
-			if (item == null)
-				return false;
-			return liquid.getBlockType() == item.getType().asBlockType();
-		}
-		return true;
+		if (liquid == null)
+			return true;
+		PlayerBucketFillEvent playerEvent = (PlayerBucketFillEvent) event;
+		ItemStack item = playerEvent.getItemStack();
+		if (item == null)
+			return false;
+		return liquid.getBlockType() == item.getType().asBlockType();
 	}
 
 	@Override

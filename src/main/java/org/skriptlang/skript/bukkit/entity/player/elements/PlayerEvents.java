@@ -37,7 +37,7 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on player arm swing:
-				    send "You swung your arm!" to player
+					send "You swung your arm!" to player
 				""")
 			.addSince("2.5.1")
 			.build());
@@ -86,7 +86,7 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on player tool breaking:
-				    broadcast "well.. its gone now"
+					broadcast "well.. its gone now"
 				""")
 			.addSince("2.1.1")
 			.build());
@@ -97,15 +97,18 @@ public class PlayerEvents {
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Player Change Beacon Effect")
 			.addEvent(PlayerChangeBeaconEffectEvent.class)
-			.addPatterns("[player] chang(e[s]|ing) [of] beacon effect")
+			.addPatterns("[player] chang(e[s]|ing) [of] beacon effect",
+				"[on] beacon change effect",
+			"[on] beacon effect change"
+			)
 			.addDescription("""
 				Called when a player changes the effects of a beacon.
 				""")
 			.addExample("""
 				on player changing of beacon effect:
-				    broadcast "The player who did this: %player%"
-				    broadcast "The location: %location of event-block%"
-				    broadcast "Hurry to the given location!"
+					broadcast "The player who did this: %player%"
+					broadcast "The location: %location of event-block%"
+					broadcast "Hurry to the given location!"
 				""")
 			.addSince("2.10")
 			.build());
@@ -122,7 +125,7 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on item damaging:
-				    send actionbar "One of your items is taking damage!" to player
+					send actionbar "One of your items is taking damage!" to player
 				""")
 			.addSince("2.5")
 			.build());
@@ -140,8 +143,8 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on player deep sleeping:
-				    send "Have a good sleep!" to player
-				    send actionbar "Zzzz..." to player
+					send "Have a good sleep!" to player
+					send actionbar "Zzzz..." to player
 				""")
 			.addSince("2.7")
 			.build());
@@ -154,8 +157,8 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on elytra boost:
-				    push player up at speed 3
-				    send "You go forward and up!" to player
+					push player up at speed 3
+					send "You go forward and up!" to player
 				""")
 			.addSince("1.10")
 			.build());
@@ -204,10 +207,10 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on player experience cooldown change:
-				    broadcast player
-				    broadcast event-timespan
-				    broadcast past event-timespan
-				    broadcast xp cooldown change reason
+					broadcast player
+					broadcast event-timespan
+					broadcast past event-timespan
+					broadcast xp cooldown change reason
 				""")
 			.addSince("2.10")
 			.build());
@@ -234,9 +237,9 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on flight toggle:
-				    player is not operator
-				    kill player
-				    send "You tried to use an admin ability!" to player
+					player is not operator
+					kill player
+					send "You tried to use an admin ability!" to player
 				""")
 			.addSince("2.2-dev36")
 			.build());
@@ -249,7 +252,7 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on player's held item change:
-				    send "You changed your held item!" to player
+					send "You changed your held item!" to player
 				""")
 			.addSince("1.0")
 			.build());
@@ -271,11 +274,11 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on inventory slot change:
-				    event-item is a diamond
-				    send "Nice diamond you got there!" to player
-				    chance of 30%:
-				        remove 1 diamond from player
-				        send "One diamond for me!" to player
+					event-item is a diamond
+					send "Nice diamond you got there!" to player
+					chance of 30%:
+						remove 1 diamond from player
+						send "One diamond for me!" to player
 				""")
 			.addSince("2.7")
 			.build());
@@ -313,7 +316,7 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on join:
-				    send "Hello %player%!"
+					send "Hello %player%!"
 				""")
 			.addSince("1.0")
 			.build());
@@ -326,13 +329,13 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on jump:
-				    add 1 to {-example::%player's uuid%}
-				    if {-example::%player's uuid%} >= 3:
-				        delete {-example::%player's uuid%}
-				        push player forwards at speed 2
-				        send "Forward you go!" to player
-				    wait 10 ticks
-				    delete {-example::%player's uuid%}
+					add 1 to {-example::%player's uuid%}
+					if {-example::%player's uuid%} >= 3:
+						delete {-example::%player's uuid%}
+						push player forwards at speed 2
+						send "Forward you go!" to player
+					wait 10 ticks
+					delete {-example::%player's uuid%}
 				""")
 			.addSince("2.3")
 			.build());
@@ -346,7 +349,7 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on kick:
-				    send "%player% just got kicked!" to all operators
+					send "%player% just got kicked!" to all operators
 				""")
 			.addSince("1.0")
 			.build());
@@ -361,8 +364,8 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on language change:
-				    player's language starts with "en"
-				    send "Hello!" to player
+					player's language starts with "en"
+					send "Hello!" to player
 				""")
 			.addSince("2.3")
 			.build());
@@ -376,11 +379,11 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on connect:
-				    if all:
-				        player doesn't have permission "group.vip"
-				        size of all players >= (max players - 5)
-				    then:
-				        kick player due to "The last 5 slots are reserved for those with VIP rank!"
+					if all:
+						player doesn't have permission "group.vip"
+						size of all players >= (max players - 5)
+					then:
+						kick player due to "The last 5 slots are reserved for those with VIP rank!"
 				""")
 			.addSince("2.0")
 			.build());
@@ -394,7 +397,7 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on item mend:
-				     send "One of your tools was mended!" to player
+					 send "One of your tools was mended!" to player
 				""")
 			.addSince("2.5.1")
 			.build());
@@ -420,7 +423,7 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on quit:
-				    set the quit message to "%player% just left :("
+					set the quit message to "%player% just left :("
 				""")
 			.addSince("1.0 (simple disconnection)")
 			.build());
@@ -439,12 +442,12 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on player ready arrow:
-				    if all:
-				        selected bow's name is "Spectral Bow"
-				        selected arrow is not a spectral arrow
-				    then:
-				        cancel event
-				        send "You need a spectral arrow to use a spectral bow!" to player
+					if all:
+						selected bow's name is "Spectral Bow"
+						selected arrow is not a spectral arrow
+					then:
+						cancel event
+						send "You need a spectral arrow to use a spectral bow!" to player
 				""")
 			.addSince("1.8.0")
 			.build());
@@ -458,9 +461,9 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on riptide:
-				    chance of 10%:
-				        set the weather to clear
-				        send "You got unlucky.. the sky cleared up!" to player
+					chance of 10%:
+						set the weather to clear
+						send "You got unlucky.. the sky cleared up!" to player
 				""")
 			.addSince("2.5")
 			.build());
@@ -479,9 +482,9 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on sneak toggle:
-				    player is sneaking
-				    push player upwards at 0t.5
-				    send "UP!" to player
+					player is sneaking
+					push player upwards at 0t.5
+					send "UP!" to player
 				""")
 			.addSince("1.0")
 			.build());
@@ -496,12 +499,12 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on sprint toggle:
-				    player is not sprinting
-				    chance of 30%:
-				        spawn wither behind player
-				        send "Run.." to player
-				        stop
-				    send "You got lucky this time.." to player
+					player is not sprinting
+					chance of 30%:
+						spawn wither behind player
+						send "Run.." to player
+						stop
+					send "You got lucky this time.." to player
 				""")
 			.addSince("1.0")
 			.build());
@@ -515,7 +518,7 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on player stop using item:
-				    send "You just used %event-item% for %event-timespan% :)" to player
+					send "You just used %event-item% for %event-timespan% :)" to player
 				""")
 			.addSince("2.8.0")
 			.build());
@@ -540,10 +543,10 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on swap hand items:
-				    player's tool is a totem of undying
-				    chance of 50%:
-				         send "Failed! Please try again!" to player
-				         cancel event
+					player's tool is a totem of undying
+					chance of 50%:
+						 send "Failed! Please try again!" to player
+						 cancel event
 				""")
 			.addSince("2.3")
 			.build());
@@ -559,7 +562,7 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on throw of an egg:
-				    broadcast "An egg has been thrown!"
+					broadcast "An egg has been thrown!"
 				""")
 			.addSince("1.0")
 			.build());
@@ -576,7 +579,7 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on player trading:
-				    send "Did you get a good deal?" to player
+					send "Did you get a good deal?" to player
 				""")
 			.addSince("2.7")
 			.build());
@@ -593,8 +596,8 @@ public class PlayerEvents {
 				""")
 			.addExample("""
 				on player world change:
-				    event-world is "world_the_end"
-				    send "Its the end!" to player
+					event-world is "world_the_end"
+					send "Its the end!" to player
 				""")
 			.addSince("2.2-dev28")
 			.build());
