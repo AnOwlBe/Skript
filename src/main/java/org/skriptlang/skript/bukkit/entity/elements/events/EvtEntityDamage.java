@@ -16,7 +16,6 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 
 import java.util.Arrays;
 
-@SuppressWarnings("rawtypes")
 public class EvtEntityDamage extends SkriptEvent {
 
 	public static void register(SyntaxRegistry syntaxRegistry) {
@@ -43,18 +42,18 @@ public class EvtEntityDamage extends SkriptEvent {
 			.build());
 	}
 
-	private EntityData[] byEntityData;
-	private EntityData[] ofEntityData;
+	private EntityData<?>[] byEntityData;
+	private EntityData<?>[] ofEntityData;
 
 	@Override
 	@SuppressWarnings("unchecked")
 	public boolean init(Literal<?>[] args, int matchedPattern, SkriptParser.ParseResult parseResult) {
 		if (parseResult.hasTag("by")) {
-			Literal<EntityData> entityLiteral = (Literal<EntityData>) args[1];
+			Literal<EntityData<?>> entityLiteral = (Literal<EntityData<?>>) args[1];
 			byEntityData = entityLiteral.getArray();
 		}
 		if (parseResult.hasTag("of")) {
-			Literal<EntityData> entityLiteral = (Literal<EntityData>) args[0];
+			Literal<EntityData<?>> entityLiteral = (Literal<EntityData<?>>) args[0];
 			ofEntityData = entityLiteral.getArray();
 		}
 		return true;
@@ -63,19 +62,11 @@ public class EvtEntityDamage extends SkriptEvent {
 	@Override
 	public boolean check(Event event) {
 		EntityDamageEvent entityDamageEvent = (EntityDamageEvent) event;
-		boolean damagerMatched = !(event instanceof EntityDamageByEntityEvent entityEvent)
-			? byEntityData == null
-			: byEntityData == null
-				|| Arrays.stream(byEntityData)
-				.anyMatch(data -> data.isInstance(entityEvent.getDamager()));
-
-		boolean entityMatched = ofEntityData == null
-			|| Arrays.stream(ofEntityData)
-			.anyMatch(data -> data.isInstance(entityDamageEvent.getEntity()));
-
-		boolean healthMatched = !(entityDamageEvent.getEntity() instanceof LivingEntity entity)
-			|| !(HealthUtils.getHealth(entity) <= 0);
-
+		boolean entityMatched = ofEntityData == null || Arrays.stream(ofEntityData).anyMatch(data -> data.isInstance(entityDamageEvent.getEntity()));
+		boolean healthMatched = !(entityDamageEvent.getEntity() instanceof LivingEntity entity) || HealthUtils.getHealth(entity) > 0;
+		if (!(event instanceof EntityDamageByEntityEvent entityEvent))
+			return byEntityData == null && entityMatched && healthMatched;
+		boolean damagerMatched = byEntityData == null || Arrays.stream(byEntityData).anyMatch(data -> data.isInstance(entityEvent.getDamager()));
 		return damagerMatched && entityMatched && healthMatched;
 
 	}

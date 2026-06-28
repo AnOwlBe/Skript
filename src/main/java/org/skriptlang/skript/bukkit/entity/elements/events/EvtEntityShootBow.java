@@ -21,7 +21,6 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 
 import java.util.Arrays;
 
-@SuppressWarnings("rawtypes")
 public class EvtEntityShootBow extends SkriptEvent {
 
 	public static void register(SyntaxRegistry syntaxRegistry, EventValueRegistry eventValueRegistry) {
@@ -68,13 +67,13 @@ public class EvtEntityShootBow extends SkriptEvent {
 			.build());
 	}
 
-	private EntityData[] entityData;
+	private EntityData<?>[] entityData;
 
 	@Override
 	@SuppressWarnings("unchecked")
 	public boolean init(Literal<?>[] args, int matchedPattern, ParseResult parseResult) {
 		if (parseResult.hasTag("entity")) {
-			Literal<EntityData> entityLiteral = (Literal<EntityData>) args[0];
+			Literal<EntityData<?>> entityLiteral = (Literal<EntityData<?>>) args[0];
 			entityData = entityLiteral.getArray();
 		}
 		return true;

@@ -17,7 +17,6 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 
 import java.util.Arrays;
 
-@SuppressWarnings("rawtypes")
 public class EvtEntityTransform extends SkriptEvent {
 
 	public static void register(SyntaxRegistry syntaxRegistry, EventValueRegistry eventValueRegistry) {
@@ -53,7 +52,7 @@ public class EvtEntityTransform extends SkriptEvent {
 			.build());
 	}
 
-	private EntityData[] entityData;
+	private EntityData<?>[] entityData;
 	private TransformReason[] reasons;
 
 	@Override
@@ -64,7 +63,7 @@ public class EvtEntityTransform extends SkriptEvent {
 			reasons = transformLiteral.getArray();
 		}
 		if (parseResult.hasTag("entity")) {
-			Literal<EntityData> entityLiteral = (Literal<EntityData>) args[0];
+			Literal<EntityData<?>> entityLiteral = (Literal<EntityData<?>>) args[0];
 			entityData = entityLiteral.getArray();
 		}
 		return true;
@@ -73,14 +72,8 @@ public class EvtEntityTransform extends SkriptEvent {
 	@Override
 	public boolean check(Event event) {
 		EntityTransformEvent entityEvent = (EntityTransformEvent) event;
-		boolean reasonMatched = reasons == null
-			|| Arrays.stream(reasons)
-			.anyMatch(reason -> reason == entityEvent.getTransformReason());
-
-		boolean entityDataMatched = entityData == null
-			|| Arrays.stream(entityData)
-			.anyMatch(data -> data.isInstance(entityEvent.getEntity()));
-
+		boolean reasonMatched = reasons == null || Arrays.stream(reasons).anyMatch(reason -> reason == entityEvent.getTransformReason());
+		boolean entityDataMatched = entityData == null || Arrays.stream(entityData).anyMatch(data -> data.isInstance(entityEvent.getEntity()));
 		return reasonMatched && entityDataMatched;
 	}
 

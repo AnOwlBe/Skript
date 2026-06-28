@@ -107,7 +107,7 @@ public class EvtEntityBlockChange extends SkriptEvent {
 	}
 
 	@Nullable
-	private Literal<EntityData<?>> datas;
+	private Literal<EntityData<?>> entityData;
 	private ChangeEvent event;
 
 	@Override
@@ -115,7 +115,7 @@ public class EvtEntityBlockChange extends SkriptEvent {
 	public boolean init(Literal<?>[] args, int matchedPattern, ParseResult parseResult) {
 		event = ChangeEvent.values()[matchedPattern];
 		if (event == ChangeEvent.GENERIC)
-			datas = (Literal<EntityData<?>>) args[0];
+			entityData = (Literal<EntityData<?>>) args[0];
 		return true;
 	}
 
@@ -123,7 +123,7 @@ public class EvtEntityBlockChange extends SkriptEvent {
 	public boolean check(Event event) {
 		if (!(event instanceof EntityChangeBlockEvent))
 			return false;
-		if (datas != null && !datas.check(event, data -> data.isInstance(((EntityChangeBlockEvent) event).getEntity())))
+		if (entityData != null && !entityData.check(event, data -> data.isInstance(((EntityChangeBlockEvent) event).getEntity())))
 			return false;
 		if (this.event.checker == null)
 			return true;
