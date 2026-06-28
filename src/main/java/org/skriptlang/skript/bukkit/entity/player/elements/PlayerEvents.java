@@ -79,7 +79,7 @@ public class PlayerEvents {
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Player Tool Break")
 			.addEvent(PlayerItemBreakEvent.class)
 			.addPatterns("[player] tool break[ing]",
-				"[player] break[ing] (a|the|) tool")
+				"[player] break[ing] [a|the[ir]] tool")
 			.addDescription("""
 				Called when a player breaks their tool because its damage reached the maximum value.
 				This event cannot be cancelled.
