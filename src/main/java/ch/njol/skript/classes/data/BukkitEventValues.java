@@ -606,31 +606,6 @@ public final class BukkitEventValues {
 				}));
 			} catch (NoSuchMethodException ignored) {}
 		}
-		//FireworkExplodeEvent
-		registry.register(EventValue.simple(FireworkExplodeEvent.class, Firework.class, FireworkExplodeEvent::getEntity));
-		registry.register(EventValue.simple(FireworkExplodeEvent.class, FireworkEffect.class, event -> {
-			List<FireworkEffect> effects = event.getEntity().getFireworkMeta().getEffects();
-			if (effects.isEmpty())
-				return null;
-			return effects.get(0);
-		}));
-		registry.register(EventValue.simple(FireworkExplodeEvent.class, Color[].class, event -> {
-			List<FireworkEffect> effects = event.getEntity().getFireworkMeta().getEffects();
-			if (effects.isEmpty())
-				return null;
-			List<Color> colors = new ArrayList<>();
-			for (FireworkEffect fireworkEffect : effects) {
-				for (org.bukkit.Color color : fireworkEffect.getColors()) {
-					if (SkriptColor.fromBukkitColor(color) != null)
-						colors.add(SkriptColor.fromBukkitColor(color));
-					else
-						colors.add(ColorRGB.fromBukkitColor(color));
-				}
-			}
-			if (colors.isEmpty())
-				return null;
-			return colors.toArray(Color[]::new);
-		}));
 		//PlayerRiptideEvent
 		registry.register(EventValue.simple(PlayerRiptideEvent.class, ItemStack.class, PlayerRiptideEvent::getItem));
 		//PlayerInventorySlotChangeEvent
