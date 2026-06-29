@@ -85,7 +85,7 @@ public class EntityModule extends HierarchicalAddonModule {
 		register(addon,
 			ExprDeathMessage::register,
 			ExprPathfindingLocation::register,
-			ExprPathfindingTarget::register
+			ExprPathfindingTarget::register,
 			EffTeleport::register,
 			ExprDeathMessage::register
 		);
