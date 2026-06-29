@@ -58,6 +58,7 @@ public class EntityModule extends HierarchicalAddonModule {
 		EvtEntitySpawn.register(syntaxRegistry);
 		EvtEntityTarget.register(syntaxRegistry);
 		EvtEntityTransform.register(syntaxRegistry, eventValueRegistry);
+		EvtFireworkExplode.register(syntaxRegistry, eventValueRegistry);
 
 	}
 

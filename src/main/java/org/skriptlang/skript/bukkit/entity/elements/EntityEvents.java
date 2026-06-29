@@ -5,11 +5,12 @@ import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.util.SimpleEvent;
 import ch.njol.skript.util.slot.EquipmentSlot;
 import ch.njol.skript.util.slot.Slot;
+import com.destroystokyo.paper.event.entity.EndermanAttackPlayerEvent;
 import com.destroystokyo.paper.event.entity.EntityJumpEvent;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.entity.*;
 import org.bukkit.inventory.EntityEquipment;
-import org.bukkit.inventory.ItemStack;
 import org.skriptlang.skript.bukkit.lang.eventvalue.EventValue;
 import org.skriptlang.skript.bukkit.lang.eventvalue.EventValueRegistry;
 import org.skriptlang.skript.bukkit.registration.BukkitSyntaxInfos;
@@ -149,6 +150,21 @@ public class EntityEvents {
 			.addSince("2.7")
 			.build());
 
+		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Entity Toggle Swim")
+			.addEvent(EntityToggleSwimEvent.class)
+			.addPatterns(
+				"[entity] toggl(e|ing) swim",
+				"[on] [entity] swim toggl(e|ing)"
+			)
+			.addDescription("Called when an entity swims or stops swimming.")
+			.addExample("""
+			    on swim toggle:
+			        event-entity does not have the permission "perk.swim"
+			        cancel event
+			    """)
+			.addSince("2.3")
+			.build());
+
 		//
 		// Entity specific events (e.g. CreeperPowerEvent)
 		//
@@ -269,6 +285,26 @@ public class EntityEvents {
 		eventValueRegistry.register(EventValue.builder(VillagerCareerChangeEvent.class, Villager.Profession.class)
 			.getter(event -> event.getEntity().getProfession())
 			.time(PAST)
+			.build());
+
+		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Enderman Enrage")
+			.addEvent(EndermanAttackPlayerEvent.class)
+			.addPatterns("enderman (enrage|anger)")
+			.addDescription("""
+				Called when an enderman gets mad because a player looked at them.
+				Note: This does not stop enderman from targeting the player as a result of getting damaged
+				""")
+			.addExample("""
+				on enderman enrage:
+				    player has permission "safe.from.enderman"
+				    cancel event
+				    send "well you got lucky this time.." to event-player
+				""")
+			.addSince("2.9.0")
+			.build());
+
+		eventValueRegistry.register(EventValue.builder(EndermanAttackPlayerEvent.class, Player.class)
+			.getter(EndermanAttackPlayerEvent::getPlayer)
 			.build());
 	}
 
