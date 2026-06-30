@@ -13,7 +13,6 @@ import org.skriptlang.skript.bukkit.lang.eventvalue.EventValueRegistry;
 import org.skriptlang.skript.bukkit.registration.BukkitSyntaxInfos;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
-@SuppressWarnings("unchecked")
 public class EvtPlayerGameModeChange extends SkriptEvent {
 
 	public static void register(SyntaxRegistry syntaxRegistry, EventValueRegistry registry) {
@@ -45,6 +44,7 @@ public class EvtPlayerGameModeChange extends SkriptEvent {
 	private Literal<GameMode> gamemode;
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public boolean init(Literal<?>[] literals, int i, ParseResult parseResult) {
 		gamemode = (Literal<GameMode>) literals[0];
 		return true;
