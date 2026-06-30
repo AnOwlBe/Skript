@@ -74,7 +74,7 @@ public class ExprGameMode extends PropertyExpression<Player, GameMode> {
 	@Override
 	public void change(Event event, Object @Nullable [] delta, ChangeMode mode) {
 		GameMode gamemode = delta == null ? Bukkit.getDefaultGameMode() : (GameMode) delta[0];
-		List<? extends Player> players = Arrays.stream(getExpr().getArray(event)).toList();
+		List<? extends Player> players = getExpr().stream(event).toList();
 		if (getTime() >= 0 && event instanceof PlayerGameModeChangeEvent playerEvent && players.contains(playerEvent.getPlayer()) && !Delay.isDelayed(event)) {
 			if (playerEvent.getNewGameMode() != gamemode)
 				playerEvent.setCancelled(true);
@@ -92,8 +92,7 @@ public class ExprGameMode extends PropertyExpression<Player, GameMode> {
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
 		return new SyntaxStringBuilder(event, debug)
-			.append("the gamemode of")
-			.append(getExpr())
+			.append("the gamemode of", getExpr())
 			.toString();
 	}
 
