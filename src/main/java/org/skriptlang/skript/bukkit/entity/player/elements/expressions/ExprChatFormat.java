@@ -101,7 +101,7 @@ public class ExprChatFormat extends SimpleExpression<Component> implements Event
 				.build())));
 
 		if (containsReplacement && !suppressDeprecatedWarning)
-			warning("Using [player], [sender], [message] or [msg] is deprecated and scheduled for removal. Please use e.g. %player% instead.");
+			warning("Using [player], [sender], [message] and [msg] is deprecated and scheduled for removal. Please use the equivalent expressions, such as '%player%' and '%message%'.");
 	}
 
 	@Override
