@@ -57,8 +57,12 @@ public class ExprGameMode extends PropertyExpression<Player, GameMode> {
 
 	@Override
 	protected GameMode[] get(Event event, Player[] source) {
+		Player eventPlayer = null;
+		if (getTime() >= 0 && event instanceof PlayerGameModeChangeEvent playerEvent && !Delay.isDelayed(event)) {
+			eventPlayer = playerEvent.getPlayer();
+		}
 		return get(source, player -> {
-			if (getTime() >= 0 && event instanceof PlayerGameModeChangeEvent playerEvent && playerEvent.getPlayer() == player && !Delay.isDelayed(event))
+			if (player == eventPlayer)
 				return playerEvent.getNewGameMode();
 			return player.getGameMode();
 		});
