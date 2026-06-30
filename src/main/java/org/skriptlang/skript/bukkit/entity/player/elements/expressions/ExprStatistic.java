@@ -224,4 +224,3 @@ public class ExprStatistic extends PropertyExpression<OfflinePlayer, Integer> {
 	}
 
 }
-

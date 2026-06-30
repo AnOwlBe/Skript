@@ -93,4 +93,3 @@ public class EvtPlayerStatisticChange extends SkriptEvent {
 	}
 
 }
-
