@@ -1,12 +1,17 @@
 package org.skriptlang.skript.bukkit.entity.elements;
 
 import ch.njol.skript.classes.Changer.ChangeMode;
+import ch.njol.skript.entity.EntityData;
 import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.util.SimpleEvent;
 import ch.njol.skript.util.slot.EquipmentSlot;
 import ch.njol.skript.util.slot.Slot;
 import com.destroystokyo.paper.event.entity.EndermanAttackPlayerEvent;
 import com.destroystokyo.paper.event.entity.EntityJumpEvent;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.entity.*;
@@ -21,6 +26,36 @@ import static org.skriptlang.skript.bukkit.lang.eventvalue.EventValue.Time.PAST;
 public class EntityEvents {
 
 	public static void register(SyntaxRegistry syntaxRegistry, EventValueRegistry eventValueRegistry) {
+
+		//
+ 		// Entity Event Values
+ 		//
+
+		eventValueRegistry.register(EventValue.builder(EntityEvent.class, Entity.class)
+			.getter(EntityEvent::getEntity)
+			.excludes(EntityDamageEvent.class, EntityDeathEvent.class)
+			.excludedErrorMessage("Use 'attacker' and/or 'victim' in damage/death events")
+			.build());
+
+		eventValueRegistry.register(EventValue.builder(EntityEvent.class, CommandSender.class)
+			.getter(EntityEvent::getEntity)
+			.excludes(EntityDamageEvent.class, EntityDeathEvent.class)
+			.excludedErrorMessage("Use 'attacker' and/or 'victim' in damage/death events")
+			.build());
+
+		eventValueRegistry.register(EventValue.builder(EntityEvent.class, World.class)
+			.getter(event -> event.getEntity().getWorld())
+			.build());
+
+		eventValueRegistry.register(EventValue.builder(EntityEvent.class, Location.class)
+			.getter(event -> event.getEntity().getLocation())
+			.build());
+
+		eventValueRegistry.register(EventValue.builder(EntityEvent.class, EntityData.class)
+			.getter(event -> EntityData.fromEntity(event.getEntity()))
+			.excludes(EntityDamageEvent.class, EntityDeathEvent.class)
+			.excludedErrorMessage("Use 'type of attacker/victim' in damage/death events.")
+			.build());
 
 		//
 		// Entity Events
@@ -38,6 +73,7 @@ public class EntityEvents {
 				    broadcast "It burns!!"
 				""")
 			.addSince("1.0")
+			.supplier(() -> new SimpleEvent("entity combusting"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Entity Explode")
@@ -51,6 +87,7 @@ public class EntityEvents {
 				    broadcast "*Explosion*"
 				""")
 			.addSince("1.0")
+			.supplier(() -> new SimpleEvent("entity exploding"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Entity Portal Enter")
@@ -66,6 +103,7 @@ public class EntityEvents {
 				    broadcast "%event-entity% never got to see a new dimension.."
 				""")
 			.addSince("1.0")
+			.supplier(() -> new SimpleEvent("entity entering a portal"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Entity Tame")
@@ -80,6 +118,7 @@ public class EntityEvents {
 				    broadcast "Best friends for life!"
 				""")
 			.addSince("1.0")
+			.supplier(() -> new SimpleEvent("entity taming"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Entity Mount")
@@ -93,6 +132,7 @@ public class EntityEvents {
 				    cancel event
 				""")
 			.addSince("2.2-dev13b")
+			.supplier(() -> new SimpleEvent("entity mounting"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Entity Dismount")
@@ -106,6 +146,7 @@ public class EntityEvents {
 				    kill event-entity
 				""")
 			.addSince("2.2-dev13b")
+			.supplier(() -> new SimpleEvent("entity dismounting"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Entity Resurrect Attempt")
@@ -125,6 +166,7 @@ public class EntityEvents {
 				        send "You seem to be immortal.. how" to event-entity
 				""")
 			.addSince("2.2-dev28")
+			.supplier(() -> new SimpleEvent("entity resurrection attempt"))
 			.build());
 
 		eventValueRegistry.register(EventValue.builder(EntityResurrectEvent.class, Slot.class)
@@ -148,6 +190,7 @@ public class EntityEvents {
 				    push event-entity up at speed 1
 				""")
 			.addSince("2.7")
+			.supplier(() -> new SimpleEvent("entity jumping"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Entity Toggle Swim")
@@ -163,6 +206,7 @@ public class EntityEvents {
 			        cancel event
 			    """)
 			.addSince("2.3")
+			.supplier(() -> new SimpleEvent("entity toggling swim"))
 			.build());
 
 		//
@@ -182,6 +226,7 @@ public class EntityEvents {
 				    broadcast "No charged creepers in this world!"
 				""")
 			.addSince("1.0")
+			.supplier(() -> new SimpleEvent("creeper power"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Sheep Regrow Wool")
@@ -194,6 +239,7 @@ public class EntityEvents {
 				        send "Theres free wool nearby!" to loop-value
 				""")
 			.addSince("2.2-dev21")
+			.supplier(() -> new SimpleEvent("sheep regrowing wool"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Slime Split")
@@ -208,6 +254,7 @@ public class EntityEvents {
 				    broadcast "More slime minions have spawned!"
 				""")
 			.addSince("2.2-dev26")
+			.supplier(() -> new SimpleEvent("slime splitting"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Horse Jump")
@@ -220,6 +267,7 @@ public class EntityEvents {
 				    send "Wow that horse can really go high.." to (all players in radius 3 of event-entity)
 				""")
 			.addSince("2.5.1")
+			.supplier(() -> new SimpleEvent("horse jumping"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Piglin Barter")
@@ -237,6 +285,7 @@ public class EntityEvents {
 				        cancel event
 				""")
 			.addSince("2.10")
+			.supplier(() -> new SimpleEvent("piglin bartering"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Bat Toggle Sleep")
@@ -249,6 +298,7 @@ public class EntityEvents {
 				    broadcast "Another bat tried to sleep and perished.."
 				""")
 			.addSince("2.11")
+			.supplier(() -> new SimpleEvent("bat toggling sleep"))
 			.build());
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Villager Career Change")
@@ -267,6 +317,7 @@ public class EntityEvents {
 						cancel event
 				""")
 			.addSince("2.12")
+			.supplier(() -> new SimpleEvent("villager career change"))
 			.build());
 
 		eventValueRegistry.register(EventValue.builder(VillagerCareerChangeEvent.class, Villager.Profession.class)
@@ -301,6 +352,7 @@ public class EntityEvents {
 				    send "well you got lucky this time.." to event-player
 				""")
 			.addSince("2.9.0")
+			.supplier(() -> new SimpleEvent("enderman enrage"))
 			.build());
 
 		eventValueRegistry.register(EventValue.builder(EndermanAttackPlayerEvent.class, Player.class)

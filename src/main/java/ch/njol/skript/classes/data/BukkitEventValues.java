@@ -192,44 +192,6 @@ public final class BukkitEventValues {
 		registry.register(EventValue.simple(SignChangeEvent.class, Player.class, SignChangeEvent::getPlayer));
 		registry.register(EventValue.simple(SignChangeEvent.class, Component[].class, event -> event.lines().toArray(new Component[0])));
 
-		// === EntityEvents ===
-		registry.register(EventValue.builder(EntityEvent.class, Entity.class)
-			.getter(EntityEvent::getEntity)
-			.excludes(EntityDamageEvent.class, EntityDeathEvent.class)
-			.excludedErrorMessage("Use 'attacker' and/or 'victim' in damage/death events")
-			.build());
-		registry.register(EventValue.builder(EntityEvent.class, CommandSender.class)
-			.getter(EntityEvent::getEntity)
-			.excludes(EntityDamageEvent.class, EntityDeathEvent.class)
-			.excludedErrorMessage("Use 'attacker' and/or 'victim' in damage/death events")
-			.build());
-		registry.register(EventValue.simple(EntityEvent.class, World.class, event -> event.getEntity().getWorld()));
-		registry.register(EventValue.simple(EntityEvent.class, Location.class, event -> event.getEntity().getLocation()));
-		registry.register(EventValue.builder(EntityEvent.class, EntityData.class)
-			.getter(event -> EntityData.fromEntity(event.getEntity()))
-			.excludes(EntityDamageEvent.class, EntityDeathEvent.class)
-			.excludedErrorMessage("Use 'type of attacker/victim' in damage/death events.")
-			.build());
-		// EntityDamageEvent
-		registry.register(EventValue.simple(EntityDamageEvent.class, DamageCause.class, EntityDamageEvent::getCause));
-		registry.register(EventValue.simple(EntityDamageByEntityEvent.class, Projectile.class, event -> {
-			if (event.getDamager() instanceof Projectile projectile)
-				return projectile;
-			return null;
-		}));
-		// EntityDeathEvent
-		registry.register(EventValue.simple(EntityDeathEvent.class, ItemStack[].class, event -> event.getDrops().toArray(new ItemStack[0])));
-		registry.register(EventValue.simple(EntityDeathEvent.class, Projectile.class, event -> {
-			EntityDamageEvent damageEvent = event.getEntity().getLastDamageCause();
-			if (damageEvent instanceof EntityDamageByEntityEvent entityEvent && entityEvent.getDamager() instanceof Projectile projectile)
-				return projectile;
-			return null;
-		}));
-		registry.register(EventValue.simple(EntityDeathEvent.class, DamageCause.class, event -> {
-			EntityDamageEvent damageEvent = event.getEntity().getLastDamageCause();
-			return damageEvent == null ? null : damageEvent.getCause();
-		}));
-
 		// ProjectileHitEvent
 		// ProjectileHitEvent#getHitBlock was added in 1.11
 		if (Skript.methodExists(ProjectileHitEvent.class, "getHitBlock"))
@@ -290,10 +252,6 @@ public final class BukkitEventValues {
 		registry.register(EventValue.simple(ItemSpawnEvent.class, ItemStack.class, event -> event.getEntity().getItemStack()));
 		// LightningStrikeEvent
 		registry.register(EventValue.simple(LightningStrikeEvent.class, Entity.class, LightningStrikeEvent::getLightning));
-		// EndermanAttackPlayerEvent
-		if (Skript.classExists("com.destroystokyo.paper.event.entity.EndermanAttackPlayerEvent")) {
-			registry.register(EventValue.simple(EndermanAttackPlayerEvent.class, Player.class, EndermanAttackPlayerEvent::getPlayer));
-		}
 
 		// --- PlayerEvents ---
 		registry.register(EventValue.simple(PlayerEvent.class, Player.class, PlayerEvent::getPlayer));
@@ -705,9 +663,6 @@ public final class BukkitEventValues {
 			.time(Time.FUTURE)
 			.build());
 		registry.register(EventValue.simple(InventoryMoveItemEvent.class, ItemStack.class, InventoryMoveItemEvent::getItem));
-
-		// EntityRegainHealthEvent
-		registry.register(EventValue.simple(EntityRegainHealthEvent.class, RegainReason.class, EntityRegainHealthEvent::getRegainReason));
 
 		// FurnaceExtractEvent
 		registry.register(EventValue.simple(FurnaceExtractEvent.class, Player.class, FurnaceExtractEvent::getPlayer));

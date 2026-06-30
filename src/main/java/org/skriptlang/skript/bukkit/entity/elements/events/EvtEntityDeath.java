@@ -8,9 +8,16 @@ import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.SyntaxStringBuilder;
 import ch.njol.skript.log.ErrorQuality;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.Event;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Nullable;
+import org.skriptlang.skript.bukkit.lang.eventvalue.EventValue;
+import org.skriptlang.skript.bukkit.lang.eventvalue.EventValueRegistry;
 import org.skriptlang.skript.bukkit.registration.BukkitSyntaxInfos;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
@@ -18,7 +25,7 @@ import java.util.Arrays;
 
 public class EvtEntityDeath extends SkriptEvent {
 
-	public static void register(SyntaxRegistry syntaxRegistry) {
+	public static void register(SyntaxRegistry syntaxRegistry, EventValueRegistry eventValueRegistry) {
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(EvtEntityDeath.class, "Entity Death")
 			.supplier(EvtEntityDeath::new)
 			.addEvent(EntityDeathEvent.class)
@@ -37,6 +44,26 @@ public class EvtEntityDeath extends SkriptEvent {
 				    broadcast "A great boss has been slain today.."
 				""")
 			.addSince("1.0")
+			.build());
+
+		eventValueRegistry.register(EventValue.builder(EntityDeathEvent.class, ItemStack[].class)
+			.getter(event -> event.getDrops().toArray(new ItemStack[0]))
+			.build());
+
+		eventValueRegistry.register(EventValue.builder(EntityDeathEvent.class, Projectile.class)
+			.getter(event -> {
+				EntityDamageEvent damageEvent = event.getEntity().getLastDamageCause();
+				if (damageEvent instanceof EntityDamageByEntityEvent entityEvent && entityEvent.getDamager() instanceof Projectile projectile)
+					return projectile;
+				return null;
+			})
+			.build());
+
+		eventValueRegistry.register(EventValue.builder(EntityDeathEvent.class, DamageCause.class)
+			.getter(event -> {
+				EntityDamageEvent entityEvent = event.getEntity().getLastDamageCause();
+				return entityEvent == null ? null : entityEvent.getCause();
+			})
 			.build());
 	}
 

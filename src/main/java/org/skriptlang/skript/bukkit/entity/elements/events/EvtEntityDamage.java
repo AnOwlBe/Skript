@@ -7,10 +7,14 @@ import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.SyntaxStringBuilder;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.Event;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.jetbrains.annotations.Nullable;
+import org.skriptlang.skript.bukkit.lang.eventvalue.EventValue;
+import org.skriptlang.skript.bukkit.lang.eventvalue.EventValueRegistry;
 import org.skriptlang.skript.bukkit.registration.BukkitSyntaxInfos;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
@@ -18,7 +22,7 @@ import java.util.Arrays;
 
 public class EvtEntityDamage extends SkriptEvent {
 
-	public static void register(SyntaxRegistry syntaxRegistry) {
+	public static void register(SyntaxRegistry syntaxRegistry, EventValueRegistry eventValueRegistry) {
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(EvtEntityDamage.class, "Entity Damage")
 			.supplier(EvtEntityDamage::new)
 			.addEvent(EntityDamageEvent.class)
@@ -39,6 +43,18 @@ public class EvtEntityDamage extends SkriptEvent {
 				        send "You monster.." to attacker
 				""")
 			.addSince("1.0, 2.7 (by entity)")
+			.build());
+
+		eventValueRegistry.register(EventValue.builder(EntityDamageEvent.class, DamageCause.class)
+			.getter(EntityDamageEvent::getCause)
+			.build());
+
+		eventValueRegistry.register(EventValue.builder(EntityDamageByEntityEvent.class, Projectile.class)
+			.getter(event -> {
+				if (event.getDamager() instanceof Projectile projectile)
+					return projectile;
+				return null;
+			})
 			.build());
 	}
 
