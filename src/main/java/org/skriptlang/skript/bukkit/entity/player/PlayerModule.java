@@ -36,7 +36,9 @@ public class PlayerModule extends HierarchicalAddonModule {
 
 	@Override
 	protected void loadSelf(SkriptAddon addon) {
+		EventValueRegistry eventValueRegistry = addon.registry(EventValueRegistry.class);
 		register(addon,
+			syntaxRegistry -> EvtPlayerStatisticChange.register(syntaxRegistry, eventValueRegistry),
 			EffBan::register,
 			EffKick::register,
 			ExprChatFormat::register,
@@ -59,10 +61,7 @@ public class PlayerModule extends HierarchicalAddonModule {
 			);
 		}
 
-		EventValueRegistry eventValueRegistry = addon.registry(EventValueRegistry.class);
 		SyntaxRegistry syntaxRegistry = moduleRegistry(addon);
-
-		EvtPlayerStatisticChange.register(syntaxRegistry, eventValueRegistry);
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Chat")
 			.addDescription("Called whenever a player chats.",
