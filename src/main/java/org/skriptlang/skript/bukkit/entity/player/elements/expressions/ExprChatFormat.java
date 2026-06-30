@@ -20,6 +20,7 @@ import ch.njol.skript.doc.Since;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
+import org.skriptlang.skript.lang.script.Script;
 import org.skriptlang.skript.lang.script.ScriptWarning;
 import org.skriptlang.skript.registration.SyntaxInfo;
 import org.skriptlang.skript.registration.SyntaxRegistry;
@@ -52,8 +53,9 @@ public class ExprChatFormat extends SimpleExpression<Component> implements Event
 			Skript.error("'" + toString(null, false) + "' can only be changed, not obtained");
 			return false;
 		}
-		if (getParser().getCurrentScript() != null)
-		    suppressDeprecatedWarning = (getParser().getCurrentScript().suppressesWarning(ScriptWarning.DEPRECATED_SYNTAX));
+		Script script = getParser().getCurrentScript();
+		if (script != null)
+		    suppressDeprecatedWarning = (script.suppressesWarning(ScriptWarning.DEPRECATED_SYNTAX));
 		return true;
 	}
 
