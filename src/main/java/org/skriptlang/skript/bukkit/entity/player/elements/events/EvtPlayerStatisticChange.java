@@ -42,12 +42,10 @@ public class EvtPlayerStatisticChange extends SkriptEvent {
 
 		registry.register(EventValue.builder(PlayerStatisticIncrementEvent.class, Integer.class)
 			.getter(PlayerStatisticIncrementEvent::getNewValue)
-			.patterns("number")
 			.build());
 
 		registry.register(EventValue.builder(PlayerStatisticIncrementEvent.class, Integer.class)
 			.getter(PlayerStatisticIncrementEvent::getPreviousValue)
-			.patterns("number")
 			.time(Time.PAST)
 			.build());
 
@@ -88,10 +86,10 @@ public class EvtPlayerStatisticChange extends SkriptEvent {
 
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
-		SyntaxStringBuilder builder = new SyntaxStringBuilder(event, debug);
-		builder.append("player statistic change");
-		builder.appendIf(statistics != null, "of " + statistics.toString(event, debug));
-		return builder.toString();
+		return new SyntaxStringBuilder(event, debug)
+			.append("player statistic change")
+			.appendIf(statistics != null, "of", statistics)
+			.toString();
 	}
 
 }

@@ -68,17 +68,17 @@ public class ExprStatistic extends PropertyExpression<OfflinePlayer, Integer> {
 		);
 	}
 
-	private Expression<Statistic> statisticExpr;
+	private Expression<Statistic> statistic;
 	private Expression<?> ofType;
 
 	@Override
 	public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		if (matchedPattern == 1) {
-			statisticExpr = (Expression<Statistic>) expressions[1];
+			statistic = (Expression<Statistic>) expressions[1];
 			ofType = expressions[2];
 			setExpr((Expression<? extends OfflinePlayer>) expressions[0]);
 		} else {
-			statisticExpr = (Expression<Statistic>) expressions[0];
+			statistic = (Expression<Statistic>) expressions[0];
 			ofType = expressions[1];
 			setExpr((Expression<? extends OfflinePlayer>) expressions[2]);
 		}
@@ -87,7 +87,7 @@ public class ExprStatistic extends PropertyExpression<OfflinePlayer, Integer> {
 
 	@Override
 	protected Integer[] get(Event event, OfflinePlayer[] source) {
-		Statistic statistic = statisticExpr.getSingle(event);
+		Statistic statistic = this.statistic.getSingle(event);
 		if (statistic == null)
 			return new Integer[0];
 		Object type = ofType != null ? ofType.getSingle(event) : null;
@@ -110,7 +110,7 @@ public class ExprStatistic extends PropertyExpression<OfflinePlayer, Integer> {
 	@Override
 	public void change(Event event, Object @Nullable [] delta, ChangeMode mode) {
 		Integer amount = mode != ChangeMode.RESET ? (Integer) delta[0] : null;
-		 Statistic statistic = statisticExpr.getSingle(event);
+		 Statistic statistic = this.statistic.getSingle(event);
 		 if (statistic == null)
 			 return;
 		 Object type = ofType != null ? ofType.getSingle(event) : null;
@@ -217,14 +217,10 @@ public class ExprStatistic extends PropertyExpression<OfflinePlayer, Integer> {
 
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
-		SyntaxStringBuilder builder = new SyntaxStringBuilder(event, debug);
-		builder.append("the statistic");
-		builder.append(statisticExpr);
-		builder.append("of");
-		builder.append((Object) getExpr().getArray(event));
-		builder.appendIf(ofType != null, "using");
-		builder.appendIf(ofType != null, ofType);
-		return builder.toString();
+		return new SyntaxStringBuilder(event, debug)
+			.append("the statistic", statistic, "of", getExpr().getArray(event))
+			.appendIf(ofType != null, "using", ofType)
+			.toString();
 	}
 
 }
