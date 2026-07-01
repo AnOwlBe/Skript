@@ -132,8 +132,7 @@ public class ExprTime extends PropertyExpression<Object, Time> {
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
 		return new SyntaxStringBuilder(event, debug)
-			.append("the time of")
-			.append(getExpr())
+			.append("the time of", getExpr())
 			.toString();
 	}
 

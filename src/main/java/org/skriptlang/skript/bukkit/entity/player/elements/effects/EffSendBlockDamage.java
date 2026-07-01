@@ -22,7 +22,7 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 	Makes a player see a block's damage as something else.
 	This will not actually change the block's break progress in any way.
 	Note that a single entity can only be breaking 1 block at a time.
-	When a source is provided (an entity or integer), the block damage is shown on the provided block using that source,
+	When a source is provided (an entity or integer), the block damage is shown on the provided block using that source, \
 	allowing multiple blocks to display damage independently for the provided players.
 	When a source is provided (an entity or integer), the block damage is shown on the provided block using that source, \
 	allowing multiple blocks to display damage independently for the provided players.

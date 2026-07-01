@@ -29,7 +29,7 @@ public class EffSendHealthChange extends Effect {
 	public static void register(SyntaxRegistry syntaxRegistry) {
 		syntaxRegistry.register(SyntaxRegistry.EFFECT, SyntaxInfo.builder(EffSendHealthChange.class)
 			.supplier(EffSendHealthChange::new)
-			.addPatterns("make %players%'s food and health status appear as %number% hearts with %number% hunger [bars] [and %number% :saturation]")
+			.addPatterns("make %players%'s food and health status appear as %number% hearts with %number% hunger [bars] [saturation:and %number% saturation]")
 			.build());
 	}
 

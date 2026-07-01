@@ -121,8 +121,7 @@ public class ExprWeather extends PropertyExpression<Object, WeatherType> {
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
 		return new SyntaxStringBuilder(event, debug)
-			.append("weather of")
-			.append(getExpr())
+			.append("weather of", getExpr())
 			.toString();
 	}
 
