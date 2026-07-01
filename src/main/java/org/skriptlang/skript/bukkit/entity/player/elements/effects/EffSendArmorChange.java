@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import org.skriptlang.skript.registration.SyntaxInfo;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
-@Name("Send Armor Change")
+@Name("Send Equipment Change")
 @Description("""
 	 Makes a player see an entity's armor as something else.
 	 Note that most entities can have armor but it is not visible.
@@ -80,16 +80,15 @@ public class EffSendArmorChange extends Effect {
 		Player[] players = this.players.getArray(event);
 		LivingEntity[] entities = this.entities.getArray(event);
 		ItemType itemType = asOriginal ? null : itemExpr.getSingle(event);
-		ItemStack item = itemType != null ? itemType.getRandom() : new ItemStack(Material.AIR);
+		ItemStack item = itemType != null ? itemType.getRandom() : ItemStack.empty();
 
 		for (LivingEntity entity : entities) {
 			EntityEquipment entityEquipment = entity.getEquipment();
 			ItemStack slotItem = asOriginal && entityEquipment != null ? entityEquipment.getItem(equipment) : item;
 			if (slotItem == null)
-				slotItem = new ItemStack(Material.AIR);
-			for (Player player : players) {
+				slotItem = ItemStack.empty();
+			for (Player player : players)
 				player.sendEquipmentChange(entity, equipment, slotItem);
-			}
 		}
 	}
 

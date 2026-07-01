@@ -21,7 +21,6 @@ import org.skriptlang.skript.registration.SyntaxRegistry;
 import java.util.HashMap;
 import java.util.Map;
 
-@SuppressWarnings("UnstableApiUsage")
 @Name("Send Block Change")
 @Description("""
 	 Makes a player see a block as something else or as the original.
@@ -34,6 +33,7 @@ import java.util.Map;
 	make all players see (blocks in radius 5 of location(0, 0, 0)) as original
 	""")
 @Since("2.2-dev37c, 2.5.1 (block data support), 2.12 (as original)")
+@SuppressWarnings("UnstableApiUsage")
 public class EffSendBlockChange extends Effect {
 
 	public static void register(SyntaxRegistry syntaxRegistry) {
