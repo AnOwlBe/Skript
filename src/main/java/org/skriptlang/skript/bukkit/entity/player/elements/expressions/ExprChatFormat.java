@@ -25,6 +25,8 @@ import org.skriptlang.skript.lang.script.ScriptWarning;
 import org.skriptlang.skript.registration.SyntaxInfo;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 @Name("Chat Format")
 @Description("""
 	Can be used to modify the chat format.
@@ -43,7 +45,6 @@ public class ExprChatFormat extends SimpleExpression<Component> implements Event
 			.build());
 	}
 
-	private boolean containsReplacement;
 	private boolean suppressDeprecatedWarning;
 
 	@Override
@@ -91,16 +92,18 @@ public class ExprChatFormat extends SimpleExpression<Component> implements Event
 			return;
 		}
 
+		AtomicBoolean containsReplacement = new AtomicBoolean(false);
+
 		asyncChatEvent.renderer(ChatRenderer.viewerUnaware((source, sourceDisplayName, message) ->
 			((Component) delta[0]).replaceText(TextReplacementConfig.builder()
 				.match("(?i)\\[(player|sender|message|msg)]")
 				.replacement((matchResult, builder) -> {
-					containsReplacement = true;
+					containsReplacement.set(true);
 					return matchResult.group(1).startsWith("m") ? message : sourceDisplayName;
 				})
 				.build())));
 
-		if (containsReplacement && !suppressDeprecatedWarning)
+		if (containsReplacement.get() && !suppressDeprecatedWarning)
 			warning("Using [player], [sender], [message] and [msg] is deprecated and scheduled for removal. Please use the equivalent expressions, such as '%player%' and '%message%'.");
 	}
 
