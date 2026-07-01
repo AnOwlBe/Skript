@@ -46,6 +46,7 @@ public class ExprChatFormat extends SimpleExpression<Component> implements Event
 	}
 
 	private boolean suppressDeprecatedWarning;
+	private boolean containsPlaceholders;
 
 	@Override
 	public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
@@ -92,19 +93,19 @@ public class ExprChatFormat extends SimpleExpression<Component> implements Event
 			return;
 		}
 
-		AtomicBoolean containsReplacement = new AtomicBoolean(false);
-
 		asyncChatEvent.renderer(ChatRenderer.viewerUnaware((source, sourceDisplayName, message) ->
 			((Component) delta[0]).replaceText(TextReplacementConfig.builder()
 				.match("(?i)\\[(player|sender|message|msg)]")
 				.replacement((matchResult, builder) -> {
-					containsReplacement.set(true);
+					containsPlaceholders = true;
 					return matchResult.group(1).startsWith("m") ? message : sourceDisplayName;
 				})
 				.build())));
 
-		if (containsReplacement.get() && !suppressDeprecatedWarning)
+		if (containsPlaceholders && !suppressDeprecatedWarning) {
+			containsPlaceholders = false;
 			warning("Using [player], [sender], [message] and [msg] is deprecated and scheduled for removal. Please use the equivalent expressions, such as '%player%' and '%message%'.");
+		}
 	}
 
 	@Override
