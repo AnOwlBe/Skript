@@ -98,7 +98,7 @@ public class EntityModule extends HierarchicalAddonModule {
 			.build());
 
 		register(addon,
-			EffGlide::register
+			EffGlide::register,
 			EffTeleport::register,
 			ExprDeathMessage::register,
 			ExprPathfindingLocation::register,
