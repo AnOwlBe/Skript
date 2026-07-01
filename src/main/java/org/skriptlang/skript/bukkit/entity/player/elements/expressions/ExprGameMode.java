@@ -20,7 +20,6 @@ import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.jetbrains.annotations.Nullable;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Name("Game Mode")
