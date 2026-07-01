@@ -2537,7 +2537,7 @@ statistics:
 	noteblock_tuned: note block tuned
 	open_barrel: open barrel
 	pickup: pick up, items picked up
-	pig_one_cm: pig one cm, pig distance
+	pig_one_cm: pig one cm, pig distance, pig riding distance
 	play_one_minute: play one minute, ticks played, play time, time played
 	player_kills: player kills
 	raid_trigger: raid trigger
@@ -2559,7 +2559,7 @@ statistics:
 	use_item: use item
 	walk_on_water_one_cm: walk on water one cm, walk on water distance
 	walk_one_cm: walk one cm, walk distance
-	walk_under_water_one_cm: walk under water one cm, walk under water distance
+	walk_under_water_one_cm: walk under water one cm, walk underwater once cm, walk under water distance, walk underwater distance
 
 # -- Teleport Flags --
 teleport flags:

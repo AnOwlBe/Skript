@@ -25,7 +25,7 @@ public class EvtPlayerStatisticChange extends SkriptEvent {
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(EvtPlayerStatisticChange.class, "Player Statistic Change")
 			.supplier(EvtPlayerStatisticChange::new)
 			.addEvent(PlayerStatisticIncrementEvent.class)
-			.addPatterns("player statistic (change|increase|increment) [of %-statistics% statistic[s]]")
+			.addPatterns("player statistic (change|increase|increment) [of %-statistics% stat[istic][s]]")
 			.addDescription("""
 				Called when a player's statistic changes.
 				Some statistics like 'play one minute' do not call this event, because they get called too often.
