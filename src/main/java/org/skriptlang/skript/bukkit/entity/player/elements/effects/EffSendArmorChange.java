@@ -48,8 +48,8 @@ public class EffSendArmorChange extends Effect {
 	public static void register(SyntaxRegistry syntaxRegistry) {
 		syntaxRegistry.register(SyntaxRegistry.EFFECT, SyntaxInfo.builder(EffSendArmorChange.class)
 			.supplier(EffSendArmorChange::new)
-			.addPatterns("make %players% see %livingentities%'s %equipmentslot% as %itemtype%",
-				"make %players% see %livingentities%'s %equipmentslot% as [the|its] (original|normal|actual) [(armor piece|equipment)]")
+			.addPatterns("make %players% see %livingentities%'[s] %equipmentslot% as %itemtype%",
+				"make %players% see %livingentities%'s %equipmentslot% as [the|its] (original|normal|actual) [armor piece|equipment]")
 			.build());
 	}
 
