@@ -49,10 +49,9 @@ public class PlayerModule extends HierarchicalAddonModule {
 			ExprOnScreenKickMessage::register,
 			ExprPlayerListHeaderFooter::register,
 			ExprPlayerListName::register,
-			ExprQuitMessage::register,
-			ExprStatistic::register,
 			ExprPlayerListPriority::register,
-			ExprQuitMessage::register
+			ExprQuitMessage::register,
+			ExprStatistic::register
 		);
 		if (Skript.classExists("io.papermc.paper.event.player.PlayerPickBlockEvent")) {
 			register(addon,

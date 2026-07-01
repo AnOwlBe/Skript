@@ -1,12 +1,12 @@
 package org.skriptlang.skript.bukkit.entity.player.elements.events;
 
 import ch.njol.skript.aliases.ItemType;
+import ch.njol.skript.entity.EntityData;
 import ch.njol.skript.lang.Literal;
 import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.SyntaxStringBuilder;
 import org.bukkit.Statistic;
-import org.bukkit.entity.EntityType;
 import org.bukkit.event.Event;
 import org.bukkit.event.player.PlayerStatisticIncrementEvent;
 import org.jetbrains.annotations.Nullable;
@@ -15,6 +15,8 @@ import org.skriptlang.skript.bukkit.lang.eventvalue.EventValue.Time;
 import org.skriptlang.skript.bukkit.lang.eventvalue.EventValueRegistry;
 import org.skriptlang.skript.bukkit.registration.BukkitSyntaxInfos;
 import org.skriptlang.skript.registration.SyntaxRegistry;
+
+import static ch.njol.skript.bukkitutil.EntityUtils.toSkriptEntityData;
 
 @SuppressWarnings("unchecked")
 public class EvtPlayerStatisticChange extends SkriptEvent {
@@ -55,12 +57,10 @@ public class EvtPlayerStatisticChange extends SkriptEvent {
 
 		registry.register(EventValue.builder(PlayerStatisticIncrementEvent.class, ItemType.class)
 			.getter(event -> new ItemType(event.getMaterial()))
-			.patterns("item type")
 			.build());
 
-		registry.register(EventValue.builder(PlayerStatisticIncrementEvent.class, EntityType.class)
-			.getter(PlayerStatisticIncrementEvent::getEntityType)
-			.patterns("entity data")
+		registry.register(EventValue.builder(PlayerStatisticIncrementEvent.class, EntityData.class)
+			.getter(event -> toSkriptEntityData(event.getEntityType()))
 			.build());
 	}
 

@@ -102,39 +102,35 @@ public class ExprStatistic extends PropertyExpression<OfflinePlayer, Integer> {
 	@Override
 	public Class<?> @Nullable [] acceptChange(ChangeMode mode) {
 		return switch (mode) {
-			case SET, ADD, REMOVE, RESET -> CollectionUtils.array(Integer.class);
+			case SET, ADD, REMOVE, RESET, DELETE -> CollectionUtils.array(Integer.class);
 			default -> null;
 		};
 	}
 
 	@Override
 	public void change(Event event, Object @Nullable [] delta, ChangeMode mode) {
-		Integer amount = mode != ChangeMode.RESET ? (Integer) delta[0] : null;
-		 Statistic statistic = this.statistic.getSingle(event);
-		 if (statistic == null)
-			 return;
-		 Object type = ofType != null ? ofType.getSingle(event) : null;
-		 if (checkTyping(statistic, type))
-			 return;
+		int amount = (mode == ChangeMode.RESET || mode == ChangeMode.DELETE) ? 0 : (Integer) delta[0];
+		Statistic statistic = this.statistic.getSingle(event);
+		if (statistic == null)
+			return;
+		Object type = ofType != null ? ofType.getSingle(event) : null;
+		if (checkTyping(statistic, type))
+			return;
 
-		 switch (mode) {
-			 case SET -> {
-				 for (OfflinePlayer player : getExpr().getArray(event))
-					 applyStatistic(player, statistic, amount, type);
-			 }
-			 case ADD -> {
-				 for (OfflinePlayer player : getExpr().getArray(event))
-					 applyStatistic(player, statistic, getStatistic(player, statistic, type) + amount, type);
-			 }
-			 case REMOVE -> {
-				 for (OfflinePlayer player : getExpr().getArray(event))
-					 applyStatistic(player, statistic, getStatistic(player, statistic, type) - amount, type);
-			 }
-			 case RESET -> {
-				 for (OfflinePlayer player : getExpr().getArray(event))
-					 applyStatistic(player, statistic, 0, type);
-			 }
-		 }
+		switch (mode) {
+			case SET, RESET, DELETE -> {
+				for (OfflinePlayer player : getExpr().getArray(event))
+					applyStatistic(player, statistic, amount, type);
+			}
+			case ADD -> {
+				for (OfflinePlayer player : getExpr().getArray(event))
+					applyStatistic(player, statistic, getStatistic(player, statistic, type) + amount, type);
+			}
+			case REMOVE -> {
+				for (OfflinePlayer player : getExpr().getArray(event))
+					applyStatistic(player, statistic, getStatistic(player, statistic, type) - amount, type);
+			}
+		}
 	}
 
 	/**

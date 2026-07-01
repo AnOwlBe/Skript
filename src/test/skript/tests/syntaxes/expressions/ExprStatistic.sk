@@ -43,3 +43,5 @@ test "statistic":
 	assert jump statistic of test-offline player is 54 with "Failed to remove from jump statistic"
 	reset jump statistic of test-offline player
 	assert jump statistic of test-offline player is 0 with "Failed to reset jump statistic"
+	delete jump statistic of test-offline player
+	assert jump statistic of test-offline player is 0 with "Failed to delete jump statistic"
