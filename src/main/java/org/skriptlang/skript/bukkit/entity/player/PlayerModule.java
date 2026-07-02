@@ -37,13 +37,16 @@ public class PlayerModule extends HierarchicalAddonModule {
 	@Override
 	protected void loadSelf(SkriptAddon addon) {
 		EventValueRegistry eventValueRegistry = addon.registry(EventValueRegistry.class);
+
 		register(addon,
 			syntaxRegistry -> EvtPlayerStatisticChange.register(syntaxRegistry, eventValueRegistry),
 			EffBan::register,
 			EffKick::register,
+			syntaxRegistry -> EvtPlayerGameModeChange.register(syntaxRegistry, eventValueRegistry),
 			ExprChatFormat::register,
 			ExprChatMessage::register,
 			ExprChatRecipients::register,
+			ExprGameMode::register,
 			ExprJoinMessage::register,
 			ExprKickMessage::register,
 			ExprOnScreenKickMessage::register,
