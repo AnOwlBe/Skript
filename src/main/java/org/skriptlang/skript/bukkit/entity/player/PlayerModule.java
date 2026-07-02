@@ -9,8 +9,6 @@ import org.skriptlang.skript.bukkit.entity.player.elements.effects.*;
 import org.skriptlang.skript.bukkit.entity.player.elements.events.*;
 import org.skriptlang.skript.bukkit.entity.player.elements.expressions.*;
 import org.skriptlang.skript.bukkit.lang.eventvalue.EventValueRegistry;
-import org.skriptlang.skript.bukkit.registration.BukkitSyntaxInfos;
-import org.skriptlang.skript.registration.SyntaxRegistry;
 
 public class PlayerModule extends HierarchicalAddonModule {
 
@@ -21,11 +19,16 @@ public class PlayerModule extends HierarchicalAddonModule {
 	@Override
 	protected void loadSelf(SkriptAddon addon) {
 		EventValueRegistry eventValueRegistry = addon.registry(EventValueRegistry.class);
-
 		register(addon,
+			syntaxRegistry -> PlayerEvents.register(syntaxRegistry, eventValueRegistry),
+			syntaxRegistry -> EvtPlayerArmorChange.register(syntaxRegistry, eventValueRegistry),
+			syntaxRegistry -> EvtPlayerFillBucket.register(syntaxRegistry, eventValueRegistry),
+			syntaxRegistry -> EvtPlayerGameModeChange.register(syntaxRegistry, eventValueRegistry),
+			syntaxRegistry -> EvtPlayerMoveOn.register(syntaxRegistry, eventValueRegistry),
+			syntaxRegistry -> EvtPlayerRespawn.register(syntaxRegistry, eventValueRegistry),
+			EvtPlayerSpectate::register,
 			EffBan::register,
 			EffKick::register,
-			syntaxRegistry -> EvtPlayerGameModeChange.register(syntaxRegistry, eventValueRegistry),
 			ExprChatFormat::register,
 			ExprChatMessage::register,
 			ExprChatRecipients::register,
@@ -44,18 +47,6 @@ public class PlayerModule extends HierarchicalAddonModule {
 				ExprPickedItem::register
 			);
 		}
-
-        EventValueRegistry eventValueRegistry = addon.registry(EventValueRegistry.class);
-		SyntaxRegistry syntaxRegistry = moduleRegistry(addon);
-
-		PlayerEvents.register(syntaxRegistry, eventValueRegistry);
-
-		EvtPlayerArmorChange.register(syntaxRegistry, eventValueRegistry);
-		EvtPlayerFillBucket.register(syntaxRegistry, eventValueRegistry);
-		EvtPlayerMoveOn.register(syntaxRegistry, eventValueRegistry);
-		EvtPlayerRespawn.register(syntaxRegistry, eventValueRegistry);
-		EvtPlayerSpectate.register(syntaxRegistry);
-
 	}
 
 	@Override
