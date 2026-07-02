@@ -540,13 +540,6 @@ public final class BukkitEventValues {
 		//PlayerTeleportEvent
 		registry.register(EventValue.simple(PlayerTeleportEvent.class, TeleportCause.class, PlayerTeleportEvent::getCause));
 		//EntityMoveEvent
-		if (Skript.classExists("io.papermc.paper.event.entity.EntityMoveEvent")) {
-			registry.register(EventValue.simple(EntityMoveEvent.class, Location.class, EntityMoveEvent::getFrom));
-			registry.register(EventValue.builder(EntityMoveEvent.class, Location.class)
-				.getter(EntityMoveEvent::getTo)
-				.time(Time.FUTURE)
-				.build());
-		}
 		//CreatureSpawnEvent
 		registry.register(EventValue.simple(CreatureSpawnEvent.class, SpawnReason.class, CreatureSpawnEvent::getSpawnReason));
 		//PlayerRespawnEvent - 1.21.5+ added AbstractRespawnEvent as a base class, where prior to that, getRespawnReason was in PlayerRespawnEvent

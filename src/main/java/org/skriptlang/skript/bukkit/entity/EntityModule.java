@@ -6,6 +6,7 @@ import org.bukkit.entity.AbstractNautilus;
 import org.skriptlang.skript.addon.AddonModule;
 import org.skriptlang.skript.addon.HierarchicalAddonModule;
 import org.skriptlang.skript.addon.SkriptAddon;
+import org.skriptlang.skript.bukkit.BukkitModule;
 import org.skriptlang.skript.bukkit.entity.displays.DisplayModule;
 import org.skriptlang.skript.bukkit.entity.elements.EntityEvents;
 import org.skriptlang.skript.bukkit.entity.elements.events.*;
@@ -15,7 +16,6 @@ import org.skriptlang.skript.bukkit.entity.entitydata.NautilusData;
 import org.skriptlang.skript.bukkit.entity.entitydata.ZombieNautilusData;
 import org.skriptlang.skript.bukkit.entity.player.PlayerModule;
 import org.skriptlang.skript.bukkit.lang.eventvalue.EventValueRegistry;
-import org.skriptlang.skript.registration.SyntaxRegistry;
 
 import java.util.List;
 
@@ -41,30 +41,30 @@ public class EntityModule extends HierarchicalAddonModule {
 			SimpleEntityData.addSuperEntity("any nautilus", AbstractNautilus.class);
 		}
 
-		register(addon,
-			ExprDeathMessage::register
+		EventValueRegistry eventValueRegistry = addon.registry(EventValueRegistry.class);
+
+		BukkitModule.register(addon.syntaxRegistry(), eventValueRegistry,
+			EntityEvents::register,
+			EvtEntityBlockChange::register,
+			EvtEntityDamage::register,
+			EvtEntityDeath::register,
+			EvtEntityHeal::register,
+			EvtEntityLeash::register,
+			EvtEntityMove::register,
+			EvtEntityShootBow::register,
+			EvtEntityTeleport::register,
+			EvtEntityTransform::register,
+			EvtExperienceSpawn::register,
+			EvtFireworkExplode::register
 		);
 
-		EventValueRegistry eventValueRegistry = addon.registry(EventValueRegistry.class);
-		SyntaxRegistry syntaxRegistry = moduleRegistry(addon);
-
-		EntityEvents.register(syntaxRegistry, eventValueRegistry);
-
-		EvtEntityBlockChange.register(syntaxRegistry, eventValueRegistry);
-		EvtEntityBreakDoor.register(syntaxRegistry);
-		EvtEntityDamage.register(syntaxRegistry, eventValueRegistry);
-		EvtEntityDeath.register(syntaxRegistry, eventValueRegistry);
-		EvtEntityHeal.register(syntaxRegistry, eventValueRegistry);
-		EvtEntityLeash.register(syntaxRegistry, eventValueRegistry);
-		EvtEntityPortal.register(syntaxRegistry);
-		EvtEntityShootBow.register(syntaxRegistry, eventValueRegistry);
-		EvtEntitySpawn.register(syntaxRegistry);
-		EvtEntityTarget.register(syntaxRegistry);
-		EvtEntityTeleport.register(syntaxRegistry, eventValueRegistry);
-		EvtEntityTransform.register(syntaxRegistry, eventValueRegistry);
-		EvtExperienceSpawn.register(syntaxRegistry, eventValueRegistry);
-		EvtFireworkExplode.register(syntaxRegistry, eventValueRegistry);
-
+		register(addon,
+			EvtEntityBreakDoor::register,
+			EvtEntityPortal::register,
+			EvtEntitySpawn::register,
+			EvtEntityTarget::register,
+			ExprDeathMessage::register
+		);
 	}
 
 	@Override
