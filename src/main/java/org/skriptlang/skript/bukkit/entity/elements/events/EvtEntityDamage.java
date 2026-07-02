@@ -78,12 +78,20 @@ public class EvtEntityDamage extends SkriptEvent {
 	@Override
 	public boolean check(Event event) {
 		EntityDamageEvent entityDamageEvent = (EntityDamageEvent) event;
-		boolean entityMatched = ofEntityData == null || Arrays.stream(ofEntityData).anyMatch(data -> data.isInstance(entityDamageEvent.getEntity()));
-		boolean healthMatched = !(entityDamageEvent.getEntity() instanceof LivingEntity entity) || HealthUtils.getHealth(entity) > 0;
-		if (!(event instanceof EntityDamageByEntityEvent entityEvent))
-			return byEntityData == null && entityMatched && healthMatched;
-		boolean damagerMatched = byEntityData == null || Arrays.stream(byEntityData).anyMatch(data -> data.isInstance(entityEvent.getDamager()));
-		return damagerMatched && entityMatched && healthMatched;
+		boolean entityMatched = true;
+		boolean healthMatched = true;
+		boolean damagerMatched = true;
+
+		if (ofEntityData != null)
+			entityMatched = Arrays.stream(ofEntityData).anyMatch(data -> data.isInstance(entityDamageEvent.getEntity()));
+
+		if (entityDamageEvent.getEntity() instanceof LivingEntity entity)
+			healthMatched = HealthUtils.getHealth(entity) > 0;
+
+		if (byEntityData != null && event instanceof EntityDamageByEntityEvent entityEvent)
+			damagerMatched = Arrays.stream(byEntityData).anyMatch(data -> data.isInstance(entityEvent.getDamager()));
+
+		return entityMatched && healthMatched && damagerMatched;
 
 	}
 

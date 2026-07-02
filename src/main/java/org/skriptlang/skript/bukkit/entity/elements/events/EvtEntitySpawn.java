@@ -59,11 +59,10 @@ public class EvtEntitySpawn extends SkriptEvent {
 
 	@Override
 	public boolean check(Event event) {
-		if (entityData != null) {
-			EntitySpawnEvent entityEvent = (EntitySpawnEvent) event;
-			return Arrays.stream(entityData).anyMatch(entity ->  entity.isInstance(entityEvent.getEntity()));
-		}
-		return true;
+		if (entityData == null)
+			return true;
+		EntitySpawnEvent entityEvent = (EntitySpawnEvent) event;
+		return Arrays.stream(entityData).anyMatch(entity ->  entity.isInstance(entityEvent.getEntity()));
 	}
 
 	@Override

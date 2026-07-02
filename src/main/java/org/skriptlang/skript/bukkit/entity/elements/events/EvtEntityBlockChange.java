@@ -121,13 +121,13 @@ public class EvtEntityBlockChange extends SkriptEvent {
 
 	@Override
 	public boolean check(Event event) {
-		if (!(event instanceof EntityChangeBlockEvent))
+		if (!(event instanceof EntityChangeBlockEvent entityEvent))
 			return false;
-		if (entityData != null && !entityData.check(event, data -> data.isInstance(((EntityChangeBlockEvent) event).getEntity())))
+		if (entityData != null && !entityData.check(event, data -> data.isInstance((entityEvent.getEntity()))))
 			return false;
 		if (this.event.checker == null)
 			return true;
-		return this.event.checker.test((EntityChangeBlockEvent) event);
+		return this.event.checker.test(entityEvent);
 	}
 
 	@Override

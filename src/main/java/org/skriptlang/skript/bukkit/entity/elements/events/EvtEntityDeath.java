@@ -87,11 +87,10 @@ public class EvtEntityDeath extends SkriptEvent {
 
 	@Override
 	public boolean check(Event event) {
-		if (entityData != null) {
-			EntityDeathEvent entityEvent = (EntityDeathEvent) event;
-			return Arrays.stream(entityData).anyMatch(entity -> entity.isInstance(entityEvent.getEntity()));
-		}
-		return true;
+		if (entityData == null)
+			return true;
+		EntityDeathEvent entityEvent = (EntityDeathEvent) event;
+		return Arrays.stream(entityData).anyMatch(entity -> entity.isInstance(entityEvent.getEntity()));
 	}
 
 	@Override

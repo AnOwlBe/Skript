@@ -81,11 +81,10 @@ public class EvtEntityShootBow extends SkriptEvent {
 
 	@Override
 	public boolean check(Event event) {
-		if (entityData != null) {
-			EntityShootBowEvent entityEvent = (EntityShootBowEvent) event;
-			return Arrays.stream(entityData).anyMatch(entity -> entity.isInstance(entityEvent.getEntity()));
-		}
-		return true;
+		if (entityData == null)
+			return true;
+		EntityShootBowEvent entityEvent = (EntityShootBowEvent) event;
+		return Arrays.stream(entityData).anyMatch(entity -> entity.isInstance(entityEvent.getEntity()));
 	}
 
 	@Override

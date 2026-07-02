@@ -72,8 +72,12 @@ public class EvtEntityTransform extends SkriptEvent {
 	@Override
 	public boolean check(Event event) {
 		EntityTransformEvent entityEvent = (EntityTransformEvent) event;
-		boolean reasonMatched = reasons == null || Arrays.stream(reasons).anyMatch(reason -> reason == entityEvent.getTransformReason());
-		boolean entityDataMatched = entityData == null || Arrays.stream(entityData).anyMatch(data -> data.isInstance(entityEvent.getEntity()));
+		boolean reasonMatched = true;
+		boolean entityDataMatched = true;
+		if (reasons != null)
+			reasonMatched = Arrays.stream(reasons).anyMatch(reason -> reason == entityEvent.getTransformReason());
+		if (entityData != null)
+			entityDataMatched = Arrays.stream(entityData).anyMatch(data -> data.isInstance(entityEvent.getEntity()));
 		return reasonMatched && entityDataMatched;
 	}
 
