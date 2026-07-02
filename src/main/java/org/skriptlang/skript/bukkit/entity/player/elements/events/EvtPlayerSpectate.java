@@ -26,7 +26,7 @@ public class EvtPlayerSpectate extends SkriptEvent {
 				"[player] start spectating [of %-*entitydatas%]"
 			)
 			.addDescription("""
-				Called with a player starts, stops or swaps spectating an entity.
+				Called when a player starts, stops or swaps spectating an entity.
 				""")
 			.addExample("""
 				on player start spectating of a zombie:
