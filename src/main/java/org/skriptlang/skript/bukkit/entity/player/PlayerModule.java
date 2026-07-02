@@ -25,7 +25,6 @@ public class PlayerModule extends HierarchicalAddonModule {
 			syntaxRegistry -> EvtPlayerFillBucket.register(syntaxRegistry, eventValueRegistry),
 			syntaxRegistry -> EvtPlayerGameModeChange.register(syntaxRegistry, eventValueRegistry),
 			syntaxRegistry -> EvtPlayerMoveOn.register(syntaxRegistry, eventValueRegistry),
-			syntaxRegistry -> EvtPlayerRespawn.register(syntaxRegistry, eventValueRegistry),
 			EvtPlayerSpectate::register,
 			EffBan::register,
 			EffKick::register,

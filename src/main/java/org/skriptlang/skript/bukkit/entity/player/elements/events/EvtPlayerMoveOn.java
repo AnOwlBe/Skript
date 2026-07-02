@@ -199,9 +199,7 @@ public class EvtPlayerMoveOn extends SkriptEvent {
 
 	@Override
 	public String toString(@Nullable Event event, boolean debug) {
-		return new SyntaxStringBuilder(event, debug)
-			.append("walk on" + Classes.toString(types, false))
-			.toString();
+		return "walk on" + Classes.toString(types, false);
 	}
 
 }

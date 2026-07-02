@@ -1,5 +1,6 @@
 package org.skriptlang.skript.bukkit.entity.player.elements;
 
+import ch.njol.skript.Skript;
 import ch.njol.skript.lang.util.SimpleEvent;
 import ch.njol.skript.util.BlockStateBlock;
 import ch.njol.skript.util.Timespan;
@@ -18,12 +19,15 @@ import org.bukkit.entity.AbstractVillager;
 import org.bukkit.entity.Egg;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.player.*;
+import org.bukkit.event.player.PlayerRespawnEvent.RespawnReason;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.skriptlang.skript.bukkit.lang.eventvalue.EventValue;
 import org.skriptlang.skript.bukkit.lang.eventvalue.EventValueRegistry;
 import org.skriptlang.skript.bukkit.registration.BukkitSyntaxInfos;
 import org.skriptlang.skript.registration.SyntaxRegistry;
+
+import java.lang.reflect.Method;
 
 @SuppressWarnings("deprecation")
 public class PlayerEvents {
@@ -654,6 +658,42 @@ public class PlayerEvents {
 			.addSince("1.4.1, INSERT VERSION (pattern change)")
 			.supplier(() -> new SimpleEvent("player chat"))
 			.build());
+
+		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Player Respawn")
+			.addEvent(PlayerRespawnEvent.class)
+			.addPatterns("[player] respawn[ing]")
+			.addDescription("""
+				Called when a player respawns via death or entering the end portal in the end.
+				You should prefer this event over the <a href='#death'>death event</a> as the player is technically alive when this event is called.")
+				""")
+			.addExample("""
+				on respawn:
+					send "Hi there!"
+				""")
+			.addSince("1.0")
+			.supplier(() -> new SimpleEvent("player respawn"))
+			.build());
+
+		// Skripts minimum version is  1.21.1 as of 2.15 & as of 2.16 will still only be 1.21.4
+		// 1.21.5+ added AbstractRespawnEvent as a base class, where prior to that, getRespawnReason was in PlayerRespawnEvent
+		if (Skript.classExists("org.bukkit.event.player.AbstractRespawnEvent")) {
+			eventValueRegistry.register(EventValue.builder(PlayerRespawnEvent.class, PlayerRespawnEvent.RespawnReason.class)
+				.getter(PlayerRespawnEvent::getRespawnReason)
+				.build());
+		} else {
+			try {
+				Method method = PlayerRespawnEvent.class.getMethod("getRespawnReason");
+				eventValueRegistry.register(EventValue.builder(PlayerRespawnEvent.class, PlayerRespawnEvent.RespawnReason.class)
+					.getter(event -> {
+						try {
+							return (RespawnReason) method.invoke(event);
+						} catch (Exception e) {
+							return null;
+						}
+					})
+					.build());
+			} catch (NoSuchMethodException ignored) {}
+		}
 	}
 
 }
