@@ -105,9 +105,10 @@ public class PlayerEvents {
 
 		syntaxRegistry.register(BukkitSyntaxInfos.Event.KEY, BukkitSyntaxInfos.Event.builder(SimpleEvent.class, "Player Change Beacon Effect")
 			.addEvent(PlayerChangeBeaconEffectEvent.class)
-			.addPatterns("[player] chang(e[s]|ing) [of] beacon effect",
+			.addPatterns(
+				"[player] chang(e[s]|ing) [of] beacon effect",
 				"[on] beacon change effect",
-			"[on] beacon effect change"
+				"[on] beacon effect change"
 			)
 			.addDescription("""
 				Called when a player changes the effects of a beacon.
