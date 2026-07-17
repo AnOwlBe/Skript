@@ -192,6 +192,10 @@ record ConvertedEventValue<SourceEvent extends Event, ConvertedEvent extends Eve
 	}
 
 	@Override
+	public @Nullable String deprecated() { return source.deprecated();
+	}
+
+	@Override
 	public boolean contextDependent() {
 		return source.contextDependent();
 	}

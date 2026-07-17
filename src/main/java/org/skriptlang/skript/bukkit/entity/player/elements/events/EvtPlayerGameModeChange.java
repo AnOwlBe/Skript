@@ -38,6 +38,7 @@ public class EvtPlayerGameModeChange extends SkriptEvent {
 		registry.register(EventValue.builder(PlayerGameModeChangeEvent.class, GameMode.class)
 			.getter(PlayerGameModeChangeEvent::getNewGameMode)
 			.patterns("gamemode")
+			.deprecated("This is a test message  its deprecated!")
 			.build());
 	}
 

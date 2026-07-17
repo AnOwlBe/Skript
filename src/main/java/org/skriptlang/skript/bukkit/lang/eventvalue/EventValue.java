@@ -155,6 +155,12 @@ public sealed interface EventValue<E extends Event, V> permits EventValueImpl, C
 	@Contract(pure = true)
 	@Nullable String excludedErrorMessage();
 
+	/**
+	 * Allows you to mark an event-value as deprecated with a deprecation message.
+	 * @return the deprecated message.
+	 */
+	@Contract(pure = true)
+	@Nullable String deprecated();
 
 	/**
 	 * Whether this event value's validation result depends on state outside of the event class
@@ -467,6 +473,9 @@ public sealed interface EventValue<E extends Event, V> permits EventValueImpl, C
 		 */
 		@Contract(value = "_ -> this", mutates = "this")
 		Builder<E, V> excludedErrorMessage(String excludedErrorMessage);
+
+		@Contract(value = "_ -> this", mutates = "this")
+		Builder<E, V> deprecated(String deprecationMessage);
 
 		/**
 		 * Marks this event value as context-dependent. Resolutions that consider this value will

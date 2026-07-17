@@ -3,6 +3,7 @@ package org.skriptlang.skript.bukkit.lang.eventvalue;
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.classes.ClassInfo;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.patterns.MatchResult;
 import ch.njol.skript.patterns.PatternCompiler;
@@ -20,6 +21,8 @@ import java.util.*;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 
+import static org.skriptlang.skript.lang.script.ScriptWarning.printDeprecationWarning;
+
 /**
  * Default implementation of {@link EventValue}.
  */
@@ -36,6 +39,7 @@ final class EventValueImpl<E extends Event, V> implements EventValue<E, V> {
 	private final Time time;
 	private final Collection<Class<? extends E>> excludedEvents;
 	private final @Nullable String excludedErrorMessage;
+	private final @Nullable String deprecated;
 	private final boolean contextDepenent;
 
 	private SkriptPattern[] compiledPatterns;
@@ -52,6 +56,7 @@ final class EventValueImpl<E extends Event, V> implements EventValue<E, V> {
 		this.time = builder.time;
 		this.excludedEvents = builder.excludedEvents;
 		this.excludedErrorMessage = builder.excludedErrorMessage;
+		this.deprecated = builder.deprecated;
 		this.contextDepenent = builder.contextDependent;
 	}
 
@@ -78,6 +83,10 @@ final class EventValueImpl<E extends Event, V> implements EventValue<E, V> {
 			if (excludedErrorMessage != null)
 				Skript.error(excludedErrorMessage);
 			return Validation.ABORT;
+		}
+		if (deprecated != null && !deprecated.isEmpty()) {
+			printDeprecationWarning(deprecated);
+			return Validation.VALID;
 		}
 		if (eventValidator == null)
 			return Validation.VALID;
@@ -156,6 +165,11 @@ final class EventValueImpl<E extends Event, V> implements EventValue<E, V> {
 	}
 
 	@Override
+	public @Nullable String deprecated() {
+		return deprecated;
+	}
+
+	@Override
 	public boolean contextDependent() {
 		return contextDepenent;
 	}
@@ -211,6 +225,7 @@ final class EventValueImpl<E extends Event, V> implements EventValue<E, V> {
 		private Time time = Time.NOW;
 		private Collection<Class<? extends E>> excludedEvents = Collections.emptyList();
 		private @Nullable String excludedErrorMessage;
+		private @Nullable String deprecated;
 		private boolean contextDependent = false;
 
 		BuilderImpl(Class<E> eventClass, Class<V> valueClass) {
@@ -265,6 +280,12 @@ final class EventValueImpl<E extends Event, V> implements EventValue<E, V> {
 		@Override
 		public Builder<E, V> excludedErrorMessage(String excludedErrorMessage) {
 			this.excludedErrorMessage = excludedErrorMessage;
+			return this;
+		}
+
+		@Override
+		public Builder<E, V> deprecated(String deprecationMessage) {
+			this.deprecated = deprecationMessage;
 			return this;
 		}
 
