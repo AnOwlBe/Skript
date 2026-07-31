@@ -7,13 +7,14 @@ import ch.njol.skript.classes.Changer.ChangeMode;
 import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.classes.Parser;
 import ch.njol.skript.expressions.base.EventValueExpression;
+import ch.njol.skript.hooks.VaultHook;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.localization.Language;
 import ch.njol.skript.registrations.Classes;
 import ch.njol.skript.util.Utils;
 import ch.njol.util.coll.CollectionUtils;
 import net.kyori.adventure.text.Component;
-import net.md_5.bungee.api.ChatColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Entity;
@@ -21,6 +22,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.skriptlang.skript.bukkit.text.TextComponentUtils;
 import org.skriptlang.skript.lang.properties.Property;
 import org.skriptlang.skript.lang.properties.handlers.base.ExpressionPropertyHandler;
 
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 @ApiStatus.Internal
 public class PlayerClassInfo extends ClassInfo<Player> {
@@ -61,7 +64,16 @@ public class PlayerClassInfo extends ClassInfo<Player> {
 				"The player's display name, as text. Can be set or reset.",
 				Skript.instance(),
 				new PlayerDisplayNameHandler())
+			.property(Property.PREFIX,
+				"The player's prefix from the server's chat plugin, as text. Can be set or reset.",
+				Skript.instance(),
+				new PlayerPrefixHandler())
+			.property(Property.SUFFIX,
+				"The player's suffix from the server's chat plugin, as text. Can be set or reset.",
+				Skript.instance(),
+				new PlayerSuffixHandler())
 			.serializeAs(OfflinePlayer.class);
+
 	}
 
 	public static class PlayerDisplayNameHandler implements ExpressionPropertyHandler<Player, Component> {
@@ -92,6 +104,88 @@ public class PlayerClassInfo extends ClassInfo<Player> {
 		//</editor-fold>
 	}
 
+	public static class PlayerPrefixHandler implements ExpressionPropertyHandler<Player, Component> {
+		//<editor-fold desc="display name handler" defaultstate="collapsed">
+		@Override
+		public Component convert(Player player) {
+			return TextComponentUtils.from(VaultHook.chat.getPlayerPrefix(player));
+		}
+
+
+		@Override
+		public Class<?> @Nullable [] acceptChange(ChangeMode mode) {
+			return switch (mode) {
+				case SET, RESET, DELETE -> CollectionUtils.array(Component.class);
+				default -> null;
+			};
+		}
+
+		@Override
+		public void change(Player player, Object @Nullable [] delta, ChangeMode mode) {
+			Component prefix = null;
+			if (delta != null)
+				prefix = (Component) delta[0];
+
+			// Vault still doesn't support components
+			String stringPrefix;
+			if (prefix != null) {
+				stringPrefix = MiniMessage.miniMessage().serialize(prefix);
+			} else {
+				stringPrefix = null;
+			}
+
+			CompletableFuture.runAsync(() -> VaultHook.chat.setPlayerPrefix(player, stringPrefix));
+		}
+
+		@Override
+
+		public @NotNull Class<Component> returnType() {
+			return Component.class;
+		}
+		//</editor-fold>
+	}
+
+	public static class PlayerSuffixHandler implements ExpressionPropertyHandler<Player, Component> {
+		//<editor-fold desc="display name handler" defaultstate="collapsed">
+		@Override
+		public Component convert(Player player) {
+			return TextComponentUtils.from(VaultHook.chat.getPlayerSuffix(player));
+		}
+
+
+		@Override
+		public Class<?> @Nullable [] acceptChange(ChangeMode mode) {
+			return switch (mode) {
+				case SET, RESET, DELETE -> CollectionUtils.array(Component.class);
+				default -> null;
+			};
+		}
+
+		@Override
+		public void change(Player player, Object @Nullable [] delta, ChangeMode mode) {
+			Component suffix = null;
+			if (delta != null)
+				suffix = (Component) delta[0];
+
+			// Vault still doesn't support components
+			String stringSuffix;
+			if (suffix!= null) {
+				stringSuffix = MiniMessage.miniMessage().serialize(suffix);
+			} else {
+				stringSuffix = null;
+			}
+
+			CompletableFuture.runAsync(() -> VaultHook.chat.setPlayerSuffix(player, stringSuffix));
+		}
+
+		@Override
+
+		public @NotNull Class<Component> returnType() {
+			return Component.class;
+		}
+		//</editor-fold>
+	}
+
 	public static class PlayerParser extends Parser<Player> {
 		//<editor-fold desc="player parser" defaultstate="collapsed">
 		@Override
@@ -114,7 +208,7 @@ public class PlayerClassInfo extends ClassInfo<Player> {
 					}
 				}
 				if (players.size() == 1)
-					return players.get(0);
+					return players.getFirst();
 				if (players.isEmpty())
 					Skript.error(String.format(Language.get("commands.no player starts with"), string));
 				else

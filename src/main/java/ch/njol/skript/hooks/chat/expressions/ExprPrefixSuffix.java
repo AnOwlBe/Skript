@@ -17,6 +17,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CompletableFuture;
 
+import static org.skriptlang.skript.lang.script.ScriptWarning.printDeprecationWarning;
+
 @Name("Prefix/Suffix")
 @Description("The prefix or suffix as defined in the server's chat plugin.")
 @Example("""
@@ -28,9 +30,13 @@ import java.util.concurrent.CompletableFuture;
 @Example("clear player's prefix")
 @Since("2.0, 2.10 (delete)")
 @RequiredPlugins({"Vault", "a chat plugin that supports Vault"})
+@Deprecated(since = "INSERT VERSION", forRemoval = true)
+// This is deprecated in favor of the prefix/suffix type property
+// This is kept and changed to have `chat` forced to allow for no immediate breaking changes
 public class ExprPrefixSuffix extends SimplePropertyExpression<Player, String> {
+
 	static {
-		register(ExprPrefixSuffix.class, String.class, "[chat] (1:prefix|2:suffix)", "players");
+		register(ExprPrefixSuffix.class, String.class, "chat (1:prefix|2:suffix)", "players");
 	}
 	
 	private boolean prefix;
@@ -38,6 +44,7 @@ public class ExprPrefixSuffix extends SimplePropertyExpression<Player, String> {
 	@Override
 	public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
 		prefix = parseResult.mark == 1;
+		printDeprecationWarning("Deprecated. This element is deprecated and scheduled for removal in a future release. Please use prefix and/or suffix expression.");
 		return super.init(exprs, matchedPattern, isDelayed, parseResult);
 	}
 	

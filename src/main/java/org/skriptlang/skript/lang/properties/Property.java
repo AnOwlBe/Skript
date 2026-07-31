@@ -318,6 +318,26 @@ public record Property<Handler extends PropertyHandler<?>>(
 		ExpressionPropertyHandler.class);
 
 	/**
+	 * A property for getting the prefix of something
+	 */
+	public static final Property<ExpressionPropertyHandler<?,?>> PREFIX = Property.of(
+		"prefix",
+		"The prefix of something.",
+		"INSERT VERSION",
+		Skript.instance(),
+		ExpressionPropertyHandler.class);
+
+	/**
+	 * A property for getting the suffix of something
+	 */
+	public static final Property<ExpressionPropertyHandler<?,?>> SUFFIX = Property.of(
+		"suffix",
+		"The suffix of something.",
+		"INSERT VERSION",
+		Skript.instance(),
+		ExpressionPropertyHandler.class);
+
+	/**
 	 * Register all Skript's default properties. Should be done prior to loading classinfos.
 	 */
 	public static void registerDefaultProperties() {
