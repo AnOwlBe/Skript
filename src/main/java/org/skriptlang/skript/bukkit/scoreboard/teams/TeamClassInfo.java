@@ -9,12 +9,12 @@ import ch.njol.skript.expressions.base.EventValueExpression;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.util.coll.CollectionUtils;
 import net.kyori.adventure.text.Component;
-import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Team;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.skriptlang.skript.lang.properties.Property;
 import org.skriptlang.skript.lang.properties.handlers.base.ExpressionPropertyHandler;
+import org.skriptlang.skript.lang.properties.handlers.base.PropertyHandler;
 
 public class TeamClassInfo extends ClassInfo<Team> {
 
@@ -24,12 +24,20 @@ public class TeamClassInfo extends ClassInfo<Team> {
 			.name("Team")
 			.description("""
 				Represents a team.
-				A team is simply a grouping object that can have entities added to them.
+				A team is simply a grouping object that can have entities added to it.
 				Additionally, you can set properties such as friendly fire and/or colour of the team.
 				""")
 			.parser(new TeamParser())
 			.changer(new TeamChangeHandler())
 			.since("INSERT VERSION")
+			.property(Property.PREFIX,
+				"The team's prefix, as text. Can be set or reset.",
+				Skript.instance(),
+				new TeamPrefixHandler())
+			.property(Property.SUFFIX,
+				"The team's suffix, as text. Can be set or reset.",
+				Skript.instance(),
+				new TeamSuffixHandler())
 			.defaultExpression(new EventValueExpression<>(Team.class));
 	}
 
@@ -69,11 +77,12 @@ public class TeamClassInfo extends ClassInfo<Team> {
 		//</editor-fold>
 	}
 
-	public static class ObjectiveDisplayNameHandler implements ExpressionPropertyHandler<Team, Component> {
-		//<editor-fold desc="objective display name handler" defaultstate="collapsed">
+	public static class TeamPrefixHandler implements ExpressionPropertyHandler<Team, Component> {
+		//<editor-fold desc="team prefix handler" defaultstate="collapsed">
+
 		@Override
 		public Component convert(Team team) {
-			return team.displayName();
+			return team.prefix();
 		}
 
 		@Override
@@ -86,11 +95,42 @@ public class TeamClassInfo extends ClassInfo<Team> {
 
 		@Override
 		public void change(Team team, Object @Nullable [] delta, ChangeMode mode) {
-			Component name = null;
+			Component prefix = null;
 			if (delta != null)
-				name = (Component) delta[0];
+				prefix = (Component) delta[0];
 
-			team.displayName(name);
+			team.prefix(prefix);
+		}
+
+		@Override
+		public @NotNull Class<Component> returnType() {
+			return Component.class;
+		}
+		//</editor-fold>
+	}
+
+	public static class TeamSuffixHandler implements ExpressionPropertyHandler<Team, Component> {
+		//<editor-fold desc="team prefix handler" defaultstate="collapsed">
+		@Override
+		public Component convert(Team team) {
+			return team.suffix();
+		}
+
+		@Override
+		public Class<?> @Nullable [] acceptChange(ChangeMode mode) {
+			return switch (mode) {
+				case SET, RESET -> CollectionUtils.array(Component.class);
+				default -> null;
+			};
+		}
+
+		@Override
+		public void change(Team team, Object @Nullable [] delta, ChangeMode mode) {
+			Component suffix = null;
+			if (delta != null)
+				suffix = (Component) delta[0];
+
+			team.suffix(suffix);
 		}
 
 		@Override

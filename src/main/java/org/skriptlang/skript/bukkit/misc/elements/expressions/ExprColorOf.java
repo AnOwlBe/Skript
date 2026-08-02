@@ -16,6 +16,7 @@ import ch.njol.skript.util.ColorRGB;
 import ch.njol.skript.util.SkriptColor;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.DyeColor;
 import org.bukkit.FireworkEffect;
 import org.bukkit.block.Banner;
@@ -32,9 +33,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Colorable;
 import org.bukkit.material.MaterialData;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scoreboard.Team;
 import org.jetbrains.annotations.Nullable;
 import org.skriptlang.skript.bukkit.bossbar.BossBarUtils;
 import org.skriptlang.skript.bukkit.entity.displays.DisplayData;
+import org.skriptlang.skript.bukkit.scoreboard.teams.TeamUtils;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
 import java.util.ArrayList;
@@ -54,12 +57,13 @@ import java.util.function.Consumer;
 			message "This wool block is <%color of block%>%color of block%<reset>!"
 			set the color of the block to black
 	""")
-@Since("1.2, 2.10 (displays), 2.16 (boss bars)")
+@Since({"1.2", "2.10 (displays)", "2.16 (boss bars)", "INSERT VERSION (teams)"})
 public class ExprColorOf extends PropertyExpression<Object, Color> {
 
+	// TODO: Turn this into a type property
 	public static void register(SyntaxRegistry syntaxRegistry) {
 		syntaxRegistry.register(SyntaxRegistry.EXPRESSION,
-			infoBuilder(ExprColorOf.class, Color.class, "colo[u]r[s]", "blocks/itemtypes/entities/fireworkeffects/potioneffecttypes/displays/bossbars", false)
+			infoBuilder(ExprColorOf.class, Color.class, "colo[u]r[s]", "blocks/itemtypes/entities/fireworkeffects/potioneffecttypes/displays/bossbars/teams", false)
 				.supplier(ExprColorOf::new)
 				.build());
 	}
@@ -96,6 +100,9 @@ public class ExprColorOf extends PropertyExpression<Object, Color> {
 			if (object instanceof BossBar bar) {
 				return BossBarUtils.rgbFromBarColor(bar.getColor());
 			}
+			if (object instanceof Team team) {
+				return TeamUtils.rgbFromTeamColor(team.color());
+			}
 			return getColor(object);
 		});
 	}
@@ -107,7 +114,7 @@ public class ExprColorOf extends PropertyExpression<Object, Color> {
 		if (expression.canReturn(FireworkEffect.class))
 			return CollectionUtils.array(Color[].class);
 
-		if ((mode == ChangeMode.RESET || mode == ChangeMode.SET) && expression.canReturn(Display.class) || expression.canReturn(BossBar.class))
+		if ((mode == ChangeMode.RESET || mode == ChangeMode.SET) && expression.canReturn(Display.class) || expression.canReturn(BossBar.class) || expression.canReturn(Team.class))
 			return CollectionUtils.array(Color.class);
 
 		if (mode == ChangeMode.SET &&
@@ -125,7 +132,13 @@ public class ExprColorOf extends PropertyExpression<Object, Color> {
 		Consumer<TextDisplay> displayChanger = getDisplayChanger(mode, colors);
 		Consumer<FireworkEffect> fireworkChanger = getFireworkChanger(mode, colors);
 		for (Object object : getExpr().getArray(event)) {
-			if (object instanceof BossBar bar) {
+			if (object instanceof Team team) {
+				if (mode == ChangeMode.SET)
+					team.color(TeamUtils.nearest(colors[0]));
+				if (mode == ChangeMode.RESET)
+					team.color(null);
+			}
+			else if (object instanceof BossBar bar) {
 				if (mode == ChangeMode.SET) {
 					BarColor barColor = BossBarUtils.nearest(colors[0]);
 					if (barColor == null) {

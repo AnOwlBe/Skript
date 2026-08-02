@@ -16,8 +16,6 @@ import org.bukkit.scoreboard.Team;
 import org.jetbrains.annotations.Nullable;
 import org.skriptlang.skript.registration.SyntaxRegistry;
 
-// This may be confused with the display slot (item/blockdata) of a display entity
-// open to thoughts
 @Name("Score Board")
 @Description("""
 	The score board of an objective, team, or player.
@@ -56,7 +54,7 @@ public class ExprScoreBoard extends SimplePropertyExpression<Object, Scoreboard>
 	@Override
 	public Class<?> @Nullable [] acceptChange(ChangeMode mode) {
 		return switch (mode) {
-			case SET, RESET -> CollectionUtils.array(DisplaySlot.class);
+			case SET, RESET -> CollectionUtils.array(Scoreboard.class);
 			default -> null;
 		};
 	}

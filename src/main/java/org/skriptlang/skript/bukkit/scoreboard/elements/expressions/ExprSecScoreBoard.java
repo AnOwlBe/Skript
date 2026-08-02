@@ -83,7 +83,7 @@ public class ExprSecScoreBoard extends SectionExpression<Scoreboard> {
 
 		board.registerNewObjective("", Criteria.DUMMY, Component.text("test"));
 		if (trigger == null)
-			return new Scoreboard[0];
+			return new Scoreboard[]{board};
 		ScoreBoardEvent scoreboardEvent = new ScoreBoardEvent(board);
 		Variables.withLocalVariables(event, scoreboardEvent, () -> TriggerItem.walk(trigger, scoreboardEvent));
 		return new Scoreboard[]{scoreboardEvent.getScoreBoard()};

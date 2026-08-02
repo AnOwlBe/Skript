@@ -20,7 +20,6 @@ public class ScoreBoardClassInfo extends ClassInfo<Scoreboard> {
 			.parser(new ScoreBoardParser())
 			.since("INSERT VERSION")
 			.defaultExpression(new EventValueExpression<>(Scoreboard.class));
-
 	}
 
 	private static class ScoreBoardParser extends Parser<Scoreboard> {

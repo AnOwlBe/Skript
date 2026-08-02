@@ -19,6 +19,7 @@ public class ObjectiveModule extends HierarchicalAddonModule {
 	@Override
 	protected void initSelf(SkriptAddon addon) {
 		Classes.registerClass(new ObjectiveClassInfo());
+		Classes.registerClass(new CriteriaClassInfo());
 
 		Classes.registerClass(new EnumClassInfo<>(DisplaySlot.class, "displayslot", "display slot")
 			.user("display ?slots?")
