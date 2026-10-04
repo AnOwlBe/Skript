@@ -13,10 +13,6 @@ import org.junit.Test;
 
 public class EventValueExpressionTest extends SkriptJUnitTest {
 
-	static {
-		setShutdownDelay(1);
-	}
-
 	private Player player;
 
 	@Before
@@ -24,6 +20,7 @@ public class EventValueExpressionTest extends SkriptJUnitTest {
 		player = EasyMock.niceMock(Player.class);
 		EasyMock.expect(player.getName()).andReturn("MrHungryPants");
 		EasyMock.replay(player);
+		setShutdownDelay(1);
 	}
 
 	@Test

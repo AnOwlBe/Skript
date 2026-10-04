@@ -17,10 +17,6 @@ import org.junit.Test;
 
 public class EffEntityVisibilityTest extends SkriptJUnitTest {
 
-	static {
-		setShutdownDelay(1);
-	}
-
 	private Player testPlayer;
 	private Entity testEntity;
 	private Effect hideEntityEffect;
@@ -28,6 +24,7 @@ public class EffEntityVisibilityTest extends SkriptJUnitTest {
 
 	@Before
 	public void setup() {
+		setShutdownDelay(1);
 		testPlayer = EasyMock.niceMock(Player.class);
 		testEntity = spawnTestPig();
 		hideEntityEffect = Effect.parse("hide {_entity} from {_player}", null);

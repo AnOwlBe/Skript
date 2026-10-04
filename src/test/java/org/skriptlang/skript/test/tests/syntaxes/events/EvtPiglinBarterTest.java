@@ -18,13 +18,10 @@ public class EvtPiglinBarterTest extends SkriptJUnitTest {
 
 	private Piglin piglin;
 
-	static {
-		setShutdownDelay(1);
-	}
-
 	@Before
 	public void spawn() {
 		piglin = spawnTestEntity(EntityType.PIGLIN);
+		setShutdownDelay(1);
 	}
 
 	@Test

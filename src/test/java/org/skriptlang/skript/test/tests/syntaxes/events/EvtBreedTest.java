@@ -15,10 +15,6 @@ import org.junit.Test;
 
 public class EvtBreedTest extends SkriptJUnitTest {
 
-	static {
-		setShutdownDelay(1);
-	}
-
 	private Pig child;
 	private Pig mother;
 	private Pig father;
@@ -36,6 +32,7 @@ public class EvtBreedTest extends SkriptJUnitTest {
 		player = EasyMock.niceMock(Player.class);
 		EasyMock.expect(player.name()).andReturn(Component.text("Efnilite"));
 		EasyMock.replay(player);
+		setShutdownDelay(1);
 	}
 
 	@Test

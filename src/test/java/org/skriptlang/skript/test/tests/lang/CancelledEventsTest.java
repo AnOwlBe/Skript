@@ -3,12 +3,13 @@ package org.skriptlang.skript.test.tests.lang;
 import ch.njol.skript.test.runner.SkriptJUnitTest;
 import org.bukkit.Bukkit;
 import org.bukkit.event.block.BlockFormEvent;
+import org.junit.Before;
 import org.junit.Test;
 
 public class CancelledEventsTest extends SkriptJUnitTest {
 
-
-	static {
+	@Before
+	public void before() {
 		setShutdownDelay(1);
 	}
 

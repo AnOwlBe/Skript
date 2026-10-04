@@ -7,12 +7,14 @@ import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.junit.Before;
 import org.junit.Test;
 
 // TODO properly add test after merge of https://github.com/SkriptLang/Skript/pull/6261
 public class InventoryMoveItemEventTest extends SkriptJUnitTest {
 
-	static {
+	@Before
+	public void before() {
 		setShutdownDelay(1);
 	}
 

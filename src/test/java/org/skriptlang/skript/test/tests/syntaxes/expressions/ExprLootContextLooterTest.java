@@ -6,11 +6,13 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.easymock.EasyMock;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ExprLootContextLooterTest extends SkriptJUnitTest {
 
-	static {
+	@Before
+	public void before() {
 		setShutdownDelay(1);
 	}
 

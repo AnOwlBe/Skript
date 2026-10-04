@@ -15,10 +15,6 @@ import org.junit.Test;
 
 public class EvtBucketEntityTest extends SkriptJUnitTest {
 
-	static {
-		setShutdownDelay(1);
-	}
-
 	private Fish salmon;
 	private Fish cod;
 
@@ -26,6 +22,7 @@ public class EvtBucketEntityTest extends SkriptJUnitTest {
 	public void setup() {
 		salmon = spawnTestEntity(EntityType.SALMON);
 		cod = spawnTestEntity(EntityType.COD);
+		setShutdownDelay(1);
 	}
 
 	@Test

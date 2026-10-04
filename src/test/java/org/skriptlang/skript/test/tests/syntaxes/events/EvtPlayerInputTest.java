@@ -14,10 +14,6 @@ public class EvtPlayerInputTest extends SkriptJUnitTest {
 
 	private static final boolean SUPPORTS_INPUT_EVENT = Skript.classExists("org.bukkit.event.player.PlayerInputEvent");
 
-	static {
-		setShutdownDelay(1);
-	}
-
 	private Player player;
 
 	@Before
@@ -25,6 +21,7 @@ public class EvtPlayerInputTest extends SkriptJUnitTest {
 		if (!SUPPORTS_INPUT_EVENT)
 			return;
 		player = EasyMock.niceMock(Player.class);
+		setShutdownDelay(1);
 	}
 
 	@Test

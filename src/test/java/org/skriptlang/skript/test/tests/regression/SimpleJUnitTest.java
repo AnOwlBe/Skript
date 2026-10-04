@@ -22,7 +22,8 @@ public class SimpleJUnitTest extends SkriptJUnitTest {
 	 * In the static method of the class, you can utilize methods in SkriptJUnitTest that allow you
 	 * to control how this JUnit test will interact with the server.
 	 */
-	static {
+	@Before
+	public void before() {
 		// Set the delay to 1 tick. This allows the piggy to be spawned into the world.
 		setShutdownDelay(1);
 	}

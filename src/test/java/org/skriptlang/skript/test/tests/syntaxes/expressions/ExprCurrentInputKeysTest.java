@@ -18,10 +18,6 @@ public class ExprCurrentInputKeysTest extends SkriptJUnitTest {
 
 	private static final boolean SUPPORTS_INPUT = Skript.classExists("org.bukkit.Input");
 
-	static {
-		setShutdownDelay(1);
-	}
-
 	private Player player;
 	private Expression<? extends InputKey> inputKeyExpression;
 
@@ -32,6 +28,7 @@ public class ExprCurrentInputKeysTest extends SkriptJUnitTest {
 		player = EasyMock.niceMock(Player.class);
 		//noinspection unchecked
 		inputKeyExpression = new SkriptParser("input keys of {_player}").parseExpression(InputKey.class);
+		setShutdownDelay(1);
 	}
 
 	@Test

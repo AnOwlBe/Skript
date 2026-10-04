@@ -5,13 +5,15 @@ import com.destroystokyo.paper.network.StatusClient;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.easymock.EasyMock;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.net.InetSocketAddress;
 
 public class ExprHoverListTest extends SkriptAsyncJUnitTest {
 
-	static {
+	@Before
+	public void before() {
 		setShutdownDelay(1);
 	}
 

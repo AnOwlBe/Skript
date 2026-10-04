@@ -13,10 +13,6 @@ public class EvtGrowTest extends SkriptJUnitTest {
 
 	private Block plant, birch;
 
-	static {
-		setShutdownDelay(1);
-	}
-
 	@Before
 	public void setBlocks() {
 		Block farmland = setBlock(Material.FARMLAND);
@@ -25,6 +21,7 @@ public class EvtGrowTest extends SkriptJUnitTest {
 		birch = plant.getRelative(10,0,0);
 		birch.getRelative(0,-1,0).setType(Material.DIRT);
 		birch.setType(Material.BIRCH_SAPLING);
+		setShutdownDelay(1);
 	}
 
 	@Test

@@ -15,10 +15,6 @@ public class CondChatVisibilityTest extends SkriptJUnitTest {
 	private static final boolean SUPPORTS_CHAT_VISIBILITY =
 		Skript.classExists("com.destroystokyo.paper.ClientOption$ChatVisibility");
 
-	static {
-		setShutdownDelay(1);
-	}
-
 	private Player player;
 
 	@Before
@@ -35,6 +31,7 @@ public class CondChatVisibilityTest extends SkriptJUnitTest {
 		EasyMock.expect(player.getClientOption(ClientOption.CHAT_COLORS_ENABLED))
 			.andReturn(true);
 		EasyMock.replay(player);
+		setShutdownDelay(1);
 	}
 
 	@Test

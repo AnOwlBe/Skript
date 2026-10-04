@@ -9,12 +9,9 @@ public class ExprDropsTest extends SkriptJUnitTest {
 
 	private Pig pig;
 
-	static {
-		setShutdownDelay(1);
-	}
-
 	@Before
 	public void spawnPig() {
+		setShutdownDelay(1);
 		pig = spawnTestPig();
 	}
 

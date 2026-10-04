@@ -3,13 +3,15 @@ package org.skriptlang.skript.test.tests.syntaxes.events;
 import ch.njol.skript.test.runner.SkriptAsyncJUnitTest;
 import org.bukkit.Bukkit;
 import org.bukkit.event.server.BroadcastMessageEvent;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Set;
 
 public class EvtBroadcastTest extends SkriptAsyncJUnitTest {
 
-	static {
+	@Before
+	public void before() {
 		setShutdownDelay(1);
 	}
 

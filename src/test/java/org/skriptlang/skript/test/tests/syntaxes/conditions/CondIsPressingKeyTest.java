@@ -17,16 +17,13 @@ public class CondIsPressingKeyTest extends SkriptJUnitTest {
 
 	private static final boolean SUPPORTS_INPUT = Skript.classExists("org.bukkit.Input");
 
-	static {
-		setShutdownDelay(1);
-	}
-
 	private Player testPlayer;
 	private InputKey[] testInputKeys;
 	private Condition isPressingKeyCondition;
 
 	@Before
 	public void setup() {
+		setShutdownDelay(1);
 		if (!SUPPORTS_INPUT)
 			return;
 		testPlayer = EasyMock.niceMock(Player.class);

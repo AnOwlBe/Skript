@@ -21,10 +21,6 @@ import java.util.UUID;
 
 public class CondCanSeeTest extends SkriptJUnitTest {
 
-	static {
-		setShutdownDelay(1);
-	}
-
 	private Player testPlayer;
 	private Entity testEntity;
 	private Condition canSeeCondition;
@@ -32,6 +28,7 @@ public class CondCanSeeTest extends SkriptJUnitTest {
 
 	@Before
 	public void setup() {
+		setShutdownDelay(1);
 		testPlayer = EasyMock.niceMock(Player.class);
 		testEntity = spawnTestPig();
 		canSeeCondition = Condition.parse("{_player} can see {_entity}", null);

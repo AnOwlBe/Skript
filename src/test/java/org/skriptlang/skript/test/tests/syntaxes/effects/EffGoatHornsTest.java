@@ -4,15 +4,17 @@ import ch.njol.skript.test.runner.SkriptJUnitTest;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Goat;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class EffGoatHornsTest extends SkriptJUnitTest {
 
-	static {
+	private Goat goat;
+
+	@Before
+	public void before() {
 		setShutdownDelay(10);
 	}
-
-	private Goat goat;
 
 	@Test
 	public void test() {
